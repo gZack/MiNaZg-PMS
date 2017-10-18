@@ -50,6 +50,11 @@ public class AppController {
 		return "userslist";
 	}
 
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	public String loginPage() {
+		return "login";
+	}
+
 	/**
 	 * This method will provide the medium to add a new user.
 	 */

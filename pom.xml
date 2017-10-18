@@ -9,10 +9,11 @@
 	<name>spm-minazg</name>
 
   	<properties>
-		<springframework.version>4.3.0.RELEASE</springframework.version>
+		<springframework.version>4.3.9.RELEASE</springframework.version>
 		<hibernate.version>4.3.10.Final</hibernate.version>
 		<mysql.connector.version>5.1.31</mysql.connector.version>
-		<spring-data-jpa.version>1.4.1.RELEASE</spring-data-jpa.version>
+		<spring-data-jpa.version>1.11.4.RELEASE</spring-data-jpa.version>
+		<springsecurity.version>4.2.3.RELEASE</springsecurity.version>
 	</properties>
 
 	<dependencies>
@@ -50,6 +51,23 @@
 			<groupId>org.springframework.data</groupId>
 			<artifactId>spring-data-jpa</artifactId>
 			<version>${spring-data-jpa.version}</version>
+		</dependency>
+
+		<!-- Spring Security -->
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-web</artifactId>
+			<version>${springsecurity.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-config</artifactId>
+			<version>${springsecurity.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-taglibs</artifactId>
+			<version>${springsecurity.version}</version>
 		</dependency>
 
 		<!-- Hibernate -->
@@ -110,8 +128,8 @@
 					<artifactId>maven-compiler-plugin</artifactId>
 					<version>3.2</version>
 					<configuration>
-						<source>1.7</source>
-						<target>1.7</target>
+						<source>1.8</source>
+						<target>1.8</target>
 					</configuration>
 				</plugin>
 				<plugin>
