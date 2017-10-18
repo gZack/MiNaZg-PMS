@@ -117,6 +117,13 @@
 		    <artifactId>jstl</artifactId>
 		    <version>1.2</version>
 		</dependency>
+
+        <!-- Tile -->
+        <dependency>
+            <groupId>org.apache.tiles</groupId>
+            <artifactId>tiles-extras</artifactId>
+            <version>3.0.5</version>
+        </dependency>
 		
 	</dependencies>
 

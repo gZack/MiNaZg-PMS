@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN" 
+   "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+
+<tiles-definitions>
+   
+   <definition name="baseLayout" template="/WEB-INF/layouts/template/baseLayout.jsp">
+      <put-attribute name="title" value="Sample Title" />
+      <put-attribute name="heading" value="" />
+      <put-attribute name="tagline" value="" />
+      <put-attribute name="navigation" value="/WEB-INF/layouts/template/navigation.jsp" />
+      <put-attribute name="inner_nav" value="/WEB-INF/layouts/template/inner_nav.jsp" />
+      <put-attribute name="sidebar" value="/WEB-INF/layouts/template/sidebar.jsp" />
+      <put-attribute name="content" value="" />
+      <put-attribute name="footer" value="/WEB-INF/layouts/template/footer.jsp" />
+   </definition>
+
+   <definition name="login" extends="baseLayout">
+      <put-attribute name="title" value="Login" />
+      <put-attribute name="heading" value="Login" />
+      <put-attribute name="tagline" value="" />
+      <put-attribute name="content" value="/WEB-INF/views/login.jsp" />
+   </definition>
+
+   <definition name="welcome" extends="baseLayout">
+      <put-attribute name="title" value="Hello World" />
+      <put-attribute name="heading" value="Welcome to PMS!" />
+      <put-attribute name="tagline" value="Project Management Simplified" />
+      <put-attribute name="content" value="/WEB-INF/views/welcome.jsp" />
+   </definition>
+
+</tiles-definitions>
