@@ -8,5 +8,17 @@ dependency-reduced-pom.xml
 buildNumber.properties
 .mvn/timing.properties
 
+.classpath
+.idea/.name
+.idea/dataSources.local.xml
+.idea/dataSources/
+.idea/misc.xml
+.idea/workspace.xml
+.project
+.settings/
+MiNaZg-PMS.iml
+
+
 # Avoid ignoring Maven wrapper jar file (.jar files are usually ignored)
 !/.mvn/wrapper/maven-wrapper.jar
+
