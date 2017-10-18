@@ -8,14 +8,13 @@ import javax.persistence.NoResultException;
 import com.minazg.model.User;
 import org.springframework.stereotype.Repository;
 
-
 @Repository("userDao")
 public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
 
 	public User findById(int id) {
 		User user = getByKey(id);
 		if(user!=null){
-			initializeCollection(user.getUserProfiles());
+			initializeCollection(user.getUserRoles());
 		}
 		return user;
 	}
@@ -29,7 +28,7 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
 					.getSingleResult();
 			
 			if(user!=null){
-				initializeCollection(user.getUserProfiles());
+				initializeCollection(user.getUserRoles());
 			}
 			return user; 
 		}catch(NoResultException ex){

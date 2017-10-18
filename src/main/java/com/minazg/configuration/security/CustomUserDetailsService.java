@@ -1,7 +1,8 @@
 package com.minazg.configuration.security;
 
 import com.minazg.model.User;
-import com.minazg.model.UserProfile;
+import com.minazg.model.UserRole;
+import com.minazg.service.UserRoleService;
 import com.minazg.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,6 +26,9 @@ public class CustomUserDetailsService implements UserDetailsService{
 	
 	@Autowired
 	private UserService userService;
+
+	@Autowired
+	private UserRoleService userRoleService;
 	
 	@Transactional(readOnly=true)
 	public UserDetails loadUserByUsername(String ssoId)
@@ -38,14 +42,13 @@ public class CustomUserDetailsService implements UserDetailsService{
 			return new org.springframework.security.core.userdetails.User(user.getSsoId(), user.getPassword(), 
 				 true, true, true, true, getGrantedAuthorities(user));
 	}
-
 	
 	private List<GrantedAuthority> getGrantedAuthorities(User user){
 		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
 		
-		for(UserProfile userProfile : user.getUserProfiles()){
-			logger.info("UserProfile : {}", userProfile);
-			authorities.add(new SimpleGrantedAuthority("ROLE_"+userProfile.getType()));
+		for(UserRole userRole : user.getUserRoles()){
+			logger.info("UserProfile : {}", userRole);
+			authorities.add(new SimpleGrantedAuthority("ROLE_"+userRole.getName()));
 		}
 		logger.info("authorities : {}", authorities);
 		return authorities;

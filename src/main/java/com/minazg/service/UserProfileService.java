@@ -7,9 +7,7 @@ import com.minazg.model.UserProfile;
 
 public interface UserProfileService {
 
-	UserProfile findById(int id);
-
-	UserProfile findByType(String type);
+	UserProfile findById(Integer id);
 	
 	List<UserProfile> findAll();
 	

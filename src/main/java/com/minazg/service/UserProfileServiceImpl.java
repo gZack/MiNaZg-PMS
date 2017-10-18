@@ -4,24 +4,25 @@ import java.util.List;
 
 import com.minazg.dao.UserProfileDao;
 import com.minazg.model.UserProfile;
+import com.minazg.repository.UserRoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 
-@Service("userProfileService")
+@Service
+//@Service("userProfileService")
 @Transactional
 public class UserProfileServiceImpl implements UserProfileService{
 	
 	@Autowired
     UserProfileDao dao;
-	
-	public UserProfile findById(int id) {
-		return dao.findById(id);
-	}
 
-	public UserProfile findByType(String type){
-		return dao.findByType(type);
+	private UserRoleRepository roleRepository;
+
+	@Override
+	public UserProfile findById(Integer id) {
+		return dao.findById(id);
 	}
 
 	public List<UserProfile> findAll() {

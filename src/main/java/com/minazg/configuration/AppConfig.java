@@ -1,6 +1,7 @@
 package com.minazg.configuration;
 
 import com.minazg.converter.RoleToUserProfileConverter;
+import com.minazg.converter.RoleToUserRoleConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
@@ -27,6 +28,9 @@ public class AppConfig extends WebMvcConfigurerAdapter{
 	
 	@Autowired
 	RoleToUserProfileConverter roleToUserProfileConverter;
+
+	@Autowired
+	RoleToUserRoleConverter roleToUserRoleConverter;
 
 	/**
      * Configure ViewResolvers to deliver preferred views.
@@ -55,7 +59,7 @@ public class AppConfig extends WebMvcConfigurerAdapter{
      */
     @Override
     public void addFormatters(FormatterRegistry registry) {
-        registry.addConverter(roleToUserProfileConverter);
+        registry.addConverter(roleToUserRoleConverter);
     }
 	
 
