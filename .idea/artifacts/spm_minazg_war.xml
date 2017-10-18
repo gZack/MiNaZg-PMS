@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="war" name="spm-minazg:war">
-    <output-path>$PROJECT_DIR$/target</output-path>
-    <root id="archive" name="spm-minazg.war">
-      <element id="artifact" artifact-name="spm-minazg:war exploded" />
-    </root>
-  </artifact>
-</component>
