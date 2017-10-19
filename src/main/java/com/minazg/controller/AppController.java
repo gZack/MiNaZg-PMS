@@ -46,6 +46,14 @@ public class AppController {
 	AuthenticationTrustResolver authenticationTrustResolver;
 
 	/**
+	 * This method will provide UserProfile list to views
+	 */
+	@ModelAttribute("roles")
+	public List<UserRole> initializeProfiles() {
+		return userRoleService.findAll();
+	}
+
+	/**
 	 * This method will list all existing users.
 	 */
 	@RequestMapping(value = { "/", "/list" }, method = RequestMethod.GET)
@@ -151,15 +159,6 @@ public class AppController {
 	public String deleteUser(@PathVariable String ssoId) {
 		userService.deleteUserBySSO(ssoId);
 		return "redirect:/list";
-	}
-
-
-	/**
-	 * This method will provide UserProfile list to views
-	 */
-	@ModelAttribute("roles")
-	public List<UserRole> initializeProfiles() {
-		return userRoleService.findAll();
 	}
 
 	/**
