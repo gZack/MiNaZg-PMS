@@ -48,6 +48,10 @@ public class Project implements Serializable{
     @Column(nullable=false)
     private Set<Release> releases;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "company_id", nullable = false)
+    private Company company;
+
     public Integer getId() {
         return id;
     }
