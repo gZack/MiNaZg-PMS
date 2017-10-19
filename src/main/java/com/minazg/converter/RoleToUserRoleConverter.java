@@ -1,8 +1,6 @@
 package com.minazg.converter;
 
-import com.minazg.model.UserProfile;
 import com.minazg.model.UserRole;
-import com.minazg.service.UserProfileService;
 import com.minazg.service.UserRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;

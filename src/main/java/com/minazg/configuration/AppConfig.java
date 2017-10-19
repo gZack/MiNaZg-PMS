@@ -1,6 +1,5 @@
 package com.minazg.configuration;
 
-import com.minazg.converter.RoleToUserProfileConverter;
 import com.minazg.converter.RoleToUserRoleConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -26,9 +25,6 @@ import org.springframework.web.servlet.view.JstlView;
 public class AppConfig extends WebMvcConfigurerAdapter{
 	
 	
-	@Autowired
-	RoleToUserProfileConverter roleToUserProfileConverter;
-
 	@Autowired
 	RoleToUserRoleConverter roleToUserRoleConverter;
 

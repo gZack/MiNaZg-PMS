@@ -7,7 +7,7 @@ import com.minazg.model.User;
 
 public interface UserService {
 	
-	User findById(int id);
+	User findById(Long id);
 	
 	User findBySSO(String sso);
 	

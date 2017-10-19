@@ -2,7 +2,6 @@ package com.minazg.service;
 
 import java.util.List;
 
-import com.minazg.dao.UserDao;
 import com.minazg.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,13 +14,10 @@ import com.minazg.model.User;
 public class UserServiceImpl implements UserService{
 
 	@Autowired
-	private UserDao dao;
-
-	@Autowired
 	private UserRepository userRepository;
 
-	public User findById(int id) {
-		return dao.findById(id);
+	public User findById(Long id) {
+		return userRepository.findOne(id);
 	}
 
 	public User findBySSO(String sso) {
@@ -48,15 +44,14 @@ public class UserServiceImpl implements UserService{
 			entity.setUserRoles(user.getUserRoles());
 		}
 
-
 	}
 	
 	public void deleteUserBySSO(String sso) {
-		dao.deleteBySSO(sso);
+		userRepository.deleteBySsoId(sso);
 	}
 
 	public List<User> findAllUsers() {
-		return dao.findAllUsers();
+		return (List<User>) userRepository.findAll();
 	}
 
 	public boolean isUserSSOUnique(Long id, String sso) {
