@@ -28,15 +28,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.minazg.model.User;
-import com.minazg.model.UserProfile;
 import com.minazg.service.UserService;
 
 @Controller
 @SessionAttributes("roles")
 public class AppController {
-
-	//@Autowired
-    //UserProfileService userProfileService;
 
 	@Autowired
 	UserRoleService userRoleService;
@@ -50,7 +46,6 @@ public class AppController {
 
 	@Autowired
 	AuthenticationTrustResolver authenticationTrustResolver;
-
 
 	/**
 	 * This method will list all existing users.

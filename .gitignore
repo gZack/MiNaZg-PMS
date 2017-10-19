@@ -18,7 +18,7 @@ buildNumber.properties
 .project
 .settings/
 MiNaZg-PMS.iml
-spm_minazg.iml
+spm-minazg.iml
 
 # Avoid ignoring Maven wrapper jar file (.jar files are usually ignored)
 !/.mvn/wrapper/maven-wrapper.jar

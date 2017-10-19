@@ -10,6 +10,7 @@ import lombok.Data;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
+@Data
 public class User implements Serializable{
 
 	@Id @GeneratedValue(strategy=GenerationType.AUTO)
@@ -39,62 +40,6 @@ public class User implements Serializable{
 				joinColumns = {@JoinColumn(name = "user_id")},
 				inverseJoinColumns = {@JoinColumn(name = "userRole_name")})
 	private Set<UserRole> userRoles = new HashSet<>();
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getLastName() {
-		return lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-
-	public String getFirstName() {
-		return firstName;
-	}
-
-	public Address getAddress() {
-		return address;
-	}
-
-	public void setAddress(Address address) {
-		this.address = address;
-	}
-
-	public String getSsoId() {
-		return ssoId;
-	}
-
-	public void setSsoId(String ssoId) {
-		this.ssoId = ssoId;
-	}
-
-	public Set<UserRole> getUserRoles() {
-		return userRoles;
-	}
-
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public void setUserRoles(Set<UserRole> userRoles) {
-		this.userRoles = userRoles;
-	}
-
-	public String getPassword() {
-		return password;
-	}
 
 	@Override
 	public int hashCode() {

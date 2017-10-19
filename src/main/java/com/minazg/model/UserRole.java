@@ -1,5 +1,7 @@
 package com.minazg.model;
 
+import lombok.Data;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
@@ -7,6 +9,7 @@ import java.io.Serializable;
 import java.util.Set;
 
 @Entity
+@Data
 public class UserRole implements Serializable{
 
 	@Id
@@ -16,22 +19,6 @@ public class UserRole implements Serializable{
 
 	@ManyToMany(mappedBy = "userRoles")
 	private Set<User> users;
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
 
 	@Override
 	public int hashCode() {
