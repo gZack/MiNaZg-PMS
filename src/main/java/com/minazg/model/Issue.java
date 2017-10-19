@@ -7,7 +7,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 
-@Entity
+//@Entity
 public class Issue implements Serializable{
 
     @Id

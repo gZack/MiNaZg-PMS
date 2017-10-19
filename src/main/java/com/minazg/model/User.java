@@ -13,7 +13,8 @@ import org.hibernate.validator.constraints.NotEmpty;
 @Data
 public class User implements Serializable{
 
-	@Id @GeneratedValue(strategy=GenerationType.AUTO)
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
 
 	@NotEmpty
@@ -77,7 +78,5 @@ public class User implements Serializable{
 		return "User [id=" + id + ", ssoId=" + ssoId + ", password=" + password
 				+ ", firstName=" + firstName + ", lastName=" + lastName + "]";
 	}
-
-
 	
 }

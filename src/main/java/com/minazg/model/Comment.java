@@ -1,68 +1,59 @@
 package com.minazg.model;
 
+import lombok.Data;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
+@Data
 public class Comment implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    private Long id;
 
     @NotEmpty
     @Column(nullable=false)
     private String statement;
 
     @NotEmpty
+    private String componentType;
+
+    @NotNull
+    private Long componentId;
+
+    @NotNull
     @Column(nullable=false)
     private LocalDate dateCommented;
 
-    @NotEmpty
-    @Column(nullable=false)
+    @ManyToOne()
+    @JoinColumn(name = "proposer_user_id")
     private User proposer;
 
-    public Integer getId() {
-        return id;
-    }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Comment)) return false;
+        if (!super.equals(o)) return false;
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+        Comment comment = (Comment) o;
 
-    public String getStatement() {
-        return statement;
-    }
-
-    public void setStatement(String statement) {
-        this.statement = statement;
-    }
-
-    public LocalDate getDateCommented() {
-        return dateCommented;
-    }
-
-    public void setDateCommented(LocalDate dateCommented) {
-        this.dateCommented = dateCommented;
-    }
-
-    public User getProposer() {
-        return proposer;
-    }
-
-    public void setProposer(User proposer) {
-        this.proposer = proposer;
+        if (!id.equals(comment.id)) return false;
+        if (!componentType.equals(comment.componentType)) return false;
+        return proposer.getId().equals(comment.proposer.getId());
     }
 
     @Override
-    public String toString() {
-        return "Comment{" +
-                "statement='" + statement + '\'' +
-                ", dateCommented=" + dateCommented +
-                ", proposer=" + proposer +
-                '}';
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + id.hashCode();
+        result = 31 * result + componentType.hashCode();
+        result = 31 * result + proposer.getId().hashCode();
+        return result;
     }
 }

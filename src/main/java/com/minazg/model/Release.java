@@ -1,24 +1,27 @@
 package com.minazg.model;
 
+import lombok.Data;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Set;
 
 @Entity
+@Data
 public class Release implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    private Long id;
 
-    @NotEmpty
+    @NotNull
     @Column(nullable=false)
     private Integer versionNumber;
 
-    @NotEmpty
+    @NotNull
     @Column(nullable=false)
     private LocalDate releaseDate;
 
@@ -26,76 +29,32 @@ public class Release implements Serializable {
     private String remark;
 
     @NotEmpty
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "release")
-    @Column(nullable=false)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "release")
     private Set<Sprint> sprints;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "project_id", nullable = false)
     private Project project;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Integer getVersionNumber() {
-        return versionNumber;
-    }
-
-    public void setVersionNumber(Integer versionNumber) {
-        this.versionNumber = versionNumber;
-    }
-
-    public LocalDate getReleaseDate() {
-        return releaseDate;
-    }
-
-    public void setReleaseDate(LocalDate releaseDate) {
-        this.releaseDate = releaseDate;
-    }
-
-    public String getRemark() {
-        return remark;
-    }
-
-    public void setRemark(String remark) {
-        this.remark = remark;
-    }
-
-    public Set<Sprint> getSprints() {
-        return sprints;
-    }
-
-    public void setSprints(Set<Sprint> sprints) {
-        this.sprints = sprints;
-    }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Release)) return false;
+        if (!super.equals(o)) return false;
 
         Release release = (Release) o;
 
-        if (id != null ? !id.equals(release.id) : release.id != null) return false;
-        if (versionNumber != null ? !versionNumber.equals(release.versionNumber) : release.versionNumber != null)
-            return false;
-        if (releaseDate != null ? !releaseDate.equals(release.releaseDate) : release.releaseDate != null) return false;
-        if (remark != null ? !remark.equals(release.remark) : release.remark != null) return false;
-        return sprints != null ? sprints.equals(release.sprints) : release.sprints == null;
+        if (!id.equals(release.id)) return false;
+        if (!versionNumber.equals(release.versionNumber)) return false;
+        return project.getId().equals(release.project.getId());
     }
 
     @Override
     public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (versionNumber != null ? versionNumber.hashCode() : 0);
-        result = 31 * result + (releaseDate != null ? releaseDate.hashCode() : 0);
-        result = 31 * result + (remark != null ? remark.hashCode() : 0);
-        result = 31 * result + (sprints != null ? sprints.hashCode() : 0);
+        int result = super.hashCode();
+        result = 31 * result + id.hashCode();
+        result = 31 * result + versionNumber.hashCode();
+        result = 31 * result + project.getId().hashCode();
         return result;
     }
 }

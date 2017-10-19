@@ -1,85 +1,38 @@
 package com.minazg.model;
 
-import org.hibernate.validator.constraints.NotEmpty;
+import lombok.Data;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.lang.annotation.ElementType;
 import java.time.LocalDate;
-import java.util.List;
 
 @Entity
+@Data
 public class Report implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    @NotEmpty
-    @Column(nullable=false)
-    private ComponentType componentType;
+    @NotNull
+    @Column(nullable = false)
+    private Double hoursSpent;
 
-    @NotEmpty
-    @Column(nullable=false)
-    private Integer elementId;
+    @NotNull
+    @Column(nullable = false)
+    private Double progressPercentage;
 
-    @NotEmpty
-    @Column(nullable=true)
-    private List<Comment> comments;
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "comment_id",nullable=true)
+    private Comment comment;
 
-    @NotEmpty
     @Column(nullable=false)
     private LocalDate timeLog;
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public ComponentType getComponentType() {
-        return componentType;
-    }
-
-    public void setComponentType(ComponentType componentType) {
-        this.componentType = componentType;
-    }
-
-    public Integer getElementId() {
-        return elementId;
-    }
-
-    public void setElementId(Integer elementId) {
-        this.elementId = elementId;
-    }
-
-    public List<Comment> getComments() {
-        return comments;
-    }
-
-    public void setComments(List<Comment> comments) {
-        this.comments = comments;
-    }
-
-    public LocalDate getTimeLog() {
-        return timeLog;
-    }
-
-    public void setTimeLog(LocalDate timeLog) {
-        this.timeLog = timeLog;
-    }
-
-    @Override
-    public String toString() {
-        return "Report{" +
-                "componentType=" + componentType +
-                ", elementId=" + elementId +
-                ", comments=" + comments.toString() +
-                ", timeLog=" + timeLog +
-                '}';
-    }
+    @ManyToOne()
+    @JoinColumn(name = "workOrder_id", nullable = false)
+    private WorkOrder workOrder;
 
     @Override
     public boolean equals(Object o) {
@@ -88,19 +41,18 @@ public class Report implements Serializable {
 
         Report report = (Report) o;
 
-        if (id != null ? !id.equals(report.id) : report.id != null) return false;
-        if (componentType != report.componentType) return false;
-        if (elementId != null ? !elementId.equals(report.elementId) : report.elementId != null) return false;
-        if (comments != null ? !comments.equals(report.comments) : report.comments != null) return false;
+        if (!id.equals(report.id)) return false;
+        if (hoursSpent != null ? !hoursSpent.equals(report.hoursSpent) : report.hoursSpent != null) return false;
+        if (progressPercentage != null ? !progressPercentage.equals(report.progressPercentage) : report.progressPercentage != null)
+            return false;
         return timeLog != null ? timeLog.equals(report.timeLog) : report.timeLog == null;
     }
 
     @Override
     public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (componentType != null ? componentType.hashCode() : 0);
-        result = 31 * result + (elementId != null ? elementId.hashCode() : 0);
-        result = 31 * result + (comments != null ? comments.hashCode() : 0);
+        int result = id.hashCode();
+        result = 31 * result + (hoursSpent != null ? hoursSpent.hashCode() : 0);
+        result = 31 * result + (progressPercentage != null ? progressPercentage.hashCode() : 0);
         result = 31 * result + (timeLog != null ? timeLog.hashCode() : 0);
         return result;
     }

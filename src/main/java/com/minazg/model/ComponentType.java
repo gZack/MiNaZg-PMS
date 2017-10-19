@@ -5,7 +5,8 @@ public enum ComponentType {
     PROJECT("PROJECT"),
     RELEASE("RELEASE"),
     SPRINT("SPRINT"),
-    WORKORDER("WORKORDER");
+    WORKORDER("WORKORDER"),
+    REPORT("REPORT");
 
     String componentType;
 

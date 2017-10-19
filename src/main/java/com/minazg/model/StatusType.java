@@ -2,7 +2,10 @@ package com.minazg.model;
 
 public enum StatusType {
     INPROGRESS("INPROGRESS"),
-    COMPLETED("COMPLETED");
+    COMPLETED("COMPLETED"),
+    CREATED("CREATED"),
+    PENDING("PENDING"),
+    CANCELLED("CANCELLED");
 
     String statusType;
 
