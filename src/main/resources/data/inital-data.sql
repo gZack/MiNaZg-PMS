@@ -4,6 +4,8 @@ VALUES ('ADMIN',"An admin who can create all");
 
 
 /* Populate one Admin User which will further create other users for the application using GUI */
+-- username minazg
+-- password abc125
 INSERT INTO User(ssoId, password, firstName, lastName)
 VALUES ('minazg','$2a$10$pHJRgyB/nIqivZ34DvrnNOk6UGHSI08hI0MddkMJaS218gUwML08a', 'minazg','minazg');
 
