@@ -3,11 +3,5 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
 <div id="mainWrapper">
-	<div class="login-container">
-		<div class="login-card">
-			<div class="login-form">
-				hello
-			</div>
-		</div>
-	</div>
+	MiNaZg is Project Management System created as part of WAA course at MUM.
 </div>
