@@ -28,20 +28,6 @@ public class ReleaseServiceImpl implements ReleaseService {
         return releaseRepository.findReleaseByProjectId(projectId);
     }
 
-    @Override
-    public void saveRelease(Release release) {
-        releaseRepository.saveRelease(release);
-    }
-
-    @Override
-    public void updateRelease(String versionNumber, StatusType statusType) {
-        releaseRepository.updateRelease(versionNumber, statusType);
-    }
-
-    @Override
-    public void updateRelease(String versionNumber, String remark) {
-        releaseRepository.updateRelease(versionNumber, remark);
-    }
 
 
 }

@@ -7,7 +7,6 @@
    <definition name="baseLayout" template="/WEB-INF/layouts/template/baseLayout.jsp">
       <put-attribute name="title" value="Sample Title" />
       <put-attribute name="heading" value="" />
-      <put-attribute name="tagline" value="" />
       <put-attribute name="navigation" value="/WEB-INF/layouts/template/navigation.jsp" />
       <put-attribute name="inner_nav" value="/WEB-INF/layouts/template/inner_nav.jsp" />
       <put-attribute name="sidebar" value="/WEB-INF/layouts/template/sidebar.jsp" />
@@ -18,15 +17,26 @@
    <definition name="login" extends="baseLayout">
       <put-attribute name="title" value="Login" />
       <put-attribute name="heading" value="Login" />
-      <put-attribute name="tagline" value="" />
       <put-attribute name="content" value="/WEB-INF/views/login.jsp" />
    </definition>
 
-   <definition name="welcome" extends="baseLayout">
-      <put-attribute name="title" value="Hello World" />
-      <put-attribute name="heading" value="Welcome to PMS!" />
-      <put-attribute name="tagline" value="Project Management Simplified" />
-      <put-attribute name="content" value="/WEB-INF/views/welcome.jsp" />
+   <!--
+   <definition name="projectList" extends="baseLayout">
+      <put-attribute name="title" value="Project List" />
+      <put-attribute name="heading" value="Project List" />
+      <put-attribute name="content" value="/WEB-INF/views/project/listProject.jsp" />
+   </definition>
+
+   <definition name="addProjectForm" extends="baseLayout">
+      <put-attribute name="title" value="Add Project" />
+      <put-attribute name="heading" value="Add Project" />
+      <put-attribute name="content" value="/WEB-INF/views/project/addProject.jsp" />
+   </definition> -->
+
+   <definition name="*/*" extends="baseLayout">
+      <put-attribute name="title" value="{1} " />
+      <put-attribute name="heading" value="{2}" />
+      <put-attribute name="content" value="/WEB-INF/views/{1}/{2}.jsp" />
    </definition>
 
 </tiles-definitions>

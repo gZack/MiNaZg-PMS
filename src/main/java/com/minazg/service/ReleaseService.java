@@ -11,10 +11,5 @@ public interface ReleaseService {
 
     List<Release> findReleaseByProjectId(Long projectId);
 
-    void saveRelease(Release release);
-
-    void updateRelease(String versionNumber, StatusType statusType);
-
-    void updateRelease(String versionNumber, String remark);
 
 }

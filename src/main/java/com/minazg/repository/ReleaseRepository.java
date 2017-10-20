@@ -14,9 +14,4 @@ public interface ReleaseRepository extends CrudRepository<Release, Long> {
 
     Release findByVersionNumber(String versionNumber);
 
-    void saveRelease(Release release);
-
-    void updateRelease(String versionNumber, StatusType statusType);
-
-    void updateRelease(String versionNumber, String statusType);
 }
