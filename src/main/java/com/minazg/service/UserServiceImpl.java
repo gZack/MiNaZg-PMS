@@ -14,11 +14,15 @@ import com.minazg.model.User;
 @Transactional
 public class UserServiceImpl implements UserService{
 
-	@Autowired
-	private UserRepository userRepository;
+	private final UserRepository userRepository;
+
+	private final SecurityUtils securityUtils;
 
 	@Autowired
-	private SecurityUtils securityUtils;
+	public UserServiceImpl(UserRepository userRepository, SecurityUtils securityUtils) {
+		this.securityUtils = securityUtils;
+		this.userRepository = userRepository;
+	}
 
 	public User findById(Long id) {
 		return userRepository.findOne(id);

@@ -28,8 +28,12 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @ComponentScan()
 public class JpaConfiguration {
 
+	private final Environment environment;
+
 	@Autowired
-	private Environment environment;
+	public JpaConfiguration(Environment environment) {
+		this.environment = environment;
+	}
 
 	@Bean
 	public DataSource dataSource() {

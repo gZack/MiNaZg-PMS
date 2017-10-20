@@ -26,11 +26,15 @@ import javax.sql.DataSource;
 @ComponentScan({"com.minazg.configuration"})
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-	@Autowired
-	@Qualifier("customUserDetailsService")
-	UserDetailsService userDetailsService;
+	final
+    UserDetailsService userDetailsService;
 
-	@Autowired
+    @Autowired
+    public SecurityConfiguration(@Qualifier("customUserDetailsService") UserDetailsService userDetailsService) {
+        this.userDetailsService = userDetailsService;
+    }
+
+    @Autowired
 	public void configureGlobalSecurity(AuthenticationManagerBuilder auth) throws Exception {
 		auth.userDetailsService(userDetailsService);
 		auth.authenticationProvider(authenticationProvider());

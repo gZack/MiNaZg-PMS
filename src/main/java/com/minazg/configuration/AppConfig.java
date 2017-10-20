@@ -25,8 +25,12 @@ import org.springframework.web.servlet.view.JstlView;
 public class AppConfig extends WebMvcConfigurerAdapter{
 	
 	
+	final RoleToUserRoleConverter roleToUserRoleConverter;
+
 	@Autowired
-	RoleToUserRoleConverter roleToUserRoleConverter;
+	public AppConfig(RoleToUserRoleConverter roleToUserRoleConverter) {
+		this.roleToUserRoleConverter = roleToUserRoleConverter;
+	}
 
 	/**
      * Configure ViewResolvers to deliver preferred views.
