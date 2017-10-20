@@ -22,7 +22,7 @@ public class UserServiceImpl implements UserService{
 	private final SecurityUtils securityUtils;
 
 	@Autowired
-	AuthenticationTrustResolver authenticationTrustResolver;
+	private AuthenticationTrustResolver authenticationTrustResolver;
 
 	@Autowired
 	public UserServiceImpl(UserRepository userRepository, SecurityUtils securityUtils) {
