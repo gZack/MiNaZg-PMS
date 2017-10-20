@@ -20,9 +20,9 @@
       <put-attribute name="content" value="/WEB-INF/views/login.jsp" />
    </definition>
 
-   <definition name="*/*/*" extends="baseLayout">
-      <put-attribute name="title" value="{3} " />
-      <put-attribute name="heading" value="{3}" />
+   <definition name="*/*" extends="baseLayout">
+      <put-attribute name="title" value="" />
+      <put-attribute name="heading" value="" />
       <put-attribute name="content" value="/WEB-INF/views/{1}/{2}.jsp" />
    </definition>
 

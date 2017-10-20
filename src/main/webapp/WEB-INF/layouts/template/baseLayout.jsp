@@ -29,16 +29,12 @@
          <tiles:insertAttribute name="sidebar" />
 
          <main class="col-sm-9 ml-sm-auto col-md-10 pt-3" role="main">
-            <h2><tiles:insertAttribute name="heading" /></h2>
-            <hr/>
+
             <%--
             <section class="row text-center placeholders">
                <tiles:insertAttribute name="inner_nav" />
             </section> --%>
-
-            <div class="table-responsive">
-               <tiles:insertAttribute name="content" />
-            </div>
+            <tiles:insertAttribute name="content" />
 
             <tiles:insertAttribute name="footer" />
 
