@@ -10,6 +10,7 @@ import java.time.LocalDate;
 import java.util.Set;
 
 @Entity
+@Table(name="Milestone")
 @Data
 public class Release implements Serializable {
 
@@ -19,16 +20,17 @@ public class Release implements Serializable {
 
     @NotNull
     @Column(nullable=false)
-    private Integer versionNumber;
+    private String versionNumber;
 
     @NotNull
     @Column(nullable=false)
     private LocalDate releaseDate;
 
+    private String status;
+
     @NotEmpty
     private String remark;
 
-    @NotEmpty
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "release")
     private Set<Sprint> sprints;
 

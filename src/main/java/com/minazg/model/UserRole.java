@@ -17,9 +17,6 @@ public class UserRole implements Serializable{
 
 	private String description;
 
-	@ManyToMany(mappedBy = "userRoles")
-	private Set<User> users;
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;

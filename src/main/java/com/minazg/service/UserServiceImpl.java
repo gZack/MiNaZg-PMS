@@ -3,6 +3,7 @@ package com.minazg.service;
 import java.util.List;
 
 import com.minazg.repository.UserRepository;
+import com.minazg.util.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,6 +17,9 @@ public class UserServiceImpl implements UserService{
 	@Autowired
 	private UserRepository userRepository;
 
+	@Autowired
+	private SecurityUtils securityUtils;
+
 	public User findById(Long id) {
 		return userRepository.findOne(id);
 	}
@@ -25,6 +29,7 @@ public class UserServiceImpl implements UserService{
 	}
 
 	public void saveUser(User user) {
+		user.setPassword(securityUtils.encodePassword(user.getPassword()));
 		userRepository.save(user);
 	}
 

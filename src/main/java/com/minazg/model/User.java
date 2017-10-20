@@ -13,8 +13,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 @Data
 public class User implements Serializable{
 
-	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Id @GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
 
 	@NotEmpty
@@ -36,7 +35,7 @@ public class User implements Serializable{
 	@OneToOne(mappedBy = "user",cascade = CascadeType.ALL)
 	private Address address;
 
-	@ManyToMany(cascade = CascadeType.ALL)
+	@ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
 	@JoinTable(name = "User_UserRole",
 				joinColumns = {@JoinColumn(name = "user_id")},
 				inverseJoinColumns = {@JoinColumn(name = "userRole_name")})
