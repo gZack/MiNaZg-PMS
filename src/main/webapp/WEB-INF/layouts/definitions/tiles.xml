@@ -20,22 +20,9 @@
       <put-attribute name="content" value="/WEB-INF/views/login.jsp" />
    </definition>
 
-   <!--
-   <definition name="projectList" extends="baseLayout">
-      <put-attribute name="title" value="Project List" />
-      <put-attribute name="heading" value="Project List" />
-      <put-attribute name="content" value="/WEB-INF/views/project/listProject.jsp" />
-   </definition>
-
-   <definition name="addProjectForm" extends="baseLayout">
-      <put-attribute name="title" value="Add Project" />
-      <put-attribute name="heading" value="Add Project" />
-      <put-attribute name="content" value="/WEB-INF/views/project/addProject.jsp" />
-   </definition> -->
-
-   <definition name="*/*" extends="baseLayout">
-      <put-attribute name="title" value="{1} " />
-      <put-attribute name="heading" value="{2}" />
+   <definition name="*/*/*" extends="baseLayout">
+      <put-attribute name="title" value="{3} " />
+      <put-attribute name="heading" value="{3}" />
       <put-attribute name="content" value="/WEB-INF/views/{1}/{2}.jsp" />
    </definition>
 

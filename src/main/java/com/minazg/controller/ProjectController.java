@@ -15,12 +15,12 @@ public class ProjectController {
     @RequestMapping(value = {"", "/", "/list"})
     public String list(Model model) {
 
-        return "project/listProject";
+        return "project/listProject/List Project";
     }
 
     @RequestMapping("/add")
     public String addProjectForm(Model model){
 
-        return "project/addProject";
+        return "project/addProject/Add Project";
     }
 }
