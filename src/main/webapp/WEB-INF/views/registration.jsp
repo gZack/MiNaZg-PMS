@@ -73,17 +73,65 @@
 			</div>
 		</div>
 
-		<%--<div class="row">
+		<div class="row">
 			<div class="form-group col-md-12">
 				<label class="col-md-3 control-lable" for="email">Email</label>
 				<div class="col-md-7">
-					<form:input type="text" path="email" id="email" class="form-control input-sm" />
+					<form:input type="text" path="address.email" id="email" class="form-control input-sm" />
 					<div class="has-error">
-						<form:errors path="email" class="help-inline"/>
+						<form:errors path="address.email" class="help-inline"/>
 					</div>
 				</div>
 			</div>
-		</div>--%>
+		</div>
+
+		<div class="row">
+			<div class="form-group col-md-12">
+				<label class="col-md-3 control-lable" for="street">Street</label>
+				<div class="col-md-7">
+					<form:input type="text" path="address.street" id="street" class="form-control input-sm" />
+					<div class="has-error">
+						<form:errors path="address.street" class="help-inline"/>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="form-group col-md-12">
+				<label class="col-md-3 control-lable" for="city">City</label>
+				<div class="col-md-7">
+					<form:input type="text" path="address.city" id="city" class="form-control input-sm" />
+					<div class="has-error">
+						<form:errors path="address.city" class="help-inline"/>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="form-group col-md-12">
+				<label class="col-md-3 control-lable" for="country">Country</label>
+				<div class="col-md-7">
+					<form:input type="text" path="address.country" id="country" class="form-control input-sm" />
+					<div class="has-error">
+						<form:errors path="address.country" class="help-inline"/>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="form-group col-md-12">
+				<label class="col-md-3 control-lable" for="zipCode">Zip Code</label>
+				<div class="col-md-7">
+					<form:input type="text" path="address.zipCode" id="zipCode" class="form-control input-sm" />
+					<div class="has-error">
+						<form:errors path="address.zipCode" class="help-inline"/>
+					</div>
+				</div>
+			</div>
+		</div>
 
 		<div class="row">
 			<div class="form-group col-md-12">

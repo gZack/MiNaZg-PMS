@@ -23,6 +23,10 @@ public class WorkOrder implements Serializable {
     private String status = StatusType.CREATED.getStatusType();
 
     @NotEmpty
+    @Column(nullable = false)
+    private String type = WorkOrderType.FEATURE.getWorkOrderType();
+
+    @NotEmpty
     @Column(nullable=false)
     private String title;
 
