@@ -32,7 +32,8 @@ public class User implements Serializable{
 	@Column(nullable=false)
 	private String lastName;
 
-	@OneToOne(mappedBy = "user",cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+	@JoinColumn(name = "address_id")
 	private Address address;
 
 	@ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)

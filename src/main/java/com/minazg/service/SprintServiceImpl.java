@@ -30,7 +30,7 @@ public class SprintServiceImpl implements SprintService {
     }
 
     public void deleteSprintById(Long id) {
-        sprintRepository.deleteSprintById(id);
+        sprintRepository.delete(id);
     }
 
     public void updateSprint(Sprint sprint) {

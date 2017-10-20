@@ -5,6 +5,9 @@ import java.util.List;
 import com.minazg.repository.UserRepository;
 import com.minazg.util.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationTrustResolver;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,6 +20,9 @@ public class UserServiceImpl implements UserService{
 	private final UserRepository userRepository;
 
 	private final SecurityUtils securityUtils;
+
+	@Autowired
+	AuthenticationTrustResolver authenticationTrustResolver;
 
 	@Autowired
 	public UserServiceImpl(UserRepository userRepository, SecurityUtils securityUtils) {
@@ -44,14 +50,16 @@ public class UserServiceImpl implements UserService{
 	 */
 	public void updateUser(User user) {
 		//User entity = dao.findById(user.getId());
-		User entity = userRepository.findOne(user.getId());
+		/*User entity = userRepository.findOne(user.getId());
 		if(entity!=null){
 			entity.setSsoId(user.getSsoId());
 			entity.setPassword(user.getPassword());
 			entity.setFirstName(user.getFirstName());
 			entity.setLastName(user.getLastName());
 			entity.setUserRoles(user.getUserRoles());
-		}
+		}*/
+
+		userRepository.save(user);
 
 	}
 	
@@ -67,5 +75,25 @@ public class UserServiceImpl implements UserService{
 		User user = findBySSO(sso);
 		return ( user == null || ((id != null) && (user.getId() == id)));
 	}
-	
+
+	@Override
+	public User getCurrentAuthenticatedUser() {
+
+		final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+		String principal = (String) authentication.getPrincipal();
+		User user = findBySSO(principal);
+
+		return user;
+	}
+
+	@Override
+	public boolean isUserAuthenticated() {
+
+		final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+		return authenticationTrustResolver.isAnonymous(authentication);
+
+	}
+
 }

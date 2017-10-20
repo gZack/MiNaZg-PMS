@@ -42,10 +42,6 @@ public class AppController {
 	@Autowired
 	MessageSource messageSource;
 
-
-	@Autowired
-	AuthenticationTrustResolver authenticationTrustResolver;
-
 	/**
 	 * This method will provide UserProfile list to views
 	 */
@@ -175,7 +171,7 @@ public class AppController {
 	 */
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String loginPage() {
-		if (isCurrentAuthenticationAnonymous()) {
+		if (userService.isUserAuthenticated()) {
 			return "login";
 		} else {
 			return "redirect:/list";
@@ -210,14 +206,6 @@ public class AppController {
 			userName = principal.toString();
 		}
 		return userName;
-	}
-
-	/**
-	 * This method returns true if users is already authenticated [logged-in], else false.
-	 */
-	private boolean isCurrentAuthenticationAnonymous() {
-		final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		return authenticationTrustResolver.isAnonymous(authentication);
 	}
 
 

@@ -23,8 +23,7 @@ public class Address implements Serializable{
 
     private String country;
 
-    @OneToOne
-    @JoinColumn(name = "user_id")
+    @OneToOne(mappedBy = "address", orphanRemoval = true)
     private User user;
 
 

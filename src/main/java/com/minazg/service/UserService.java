@@ -21,4 +21,11 @@ public interface UserService {
 	
 	boolean isUserSSOUnique(Long id, String sso);
 
+	User getCurrentAuthenticatedUser();
+
+	/**
+	 * This method returns true if users is already authenticated [logged-in], else false.
+	 */
+	boolean isUserAuthenticated();
+
 }

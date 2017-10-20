@@ -7,7 +7,8 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UserRepository extends CrudRepository<User,Long>{
 
-    public User findUserBySsoId(String ssoId);
+    User findUserBySsoId(String ssoId);
 
-    public User deleteBySsoId(String ssoId);
+    Integer deleteBySsoId(String ssoId);
+
 }

@@ -6,13 +6,8 @@ create table Address
 	country varchar(255) null,
 	email varchar(255) null,
 	street varchar(255) null,
-	zipCode varchar(255) null,
-	user_id bigint null
+	zipCode varchar(255) null
 )
-;
-
-create index FK_33hg5keygw64femiy5lgd4y9t
-	on Address (user_id)
 ;
 
 create table Comment
@@ -123,14 +118,16 @@ create table User
 	lastName varchar(255) not null,
 	password varchar(255) not null,
 	ssoId varchar(255) not null,
+	address_id bigint null,
 	constraint UK_r8h9hto41glsa6kc33d9nt8da
-	unique (ssoId)
+	unique (ssoId),
+	constraint FK_25yqck53dyy0k1q261ncjxmw3
+	foreign key (address_id) references Address (id)
 )
 ;
 
-alter table Address
-	add constraint FK_33hg5keygw64femiy5lgd4y9t
-foreign key (user_id) references User (id)
+create index FK_25yqck53dyy0k1q261ncjxmw3
+	on User (address_id)
 ;
 
 alter table Comment
