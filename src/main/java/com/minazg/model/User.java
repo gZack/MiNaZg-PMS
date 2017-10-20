@@ -35,7 +35,7 @@ public class User implements Serializable{
 	@OneToOne(mappedBy = "user",cascade = CascadeType.ALL)
 	private Address address;
 
-	@ManyToMany(cascade = {CascadeType.MERGE}, fetch = FetchType.LAZY)
+	@ManyToMany(cascade = {CascadeType.MERGE}, fetch = FetchType.EAGER)
 	@JoinTable(name = "User_UserRole",
 				joinColumns = {@JoinColumn(name = "user_id")},
 				inverseJoinColumns = {@JoinColumn(name = "userRole_name")})
