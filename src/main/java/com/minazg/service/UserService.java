@@ -24,10 +24,14 @@ public interface UserService {
 	/**
 	 * Finds user by having a role of @roleName
 	 * @param roleName
-	 * @return
+	 * @return @{@link List<User>}
 	 */
 	List<User> findUsersByRoleName(String roleName);
 
+	/**
+	 * Returns currently authenticated user
+	 * @return @{@link User}
+	 */
 	User getCurrentAuthenticatedUser();
 
 	/**
