@@ -21,6 +21,13 @@ public interface UserService {
 	
 	boolean isUserSSOUnique(Long id, String sso);
 
+	/**
+	 * Finds user by having a role of @roleName
+	 * @param roleName
+	 * @return
+	 */
+	List<User> findUsersByRoleName(String roleName);
+
 	User getCurrentAuthenticatedUser();
 
 	/**

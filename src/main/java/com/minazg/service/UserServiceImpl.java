@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.minazg.repository.UserRepository;
 import com.minazg.util.SecurityUtils;
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationTrustResolver;
 import org.springframework.security.core.Authentication;
@@ -35,7 +36,9 @@ public class UserServiceImpl implements UserService{
 	}
 
 	public User findBySSO(String sso) {
-		return userRepository.findUserBySsoId(sso);
+		User user = userRepository.findUserBySsoId(sso);
+		Hibernate.initialize(user.getUserRoles());
+		return user;
 	}
 
 	public void saveUser(User user) {
@@ -68,12 +71,22 @@ public class UserServiceImpl implements UserService{
 	}
 
 	public List<User> findAllUsers() {
-		return (List<User>) userRepository.findAll();
+
+		List<User> users = (List<User>) userRepository.findAll();
+
+		Hibernate.initialize(users);
+
+		return users;
 	}
 
 	public boolean isUserSSOUnique(Long id, String sso) {
 		User user = findBySSO(sso);
 		return ( user == null || ((id != null) && (user.getId() == id)));
+	}
+
+	@Override
+	public List<User> findUsersByRoleName(String roleName) {
+		return userRepository.findUsersByUserRoles_Name(roleName);
 	}
 
 	@Override
