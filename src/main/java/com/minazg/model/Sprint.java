@@ -47,7 +47,7 @@ public class Sprint implements Serializable {
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "sprint")
     List<WorkOrder> workOrders;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @JoinColumn(name = "release_id", nullable = false)
     private Release release;
 
@@ -64,12 +64,20 @@ public class Sprint implements Serializable {
         return release.getId().equals(sprint.release.getId());
     }
 
-    @Override
-    public int hashCode() {
-        int result = super.hashCode();
-        result = 31 * result + id.hashCode();
-        result = 31 * result + title.hashCode();
-        result = 31 * result + release.getId().hashCode();
-        return result;
-    }
+//    @Override
+//    public int hashCode() {
+//        int result = super.hashCode();
+//
+//        if(id == null){
+//            id=1L;
+//        }
+//        Long release_id = 1L;
+////        if(release.getId()==null){
+////            release_id=L;
+////        }
+//        result = 31 * result + id.hashCode();
+//        result = 31 * result + title.hashCode();
+//        result = 31 * result + release_id.hashCode();
+//        return result;
+//    }
 }
