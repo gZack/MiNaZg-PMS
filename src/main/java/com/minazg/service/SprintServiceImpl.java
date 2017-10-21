@@ -25,12 +25,13 @@ public class SprintServiceImpl implements SprintService {
         sprintRepository.save(sprint);
     }
 
-    public List<Sprint> findAllSprints() {
-        return (List<Sprint>) sprintRepository.findAll();
-    }
-
     public void deleteSprintById(Long id) {
         sprintRepository.delete(id);
+    }
+
+    @Override
+    public List<Sprint> findAll() {
+        return (List<Sprint>) sprintRepository.findAll();
     }
 
     public void updateSprint(Sprint sprint) {

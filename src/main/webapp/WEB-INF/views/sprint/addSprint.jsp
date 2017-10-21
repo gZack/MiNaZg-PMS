@@ -79,11 +79,11 @@
         </div>
 
         <div class="form-group">
-            <label class="control-label col-sm-2" for="release">Release:</label>
+            <label class="control-label col-sm-2" for="release.id">Release ID:</label>
             <div class="col-sm-10">
-                <form:input type="text" path="release.id" id="release" value="1" class="form-control input-sm" />
+                <form:input type="text" path="release.id" id="release.id" value="1" class="form-control input-sm" />
                 <div class="has-error">
-                    <form:errors path="release" class="help-inline"/>
+                    <form:errors path="release.id" class="help-inline"/>
                 </div>
             </div>
         </div>

@@ -28,6 +28,15 @@ public class ReleaseServiceImpl implements ReleaseService {
         return releaseRepository.findReleaseByProjectId(projectId);
     }
 
+    @Override
+    public void save(Release release) {
+        releaseRepository.save(release);
+    }
+
+    @Override
+    public List<Release> findAll() {
+        return (List<Release>) releaseRepository.findAll();
+    }
 
 
 }

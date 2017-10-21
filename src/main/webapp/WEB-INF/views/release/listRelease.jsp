@@ -1,22 +1,22 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<h2>List of Sprint</h2>
+<h2>List of Releases</h2>
 <hr/>
 <div class="">
-    <c:if test="${not empty sprints}">
+    <c:if test="${not empty releases}">
         <table class="table">
             <thead>
             <tr>
-                <th>Id</th>
-                <th>Title</th>
+                <th>Version Number</th>
+                <th>Remark</th>
                 <th></th>
                 <th></th>
             </tr>
             </thead>
             <tbody>
-            <c:forEach var="val" items="${sprints}">
+            <c:forEach var="val" items="${releases}">
                 <tr>
-                    <td>${val.id}</td>
-                    <td>${val.title}</td>
+                    <td>${val.versionNumber}</td>
+                    <td>${val.remark}</td>
                     <td>Edit</td>
                     <td>Delete</td>
                 </tr>
