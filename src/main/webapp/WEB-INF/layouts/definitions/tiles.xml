@@ -14,10 +14,10 @@
       <put-attribute name="footer" value="/WEB-INF/layouts/template/footer.jsp" />
    </definition>
 
-   <definition name="login" extends="baseLayout">
+   <!--<definition name="login" extends="baseLayout">
       <put-attribute name="heading" value="Login" />
       <put-attribute name="content" value="/WEB-INF/views/login.jsp" />
-   </definition>
+   </definition>-->
 
    <definition name="*/*" extends="baseLayout">
       <put-attribute name="heading" value="" />

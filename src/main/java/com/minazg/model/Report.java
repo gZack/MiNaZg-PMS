@@ -1,11 +1,13 @@
 package com.minazg.model;
 
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Date;
 
 @Entity
 @Data
@@ -28,7 +30,9 @@ public class Report implements Serializable {
     private Comment comment;
 
     @Column(nullable=false)
-    private LocalDate timeLog;
+    @DateTimeFormat(pattern = "MM-dd-yyyy")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date timeLog;
 
     @ManyToOne()
     @JoinColumn(name = "workOrder_id", nullable = false)

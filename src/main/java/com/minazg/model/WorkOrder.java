@@ -2,12 +2,12 @@ package com.minazg.model;
 
 import lombok.Data;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.time.LocalDate;
-import java.util.List;
+import java.util.Date;
 import java.util.Set;
 
 @Entity
@@ -35,19 +35,27 @@ public class WorkOrder implements Serializable {
 
     @NotNull
     @Column(nullable=false)
-    private LocalDate startDate;
+    private Date startDate;
 
     @NotNull
     @Column(nullable=false)
-    private LocalDate endDate;
+    @DateTimeFormat(pattern = "MM-dd-yyyy")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date endDate;
 
-    private LocalDate resolvedDate;
+    @DateTimeFormat(pattern = "MM-dd-yyyy")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date resolvedDate;
 
-    private LocalDate closedDate;
+    @DateTimeFormat(pattern = "MM-dd-yyyy")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date closedDate;
 
     @NotNull
     @Column(nullable = false)
-    private LocalDate deadLine;
+    @DateTimeFormat(pattern = "MM-dd-yyyy")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date deadLine;
 
     private Double totalDuration;
 

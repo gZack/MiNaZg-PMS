@@ -2,11 +2,13 @@ package com.minazg.model;
 
 import lombok.Data;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.Set;
 
 @Entity
@@ -29,10 +31,14 @@ public class Project implements Serializable{
     private String status = StatusType.CREATED.getStatusType();
 
     @NotNull
-    private LocalDate dateStart;
+    @DateTimeFormat(pattern = "MM-dd-yyyy")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date dateStart;
 
     @NotNull
-    private LocalDate dateEnd;
+    @DateTimeFormat(pattern = "MM-dd-yyyy")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date dateEnd;
 
     @OneToOne
     @JoinColumn(name = "pm_user_id")

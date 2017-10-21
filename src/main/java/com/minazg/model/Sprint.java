@@ -3,11 +3,13 @@ package com.minazg.model;
 import javafx.concurrent.Task;
 import lombok.Data;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -28,11 +30,15 @@ public class Sprint implements Serializable {
 
     @NotNull
     @Column(nullable=false)
-    private LocalDate startDate;
+    @DateTimeFormat(pattern = "MM-dd-yyyy")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date startDate;
 
     @NotNull
     @Column(nullable=false)
-    private LocalDate endDate;
+    @DateTimeFormat(pattern = "MM-dd-yyyy")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date endDate;
 
     @NotEmpty
     @Column(nullable=false)

@@ -16,7 +16,7 @@ create table Comment
 		primary key,
 	componentId bigint not null,
 	componentType varchar(255) not null,
-	dateCommented tinyblob not null,
+	dateCommented datetime not null,
 	statement varchar(255) not null,
 	proposer_user_id bigint null
 )
@@ -30,7 +30,7 @@ create table Milestone
 (
 	id bigint auto_increment
 		primary key,
-	releaseDate tinyblob not null,
+	releaseDate datetime not null,
 	remark varchar(255) not null,
 	status varchar(255) null,
 	versionNumber varchar(255) not null,
@@ -46,8 +46,8 @@ create table Project
 (
 	id bigint auto_increment
 		primary key,
-	dateEnd tinyblob not null,
-	dateStart tinyblob not null,
+	dateEnd datetime not null,
+	dateStart datetime not null,
 	description varchar(255) not null,
 	name varchar(255) not null,
 	status varchar(255) not null,
@@ -75,7 +75,7 @@ create table Report
 		primary key,
 	hoursSpent double not null,
 	progressPercentage double not null,
-	timeLog tinyblob not null,
+	timeLog datetime not null,
 	comment_id bigint null,
 	workOrder_id bigint not null,
 	constraint FK_619hbq1axno55kwvmf4rvw4rr
@@ -96,8 +96,8 @@ create table Sprint
 	id bigint auto_increment
 		primary key,
 	description varchar(255) not null,
-	endDate tinyblob not null,
-	startDate tinyblob not null,
+	endDate datetime not null,
+	startDate datetime not null,
 	status varchar(255) not null,
 	title varchar(255) not null,
 	release_id bigint not null,
@@ -173,12 +173,12 @@ create table WorkOrder
 (
 	id bigint auto_increment
 		primary key,
-	closedDate tinyblob null,
-	deadLine tinyblob not null,
+	closedDate datetime null,
+	deadLine datetime not null,
 	description varchar(255) not null,
-	endDate tinyblob not null,
-	resolvedDate tinyblob null,
-	startDate tinyblob not null,
+	endDate datetime not null,
+	resolvedDate datetime null,
+	startDate datetime not null,
 	status varchar(255) not null,
 	title varchar(255) not null,
 	totalDuration double null,

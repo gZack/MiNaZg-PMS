@@ -2,12 +2,12 @@ package com.minazg.model;
 
 import lombok.Data;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.time.LocalDate;
-import java.util.List;
+import java.util.Date;
 
 @Entity
 @Data
@@ -29,7 +29,9 @@ public class Comment implements Serializable{
 
     @NotNull
     @Column(nullable=false)
-    private LocalDate dateCommented;
+    @DateTimeFormat(pattern = "MM-dd-yyyy")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date dateCommented;
 
     @ManyToOne()
     @JoinColumn(name = "proposer_user_id")

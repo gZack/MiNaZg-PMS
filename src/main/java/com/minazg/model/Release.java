@@ -2,11 +2,13 @@ package com.minazg.model;
 
 import lombok.Data;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.Set;
 
 @Entity
@@ -24,7 +26,9 @@ public class Release implements Serializable {
 
     @NotNull
     @Column(nullable=false)
-    private LocalDate releaseDate;
+    @DateTimeFormat(pattern = "MM-dd-yyyy")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date releaseDate;
 
     private String status;
 
