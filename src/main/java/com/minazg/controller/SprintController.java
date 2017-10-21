@@ -28,7 +28,7 @@ public class SprintController {
 
     @RequestMapping("/all")
     public String list(Model model) {
-        model.addAttribute("sprints", sprintService.findAllSprints());
+//        model.addAttribute("sprints", sprintService.findAllSprints());
         return "sprint/listSprint";
     }
 

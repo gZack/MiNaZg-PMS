@@ -9,6 +9,7 @@ import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -35,10 +36,10 @@ public class Release implements Serializable {
     @NotEmpty
     private String remark;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "release")
-    private Set<Sprint> sprints;
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "release")
+    private List<Sprint> sprints;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "project_id", nullable = false)
     private Project project;
 
@@ -57,6 +58,10 @@ public class Release implements Serializable {
 
     @Override
     public int hashCode() {
+        if(id == null)
+            id = 0L;
+        if (project.getId() == null)
+            project.setId(0L);
         int result = super.hashCode();
         result = 31 * result + id.hashCode();
         result = 31 * result + versionNumber.hashCode();

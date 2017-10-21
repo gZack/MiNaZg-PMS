@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Date;
-import java.util.Set;
+import java.util.List;
 
 @Entity
 @Data
@@ -49,7 +49,7 @@ public class Project implements Serializable{
     private User client;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "project")
-    private Set<Release> releases;
+    private List<Release> releases;
 
     @Override
     public boolean equals(Object o) {
