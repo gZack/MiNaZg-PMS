@@ -48,7 +48,7 @@ public class Project implements Serializable{
     @JoinColumn(name = "client_user_id")
     private User client;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "project")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "project")
     private Set<Release> releases;
 
     @Override
@@ -65,6 +65,8 @@ public class Project implements Serializable{
 
     @Override
     public int hashCode() {
+        if(id == null)
+            id = 0L;
         int result = super.hashCode();
         result = 31 * result + id.hashCode();
         result = 31 * result + name.hashCode();
