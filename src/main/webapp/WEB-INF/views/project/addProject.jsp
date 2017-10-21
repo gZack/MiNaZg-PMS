@@ -54,6 +54,41 @@
         </div>
 
         <div class="form-group">
+            <label class="control-label col-sm-2" for="dateEnd">End Date:</label>
+            <div class="col-sm-10">
+                <div class='input-group date' id='datetimepicker2'>
+                    <form:input path="dateEnd" class="form-control" />
+                    <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+                <div class="has-error">
+                    <form:errors path="dateEnd" />
+                </div>
+                <div class='col-sm-6'>
+
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="projectManager">project Manager:</label>
+            <div class="col-sm-10">
+                <form:input path="projectManager.id" class="form-control" id="description" value="1" />
+                <div class="has-error">
+                    <form:errors path="projectManager" />
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="client">Client:</label>
+            <div class="col-sm-10">
+                <form:input path="client.id" class="form-control" id="client" value="1" />
+                <div class="has-error">
+                    <form:errors path="client" />
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
                 <form:hidden path="id" id="id"/>
                 <button type="submit" class="btn btn-default">Submit</button>
@@ -64,8 +99,8 @@
 
 <script type="text/javascript">
     // # ref http://eonasdan.github.io/bootstrap-datetimepicker/Options/
-    $("#datetimepicker1").datetimepicker({
-        format: 'mm/DD/YYYY',
+    $(".date").datetimepicker({
+        format: 'MM-DD-YYYY',
         widgetPositioning: {
             horizontal: 'auto',
             vertical: 'bottom'
