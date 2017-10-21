@@ -55,7 +55,8 @@
                             </c:if>
                             <div class="input-group input-sm">
                                 <label class="input-group-addon" for="username"><i class="fa fa-user"></i></label>
-                                <input type="text" class="form-control" id="username" name="ssoId" placeholder="Enter Username"
+                                <input type="text" class="form-control" id="username" name="ssoId"
+                                       placeholder="Enter Username"
                                        required>
                             </div>
                             <div class="input-group input-sm">
@@ -65,7 +66,8 @@
                             </div>
                             <div class="input-group input-sm">
                                 <div class="checkbox">
-                                    <label><input type="checkbox" id="rememberme" name="remember-me"> Remember Me</label>
+                                    <label><input type="checkbox" id="rememberme" name="remember-me"> Remember
+                                        Me</label>
                                 </div>
                             </div>
                             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /
