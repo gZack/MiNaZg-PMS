@@ -1,45 +1,40 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<nav class="col-sm-3 col-md-2 d-none d-sm-block bg-light sidebar">
-<ul class="nav nav-pills flex-column">
-<li class="nav-item">
-<a class="nav-link active" href="#">Overview <span class="sr-only">(current)</span></a>
-</li>
-<li class="nav-item">
-<a class="nav-link" href="#">Reports</a>
-</li>
-<li class="nav-item">
-<a class="nav-link" href="#">Analytics</a>
-</li>
-<li class="nav-item">
-<a class="nav-link" href="#">Export</a>
-</li>
-</ul>
-<!--
-<ul class="nav nav-pills flex-column">
-<li class="nav-item">
-<a class="nav-link" href="https://getbootstrap.com/docs/4.0/examples/dashboard/#">Nav item</a>
-</li>
-<li class="nav-item">
-<a class="nav-link" href="https://getbootstrap.com/docs/4.0/examples/dashboard/#">Nav item again</a>
-</li>
-<li class="nav-item">
-<a class="nav-link" href="https://getbootstrap.com/docs/4.0/examples/dashboard/#">One more nav</a>
-</li>
-<li class="nav-item">
-<a class="nav-link" href="https://getbootstrap.com/docs/4.0/examples/dashboard/#">Another nav item</a>
-</li>
-</ul>
+<section class="sidebar">
+    <div class="user-panel">
+        <div class="pull-left image">
+            <img src='<c:url value="/static/img/avatar.png" />' class="img-circle" alt="User Image">
+        </div>
+        <div class="pull-left info">
+            <p>Alexander Pierce</p>
+            <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+        </div>
+    </div>
 
-<ul class="nav nav-pills flex-column">
-<li class="nav-item">
-<a class="nav-link" href="https://getbootstrap.com/docs/4.0/examples/dashboard/#">Nav item again</a>
-</li>
-<li class="nav-item">
-<a class="nav-link" href="https://getbootstrap.com/docs/4.0/examples/dashboard/#">One more nav</a>
-</li>
-<li class="nav-item">
-<a class="nav-link" href="https://getbootstrap.com/docs/4.0/examples/dashboard/#">Another nav item</a>
-</li>
-</ul> -->
-</nav>
+    <ul class="sidebar-menu" data-widget="tree">
+        <li class="header">MAIN NAVIGATION</li>
+        <li>
+            <a href='<spring:url value="/project/" />'>
+                <i class="fa fa-dashboard"></i> <span>Dashboard</span>
+                <span class="pull-right-container">
+            </span>
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <i class="fa fa-th"></i> <span>Tasks</span>
+                <span class="pull-right-container">
+            </span>
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <i class="fa fa-user"></i> <span>Manage Users</span>
+                <span class="pull-right-container">
+            </span>
+            </a>
+        </li>
+    </ul>
+</section>
+
