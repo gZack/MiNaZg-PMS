@@ -1,0 +1,1 @@
+ALTER TABLE WorkOrder MODIFY sprint_id BIGINT(20) NULL;

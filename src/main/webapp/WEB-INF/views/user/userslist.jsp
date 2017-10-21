@@ -48,7 +48,9 @@
 
 
 	<!-- Default panel contents -->
-	<div class="card-header"><span class="lead">List of Users </span></div>
+	<div class="card-header">
+		<div class="well lead">List of Users </div>
+	</div>
 	<table class="table">
 		<thead>
 		<tr>

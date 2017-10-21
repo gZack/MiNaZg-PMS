@@ -1,5 +1,6 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="secuirty" uri="http://www.springframework.org/security/tags" %>
 <%--
 href="<spring:url value="/project/" />"
 --%>
@@ -54,7 +55,9 @@ href="<spring:url value="/project/" />"
             <li class="dropdown user user-menu">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                     <img src='<c:url value="/static/img/avatar.png" />' class="user-image" alt="User Image">
-                    <span class="hidden-xs">Alexander Pierce</span>
+                    <span class="hidden-xs">
+                        <secuirty:authentication property="principal.username"/>
+                    </span>
                 </a>
                 <ul class="dropdown-menu">
                     <!-- User image -->

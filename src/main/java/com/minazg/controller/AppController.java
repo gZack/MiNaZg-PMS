@@ -46,7 +46,8 @@ public class AppController {
 	 * This method will provide UserProfile list to views
 	 */
 	@ModelAttribute("roles")
-	public List<UserRole> initializeProfiles() {
+	public List<UserRole> initializeProfiles(Model model) {
+
 		return userRoleService.findAll();
 	}
 
@@ -81,7 +82,7 @@ public class AppController {
 						   ModelMap model) {
 
 		if (result.hasErrors()) {
-			return "registration";
+			return "user/registration";
 		}
 
 		/*
@@ -95,7 +96,7 @@ public class AppController {
 		if(!userService.isUserSSOUnique(user.getId(), user.getSsoId())){
 			FieldError ssoError =new FieldError("user","ssoId",messageSource.getMessage("non.unique.ssoId", new String[]{user.getSsoId()}, Locale.getDefault()));
 			result.addError(ssoError);
-			return "registration";
+			return "user/registration";
 		}
 
 		userService.saveUser(user);
@@ -116,7 +117,7 @@ public class AppController {
 		model.addAttribute("user", user);
 		model.addAttribute("edit", true);
 		model.addAttribute("loggedinuser", getPrincipal());
-		return "user/registration";
+		return "user/edit";
 	}
 
 	/**
@@ -128,7 +129,7 @@ public class AppController {
 							 ModelMap model, @PathVariable String ssoId) {
 
 		if (result.hasErrors()) {
-			return "registration";
+			return "user/edit";
 		}
 
 		/*//Uncomment below 'if block' if you WANT TO ALLOW UPDATING SSO_ID in UI which is a unique key to a User.
