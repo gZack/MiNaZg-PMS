@@ -2,30 +2,39 @@
 <h2>Projects</h2>
 <hr/>
 <div class="">
+    <c:if test="${not empty flashMessage}" >
+        <div class="alert alert-success">
+            <strong>Success!</strong> ${flashMessage}
+        </div>
+    </c:if>
     <c:if test="${not empty projects}">
         <table class="table">
             <thead>
             <tr>
-                <th>ID</th>
+                <th>#</th>
                 <th>Name</th>
                 <th>Release</th>
+                <th>Status</th>
                 <th></th>
             </tr>
             </thead>
             <tbody>
-                <c:forEach var="val" items="${projects}">
+                <c:forEach var="project" items="${projects}">
                     <tr>
-                        <td>${val.id}</td>
-                        <td>${val.name}</td>
+                        <td>${project.id}</td>
                         <td>
-                            <c:url value="/release/list/${val.id}" var="releaseViewUrl"/>
+                            <c:url value="/project/detail/${project.id}" var="projectViewUrl"/>
+                            <a href="<c:out value='${projectViewUrl}'/>">${project.name}</a></td>
+                        <td>
+                            <c:url value="/release/list/${project.id}" var="releaseViewUrl"/>
                             <a class="fa fa-list" href="<c:out value='${releaseViewUrl}'/>"></a>
                             &nbsp;&nbsp;
-                            <c:url value="/release/add/${val.id}" var="releaseAddUrl"/>
+                            <c:url value="/release/add/${project.id}" var="releaseAddUrl"/>
                             <a class="fa fa-plus" href="<c:out value='${releaseAddUrl}'/>"></a>
                         </td>
+                        <td>${project.status}</td>
                         <td>
-                            <c:url value="/project/edit/${val.id}" var="editUrl"/>
+                            <c:url value="/project/edit/${project.id}" var="editUrl"/>
                             <a href="<c:out value='${editUrl}'/>" class="fa fa-edit"></a>
                         </td>
                     </tr>

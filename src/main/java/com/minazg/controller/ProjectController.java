@@ -9,10 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -47,7 +45,7 @@ public class ProjectController {
     }
 
     @RequestMapping(value={"/add"}, method = RequestMethod.POST)
-    public String saveProject(@Valid @ModelAttribute("newProject") Project project, BindingResult bindingResult, Model model){
+    public String saveProject(@Valid @ModelAttribute("newProject") Project project, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model){
         if(bindingResult.hasErrors()){
             // TODO, remove redundant code
             model.addAttribute("statusTypes", helperUtils.getStatusTypes());
@@ -56,6 +54,7 @@ public class ProjectController {
             return "project/addProject";
         }
         projectService.save(project);
+        redirectAttributes.addFlashAttribute("flashMessage","Project Added Successfully");
         return "redirect:/project/list";
     }
 
@@ -64,13 +63,16 @@ public class ProjectController {
         Project project = null;
         try{
             project = projectService.findOne(Long.valueOf(pid));
+            if(project == null){
+                return "project/notFound";
+            }
             model.addAttribute("statusTypes", helperUtils.getStatusTypes());
             model.addAttribute("projectManagerList",userService.findUsersByRoleName("PROJECT_MANAGER"));
             model.addAttribute("clientList",userService.findUsersByRoleName("CLIENT"));
             model.addAttribute("action", "edit");
         }
         catch(Exception e){
-            //System.out.println(e);
+            System.out.println(e);
             return "project/notFound";
         }
         model.addAttribute("newProject", project);
@@ -78,7 +80,7 @@ public class ProjectController {
     }
 
     @RequestMapping(value={"/edit/{pid}"}, method = RequestMethod.POST)
-    public String editProjectForm(@Valid @ModelAttribute("newProject") Project project, BindingResult bindingResult, Model model){
+    public String editProjectForm(@Valid @ModelAttribute("newProject") Project project, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model){
         if(bindingResult.hasErrors()){
             //TODO, remove redundant code
             project = projectService.findOne(Long.valueOf(project.getId()));
@@ -91,8 +93,20 @@ public class ProjectController {
         }
 
         projectService.updateProject(project);
-
+        redirectAttributes.addFlashAttribute("flashMessage","Project Updated Successfully");
         return "redirect:/project/list";
 
+    }
+
+    @RequestMapping(value = "/detail/{pid}", method = RequestMethod.GET)
+    public String showProject(@PathVariable String pid, Model model) {
+        try{
+            model.addAttribute("project",projectService.findOne(Long.valueOf(pid)));
+            return "project/detail";
+        }
+        catch(IllegalStateException e){
+            System.out.println(e);
+            return "project/notFound";
+        }
     }
 }
