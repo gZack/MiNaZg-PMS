@@ -58,14 +58,14 @@ public class Release implements Serializable {
 
     @Override
     public int hashCode() {
-        if(id == null)
-            id = 0L;
-        if (project.getId() == null)
-            project.setId(0L);
+//        if(id == null)
+//            id = 0L;
+//        if (project.getId() == null)
+//            project.setId(0L);
         int result = super.hashCode();
-        result = 31 * result + id.hashCode();
+//        result = 31 * result + id.hashCode();
         result = 31 * result + versionNumber.hashCode();
-        result = 31 * result + project.getId().hashCode();
+//        result = 31 * result + project.getId().hashCode();
         return result;
     }
 }

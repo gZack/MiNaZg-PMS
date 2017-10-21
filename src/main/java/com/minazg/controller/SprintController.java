@@ -26,9 +26,9 @@ public class SprintController {
     HelperUtils helperUtils;
 
 
-    @RequestMapping("/all")
+    @RequestMapping(value = {"", "/", "/list"})
     public String list(Model model) {
-//        model.addAttribute("sprints", sprintService.findAllSprints());
+        model.addAttribute("sprints", sprintService.findAll());
         return "sprint/listSprint";
     }
 
@@ -45,7 +45,7 @@ public class SprintController {
         }
 
         sprintService.saveSprint(newSprint);
-        return "redirect:/sprint/all";
+        return "redirect:/sprint/list";
     }
 
 

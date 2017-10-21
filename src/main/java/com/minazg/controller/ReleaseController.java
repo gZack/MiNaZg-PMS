@@ -49,6 +49,6 @@ public class ReleaseController {
         }
         releaseService.save(release);
 
-        return "redirect:/release/listRelease";
+        return "redirect:/release/list";
     }
 }

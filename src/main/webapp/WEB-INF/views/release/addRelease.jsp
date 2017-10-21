@@ -4,11 +4,11 @@
 <div class="half-width">
     <form:form modelAttribute="newRelease" cssClass="form-horizontal">
         <div class="form-group">
-            <label class="control-label col-sm-2" for="project">Project Name:</label>
+            <label class="control-label col-sm-2" for="project.id">Project Name:</label>
             <div class="col-sm-10">
-                <form:input  path="project" class="form-control" id="project"  />
+                <form:input  path="project.id" class="form-control" id="project.id"  />
                 <div class="has-error">
-                    <form:errors path="project" />
+                    <form:errors path="project.id" />
                 </div>
             </div>
         </div>
