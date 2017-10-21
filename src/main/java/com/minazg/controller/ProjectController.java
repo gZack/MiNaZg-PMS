@@ -1,8 +1,8 @@
 package com.minazg.controller;
 
 import com.minazg.model.Project;
-import com.minazg.model.StatusType;
 import com.minazg.service.ProjectService;
+import com.minazg.util.HelperUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,17 +17,17 @@ import java.util.List;
 public class ProjectController {
     @Autowired
     ProjectService projectService;
+    @Autowired
+    HelperUtils helperUtils;
 
     @RequestMapping(value = {"", "/", "/list"})
     public String list(Model model) {
-
         return "project/listProject";
     }
 
     @RequestMapping(value={"/add"}, method = RequestMethod.GET)
     public String addProjectForm(@ModelAttribute("newProject") Project project, Model model){
-        StatusType[] statusTypes = StatusType.values();
-        model.addAttribute("statusTypes", statusTypes);
+        model.addAttribute("statusTypes", helperUtils.getStatusTypes());
         return "project/addProject";
     }
 }

@@ -13,61 +13,59 @@
 
    <title>MiNaZg PMS</title>
 
+   <script type="text/javascript" src="//code.jquery.com/jquery-2.1.1.min.js"></script>
+   <script type="text/javascript" src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+
+   <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.js"></script>
+   <script src="//cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/e8bddc60e73c1ec2475f827be36e1957af72e2ea/src/js/bootstrap-datetimepicker.js"></script>
+
+   <script src='<c:url value="/static/js/adminlte.min.js"/>' ></script>
+   <script src='<c:url value="/static/js/app.js"/>'></script>
+
    <!-- Bootstrap core CSS -->
-   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
-
+   <link rel="stylesheet" type="text/css" media="screen" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" />
+   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
    <!-- Custom styles for this template -->
-   <link href="<c:url value='/static/css/dashboard.css' />"  rel="stylesheet"></link>
-
+   <link href="//cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/e8bddc60e73c1ec2475f827be36e1957af72e2ea/build/css/bootstrap-datetimepicker.css" rel="stylesheet">
+   <link href="<c:url value='/static/css/AdminLTE.min.css' />"  rel="stylesheet"></link>
+   <link href="<c:url value='/static/css/_all-skins.min.css' />"  rel="stylesheet"></link>
+   <link href="<c:url value='/static/css/app.css' />"  rel="stylesheet"></link>
 </head>
 
-<body>
-   <tiles:insertAttribute name="navigation" />
+<body class="hold-transition skin-blue sidebar-mini">
 
-   <div class="container-fluid">
-      <div class="row">
-         <tiles:insertAttribute name="sidebar" />
+<!-- Site wrapper -->
+<div class="wrapper">
+   <header class="main-header">
+      <!-- Logo -->
+      <a href="#" class="logo">
+         <!-- mini logo for sidebar mini 50x50 pixels -->
+         <span class="logo-mini"><b>P</b>MS</span>
+         <!-- logo for regular state and mobile devices -->
+         <span class="logo-lg"><b>MiNaZg</b>PMS</span>
+      </a>
+      <tiles:insertAttribute name="navigation" />
+   </header>
+   <aside class="main-sidebar">
+      <tiles:insertAttribute name="sidebar" />
+   </aside>
+   <div class="content-wrapper">
+      <section class="content">
 
-         <main class="col-sm-9 ml-sm-auto col-md-10 pt-3" role="main">
+      <tiles:insertAttribute name="content" />
 
-            <%--
-            <section class="row text-center placeholders">
-               <tiles:insertAttribute name="inner_nav" />
-            </section> --%>
-            <tiles:insertAttribute name="content" />
-
-            <tiles:insertAttribute name="footer" />
-
-         </main>
-      </div>
+      </section>
    </div>
+   <footer class="main-footer">
+      <tiles:insertAttribute name="footer" />
+   </footer>
+</div>
 
-   <%--
-   <div class="container">
-      <div class="jumbotron">
-         <div class="header">
-            <ul class="nav nav-pills pull-right">
+<script>
+    $(document).ready(function () {
+        $('.sidebar-menu').tree()
+    })
+</script>
 
-            </ul>
-            <h3 class="text-muted">Web Store</h3>
-         </div>
-
-         <h1>
-            <tiles:insertAttribute name="heading" />
-         </h1>
-         <p>
-            <tiles:insertAttribute name="tagline" />
-         </p>
-      </div>
-
-      <div class="row">
-         <tiles:insertAttribute name="content" />
-      </div>
-
-      <div class="footer">
-         <tiles:insertAttribute name="footer" />
-      </div>
-
-   </div> --%>
 </body>
 </html>
