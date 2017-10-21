@@ -21,4 +21,12 @@ public class ProjectServiceImpl implements ProjectService {
     public List<Project> findAll(){
         return (List<Project>) projectRepository.findAll();
     }
+
+    public Project findOne(Long id){
+        return projectRepository.findOne(id);
+    }
+
+    public void updateProject(Project project){
+        projectRepository.save(project);
+    }
 }
