@@ -1,5 +1,7 @@
+
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%--
 <html>
 
 <head>
@@ -42,4 +44,36 @@
 	 	</div>
    	</div>
 </body>
-</html>
+</html>--%>
+
+
+	<!-- Default panel contents -->
+	<div class="card-header"><span class="lead">List of Users </span></div>
+	<table class="table">
+		<thead>
+		<tr>
+			<th scope="col">Firstname</th>
+			<th scope="col">Lastname</th>
+			<th scope="col">SSO ID</th>
+			<th scope="col" width="100"></th>
+			<th scope="col" width="100"></th>
+		</tr>
+		</thead>
+		<tbody>
+		<c:forEach items="${users}" var="user">
+			<tr>
+				<td>${user.firstName}</td>
+				<td>${user.lastName}</td>
+				<td>${user.ssoId}</td>
+				<td>
+					<a href="<c:url value='/edit-user-${user.ssoId}' />" class="btn btn-success">edit</a>
+				</td>
+				<td><a href="<c:url value='/delete-user-${user.ssoId}' />" class="btn btn-danger">delete</a></td>
+			</tr>
+		</c:forEach>
+		</tbody>
+	</table>
+	<div class="well">
+		<a href="<c:url value='/newuser' />">Add New User</a>
+	</div>
+

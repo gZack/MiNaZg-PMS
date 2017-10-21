@@ -15,13 +15,11 @@
    </definition>
 
    <definition name="login" extends="baseLayout">
-      <put-attribute name="title" value="Login" />
       <put-attribute name="heading" value="Login" />
       <put-attribute name="content" value="/WEB-INF/views/login.jsp" />
    </definition>
 
    <definition name="*/*" extends="baseLayout">
-      <put-attribute name="title" value="" />
       <put-attribute name="heading" value="" />
       <put-attribute name="content" value="/WEB-INF/views/{1}/{2}.jsp" />
    </definition>

@@ -59,7 +59,7 @@ public class AppController {
 		List<User> users = userService.findAllUsers();
 		model.addAttribute("users", users);
 		model.addAttribute("loggedinuser", getPrincipal());
-		return "userslist";
+		return "user/userslist";
 	}
 
 	/**
@@ -69,7 +69,7 @@ public class AppController {
 	public String newUser(@ModelAttribute("user") User user, Model model) {
 		model.addAttribute("edit", false);
 		model.addAttribute("loggedinuser", getPrincipal());
-		return "registration";
+		return "user/registration";
 	}
 
 	/**
@@ -103,7 +103,7 @@ public class AppController {
 		model.addAttribute("success", "User " + user.getFirstName() + " "+ user.getLastName() + " registered successfully");
 		model.addAttribute("loggedinuser", getPrincipal());
 		//return "success";
-		return "registrationsuccess";
+		return "user/registrationsuccess";
 	}
 
 
@@ -116,7 +116,7 @@ public class AppController {
 		model.addAttribute("user", user);
 		model.addAttribute("edit", true);
 		model.addAttribute("loggedinuser", getPrincipal());
-		return "registration";
+		return "user/registration";
 	}
 
 	/**
@@ -143,7 +143,7 @@ public class AppController {
 
 		model.addAttribute("success", "User " + user.getFirstName() + " "+ user.getLastName() + " updated successfully");
 		model.addAttribute("loggedinuser", getPrincipal());
-		return "registrationsuccess";
+		return "user/registrationsuccess";
 	}
 
 
