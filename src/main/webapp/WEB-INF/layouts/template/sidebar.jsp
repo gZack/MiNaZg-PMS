@@ -1,5 +1,6 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 
 <section class="sidebar">
     <div class="user-panel">
@@ -8,6 +9,10 @@
         </div>
         <div class="pull-left info">
             <p>Alexander Pierce</p>
+            <security:authorize access="isAuthenticated()">
+                <security:authentication property="principal.username" />
+                <p>${userDetail.firstName}</p>
+            </security:authorize>
             <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
         </div>
     </div>

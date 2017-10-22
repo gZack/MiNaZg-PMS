@@ -2,6 +2,7 @@ package com.minazg.controller;
 
 import com.minazg.model.Project;
 import com.minazg.model.StatusType;
+import com.minazg.model.User;
 import com.minazg.service.ProjectService;
 import com.minazg.service.UserService;
 import com.minazg.util.HelperUtils;
@@ -83,7 +84,7 @@ public class ProjectController {
     public String editProjectForm(@Valid @ModelAttribute("newProject") Project project, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model){
         if(bindingResult.hasErrors()){
             //TODO, remove redundant code
-            project = projectService.findOne(Long.valueOf(project.getId()));
+            //project = projectService.findOne(Long.valueOf(project.getId()));
             model.addAttribute("statusTypes", helperUtils.getStatusTypes());
             model.addAttribute("projectManagerList",userService.findUsersByRoleName("PROJECT_MANAGER"));
             model.addAttribute("clientList",userService.findUsersByRoleName("CLIENT"));
