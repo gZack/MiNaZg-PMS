@@ -1,5 +1,6 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="secuirty" uri="http://www.springframework.org/security/tags" %>
 
 <section class="sidebar">
     <div class="user-panel">
@@ -7,8 +8,8 @@
             <img src='<c:url value="/static/img/avatar.png" />' class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
-            <p>Alexander Pierce</p>
-            <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+            <secuirty:authentication property="principal.username"/>
+            <i class="fa fa-circle text-success"></i>
         </div>
     </div>
 

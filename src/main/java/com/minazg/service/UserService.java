@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.minazg.model.User;
 
-
 public interface UserService {
 	
 	User findById(Long id);
@@ -36,6 +35,7 @@ public interface UserService {
 
 	/**
 	 * This method returns true if users is already authenticated [logged-in], else false.
+	 * @return boolean
 	 */
 	boolean isUserAuthenticated();
 

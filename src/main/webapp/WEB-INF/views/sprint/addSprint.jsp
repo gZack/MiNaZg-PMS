@@ -97,15 +97,3 @@
     </form:form>
 
 </div>
-
-<%--<script type="text/javascript">--%>
-    <%--// # ref http://eonasdan.github.io/bootstrap-datetimepicker/Options/--%>
-    <%--$(".datepicker").datetimepicker({--%>
-        <%--format: 'MM-DD-YYYY',--%>
-        <%--widgetPositioning: {--%>
-            <%--horizontal: 'auto',--%>
-            <%--vertical: 'bottom'--%>
-        <%--}--%>
-    <%--});--%>
-
-<%--</script>--%>
