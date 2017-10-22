@@ -6,6 +6,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
@@ -24,24 +25,28 @@ public class WorkOrder implements Serializable {
 
     @NotEmpty
     @Column(nullable = false)
-    private String type = WorkOrderType.FEATURE.getWorkOrderType();
+    private String type;
 
     @NotEmpty
     @Column(nullable=false)
     private String title;
 
-    @NotEmpty
+    @Size(min = 20,max = 200,message = "please describe the task")
     private String description;
-
-    @NotNull
-    @Column(nullable=false)
-    private Date startDate;
 
     @NotNull
     @Column(nullable=false)
     @DateTimeFormat(pattern = "MM-dd-yyyy")
     @Temporal(TemporalType.TIMESTAMP)
+    private Date startDate;
+
+/*
+    @NotNull
+    @Column(nullable=false)
+    @DateTimeFormat(pattern = "MM-dd-yyyy")
+    @Temporal(TemporalType.TIMESTAMP)
     private Date endDate;
+*/
 
     @DateTimeFormat(pattern = "MM-dd-yyyy")
     @Temporal(TemporalType.TIMESTAMP)
@@ -69,7 +74,7 @@ public class WorkOrder implements Serializable {
     private Set<Report> workOrderReports;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "sprint_id", nullable = false)
+    @JoinColumn(name = "sprint_id")
     private Sprint sprint;
 
 

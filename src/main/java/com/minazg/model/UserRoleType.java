@@ -2,7 +2,9 @@ package com.minazg.model;
 
 public enum UserRoleType {
 	USER("USER"),
-	DBA("DBA"),
+	DEVELOPER("DEVELOPER"),
+	CLIENT("CLIENT"),
+	PROJECT_MANAGER("PROJECT_MANAGER"),
 	ADMIN("ADMIN");
 
 	String userRoleType;

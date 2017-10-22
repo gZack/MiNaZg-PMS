@@ -1,19 +1,19 @@
 package com.minazg.model;
 
-import javafx.concurrent.Task;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
 @Entity
-@Data
+@Getter
+@Setter
 public class Sprint implements Serializable {
 
     @Id
@@ -47,11 +47,11 @@ public class Sprint implements Serializable {
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "sprint")
     List<WorkOrder> workOrders;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "release_id", nullable = false)
     private Release release;
 
-    @Override
+    /*@Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Sprint)) return false;
@@ -64,20 +64,10 @@ public class Sprint implements Serializable {
         return release.getId().equals(sprint.release.getId());
     }
 
-//    @Override
-//    public int hashCode() {
-//        int result = super.hashCode();
-//
-//        if(id == null){
-//            id=1L;
-//        }
-//        Long release_id = 1L;
-////        if(release.getId()==null){
-////            release_id=L;
-////        }
-//        result = 31 * result + id.hashCode();
-//        result = 31 * result + title.hashCode();
-//        result = 31 * result + release_id.hashCode();
-//        return result;
-//    }
+    @Override
+    public int hashCode() {
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + title != null ? title.hashCode() : 0;
+        return result;
+    }*/
 }

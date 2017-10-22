@@ -6,11 +6,13 @@ import java.util.Set;
 
 import javax.persistence.*;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
-@Data
+@Setter
+@Getter
 public class User implements Serializable{
 
 	@Id @GeneratedValue(strategy=GenerationType.AUTO)

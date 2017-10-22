@@ -1,27 +1,30 @@
 package com.minazg.model;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name="Milestone")
-@Data
+@Getter
+@Setter
 public class Release implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @NotNull
+    @NotEmpty
     @Column(nullable=false)
     private String versionNumber;
 
@@ -36,10 +39,10 @@ public class Release implements Serializable {
     @NotEmpty
     private String remark;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "release")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "release")
     private List<Sprint> sprints;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne()
     @JoinColumn(name = "project_id", nullable = false)
     private Project project;
 
@@ -58,14 +61,10 @@ public class Release implements Serializable {
 
     @Override
     public int hashCode() {
-//        if(id == null)
-//            id = 0L;
-//        if (project.getId() == null)
-//            project.setId(0L);
-        int result = super.hashCode();
-//        result = 31 * result + id.hashCode();
-        result = 31 * result + versionNumber.hashCode();
-//        result = 31 * result + project.getId().hashCode();
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + versionNumber != null ? versionNumber.hashCode() : 0;
+        result = 31 * result + (project != null ? project.getId().hashCode() : 0);
         return result;
     }
+
 }

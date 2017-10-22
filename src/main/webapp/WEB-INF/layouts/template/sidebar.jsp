@@ -23,7 +23,7 @@
             </a>
         </li>
         <li>
-            <a href="#">
+            <a href="<c:url value="/task/list"/> ">
                 <i class="fa fa-th"></i> <span>Tasks</span>
                 <span class="pull-right-container">
             </span>

@@ -86,7 +86,7 @@
                 </form:select>
 
                 <div class="has-error">
-                    <form:errors path="projectManager" />
+                    <form:errors path="projectManager.id" />
                 </div>
             </div>
         </div>

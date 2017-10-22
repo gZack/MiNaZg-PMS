@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class SecurityUtils {
     public static void main(String[] args) {
-        String password = "abc125";
+        String password = args[0];
 
         System.out.println(args[0]);
 

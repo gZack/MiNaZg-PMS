@@ -15,6 +15,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenBasedRememberMeServices;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
@@ -26,12 +27,15 @@ import javax.sql.DataSource;
 @ComponentScan({"com.minazg.configuration"})
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-	final
-    UserDetailsService userDetailsService;
+	final UserDetailsService userDetailsService;
+
+	final AuthenticationSuccessHandler successHandler;
 
     @Autowired
-    public SecurityConfiguration(@Qualifier("customUserDetailsService") UserDetailsService userDetailsService) {
+    public SecurityConfiguration(@Qualifier("customUserDetailsService") UserDetailsService userDetailsService,
+								 final AuthenticationSuccessHandler successHandler) {
         this.userDetailsService = userDetailsService;
+        this.successHandler = successHandler;
     }
 
     @Autowired
@@ -46,7 +50,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.antMatchers("/", "/list").access("hasRole('USER') or hasRole('ADMIN') or hasRole('DBA')")
 				.antMatchers("/newuser/**", "/delete-user-*").access("hasRole('ADMIN')")
 				.antMatchers("/edit-user-*").access("hasRole('ADMIN') or hasRole('DBA')")
-				.and().formLogin().loginPage("/login")
+				.antMatchers("/task/**").access("hasRole('PROJECT_MANAGER') or hasRole('DEVELOPER')")
+				.and().formLogin().loginPage("/login").successHandler(successHandler)
 				.loginProcessingUrl("/login").usernameParameter("ssoId").passwordParameter("password")
 				//.and().rememberMe().rememberMeParameter("remember-me").tokenRepository(tokenRepository).tokenValiditySeconds(86400)
 				.and().csrf()
