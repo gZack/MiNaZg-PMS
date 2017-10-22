@@ -6,6 +6,11 @@
 <div class="half-width">
 
     <form:form method="POST" modelAttribute="newSprint" class="form-horizontal">
+        <c:choose>
+            <c:when test="${action eq 'edit'}">
+                <form:hidden path="id" id="id"/>
+            </c:when>
+        </c:choose>
 
         <div class="form-group">
             <label class="control-label col-sm-2" for="title">Title:</label>
@@ -90,10 +95,31 @@
 
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
-                <form:hidden path="id" id="id"/>
-                <button type="submit" class="btn btn-default">Submit</button>
+                <c:choose>
+                    <c:when test="${action eq 'edit'}">
+                        <button type="submit" class="btn btn-default">Edit</button>
+                    </c:when>
+                    <c:otherwise>
+                        <button type="submit" class="btn btn-default">Add</button>
+                    </c:otherwise>
+                </c:choose>
             </div>
         </div>
     </form:form>
 
+
+
 </div>
+
+<script type="text/javascript">
+    // # ref http://eonasdan.github.io/bootstrap-datetimepicker/Options/
+    $(".date").datetimepicker({
+        format: 'MM-DD-YYYY',
+        widgetPositioning: {
+            horizontal: 'auto',
+            vertical: 'bottom'
+        }
+    });
+
+</script>
+
