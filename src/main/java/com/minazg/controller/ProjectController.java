@@ -32,10 +32,12 @@ public class ProjectController {
 //    }
 
     @RequestMapping(value = {"", "/", "/list"})
-    public String list(Model model) {
-        model.addAttribute("projects", projectService.findAll());
-        User u = (User) model.asMap().get("userDetail");
-
+    public String list(Model model, @RequestParam(value="q", required = false) String q) {
+        List<Project> projects = null;
+        q = (q != null ) ? q : "";
+        model.addAttribute("q",q);
+        projects = projectService.findByName(q);
+        model.addAttribute("projects", projects);
         return "project/listProject";
     }
 

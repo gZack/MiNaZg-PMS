@@ -35,3 +35,10 @@ body, .form-control{
 .half-width{
     max-width:50%;
 }
+.project-search-form{
+    clear:both;
+}
+.project-search-form .col-md-4{
+    padding-left:0px;
+    margin-bottom: 10px;
+}
