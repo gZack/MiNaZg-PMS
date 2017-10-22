@@ -34,6 +34,8 @@ public class ProjectController {
     @RequestMapping(value = {"", "/", "/list"})
     public String list(Model model) {
         model.addAttribute("projects", projectService.findAll());
+        User u = (User) model.asMap().get("userDetail");
+
         return "project/listProject";
     }
 

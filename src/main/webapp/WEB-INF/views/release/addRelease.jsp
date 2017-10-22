@@ -71,15 +71,3 @@
         </div>
     </form:form>
 </div>
-
-<script type="text/javascript">
-    // # ref http://eonasdan.github.io/bootstrap-datetimepicker/Options/
-    $(".date").datetimepicker({
-        format: 'MM-DD-YYYY',
-        widgetPositioning: {
-            horizontal: 'auto',
-            vertical: 'bottom'
-        }
-    });
-
-</script>

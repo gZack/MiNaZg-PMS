@@ -4,17 +4,16 @@
 
 <section class="sidebar">
     <div class="user-panel">
+        <security:authorize access="isAuthenticated()">
         <div class="pull-left image">
             <img src='<c:url value="/static/img/avatar.png" />' class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
-            <p>Alexander Pierce</p>
-            <security:authorize access="isAuthenticated()">
-                <security:authentication property="principal.username" />
-                <p>${userDetail.firstName}</p>
-            </security:authorize>
+            <p>${userDetail.firstName} ${userDetail.lastName}</p>
+                <%--<security:authentication property="principal.username" />--%>
             <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
         </div>
+        </security:authorize>
     </div>
 
     <ul class="sidebar-menu" data-widget="tree">
@@ -33,6 +32,7 @@
             </span>
             </a>
         </li>
+        <security:authorize access="isAuthenticated() && hasRole('ADMIN')">
         <li>
             <a href="#">
                 <i class="fa fa-user"></i> <span>Manage Users</span>
@@ -40,6 +40,7 @@
             </span>
             </a>
         </li>
+        </security:authorize>
     </ul>
 </section>
 

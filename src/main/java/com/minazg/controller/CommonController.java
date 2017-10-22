@@ -19,20 +19,12 @@ public class CommonController {
     public User getUserDetail(){
         User user = null;
         try {
-            user = userService.findBySSO(SecurityContextHolder.getContext().getAuthentication().getName());
-            System.out.println("my role is " + user.getUserRoles());
-            if(user.getUserRoles().contains("PROJECT_MANAGER"));{
-                System.out.println("I AM PROJECT MANAGER");
-            }
+            user = userService.getCurrentAuthenticatedUser();
         }
-        catch (NullPointerException e){
+        catch (Exception e){
             System.out.println("User not Logged In!");
         }
         return user;
     }
-//
-//    @ModelAttribute("userRole")
-//    public void getUserRoles(){
-//        userService.get
-//    }
+
 }
