@@ -42,3 +42,12 @@ body, .form-control{
     padding-left:0px;
     margin-bottom: 10px;
 }
+.fright{
+    float:right;
+}
+.top-menu{
+    padding-top: 20px;
+}
+.content hr{
+    margin-top:5px;
+}

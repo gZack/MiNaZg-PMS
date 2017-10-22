@@ -8,10 +8,11 @@
         </div>
     </c:if>
     <div class="project-search-form">
-    <form  method="GET" action="/project/list" >
+        <button href="/project/add" class="col-md-1 btn btn-warning">Add New</button>
+    <form class="col-md-10" method="GET" action="/project/list" >
         <div class="col-md-4">
             <div class="input-group">
-                <input class="form-control" placeholder="Project Name" required name="q" tupe="text" value="${q}"/>
+                <input class="form-control" placeholder="Filter by Project Name" required name="q" tupe="text" value="${q}"/>
                 <span class="input-group-btn">
                     <button type="submit" class="btn btn-default" type="button">Go!</button>
                   </span>

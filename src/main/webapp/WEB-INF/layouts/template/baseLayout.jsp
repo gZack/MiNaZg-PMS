@@ -63,7 +63,15 @@
 
 <script>
     $(document).ready(function () {
-        $('.sidebar-menu').tree()
+        $('.sidebar-menu').tree();
+        $('.formWithDateValidation').submit(function () {
+            var start = new Date($('#startDate').val());
+            var end = new Date($('#endDate').val());
+            if(start > end) {
+                alert("Start Date can not be greater than End Date");
+                return false;
+            }
+        });
     });
 
     // # ref http://eonasdan.github.io/bootstrap-datetimepicker/Options/
