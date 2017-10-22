@@ -27,7 +27,7 @@
                         <c:url value="/workorder/list/${sprint.id}" var="workOrderViewUrl"/>
                         <a class="fa fa-list" href="<c:out value='${workOrderViewUrl}'/>"></a>
                         &nbsp;&nbsp;
-                        <c:url value="/orkorder/add/${sprint.id}" var="workOrderAddUrl"/>
+                        <c:url value="/workorder/add/${sprint.id}" var="workOrderAddUrl"/>
                         <a class="fa fa-plus" href="<c:out value='${workOrderAddUrl}'/>"></a>
                     </td>
                     <td>${sprint.status}</td>
