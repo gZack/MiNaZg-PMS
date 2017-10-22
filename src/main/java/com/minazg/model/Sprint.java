@@ -47,27 +47,8 @@ public class Sprint implements Serializable {
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "sprint")
     List<WorkOrder> workOrders;
 
-    @ManyToOne(cascade = CascadeType.MERGE)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinColumn(name = "release_id", nullable = false)
     private Release release;
 
-    /*@Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Sprint)) return false;
-        if (!super.equals(o)) return false;
-
-        Sprint sprint = (Sprint) o;
-
-        if (!id.equals(sprint.id)) return false;
-        if (!title.equals(sprint.title)) return false;
-        return release.getId().equals(sprint.release.getId());
-    }
-
-    @Override
-    public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + title != null ? title.hashCode() : 0;
-        return result;
-    }*/
 }

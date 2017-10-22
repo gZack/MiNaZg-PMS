@@ -56,15 +56,15 @@ href="<spring:url value="/project/" />"
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                     <img src='<c:url value="/static/img/avatar.png" />' class="user-image" alt="User Image">
                     <span class="hidden-xs">
-                        <secuirty:authentication property="principal.username"/>
+                        <%--<secuirty:authentication property="principal.username"/>--%>
+                        &nbsp;
                     </span>
                 </a>
                 <ul class="dropdown-menu">
                     <!-- User image -->
                     <li class="user-header">
                         <p>
-                            Alexander Pierce - Web Developer
-                            <small>Member since Nov. 2012</small>
+                            ${userDetail.firstName} ${userDetail.lastName}
                         </p>
                     </li>
 

@@ -2,6 +2,7 @@ package com.minazg.controller;
 
 import com.minazg.model.Project;
 import com.minazg.model.StatusType;
+import com.minazg.model.User;
 import com.minazg.service.ProjectService;
 import com.minazg.service.UserService;
 import com.minazg.util.HelperUtils;
@@ -31,8 +32,12 @@ public class ProjectController {
 //    }
 
     @RequestMapping(value = {"", "/", "/list"})
-    public String list(Model model) {
-        model.addAttribute("projects", projectService.findAll());
+    public String list(Model model, @RequestParam(value="q", required = false) String q) {
+        List<Project> projects = null;
+        q = (q != null ) ? q : "";
+        model.addAttribute("q",q);
+        projects = projectService.findByName(q);
+        model.addAttribute("projects", projects);
         return "project/listProject";
     }
 
@@ -83,7 +88,7 @@ public class ProjectController {
     public String editProjectForm(@Valid @ModelAttribute("newProject") Project project, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model){
         if(bindingResult.hasErrors()){
             //TODO, remove redundant code
-            project = projectService.findOne(Long.valueOf(project.getId()));
+            //project = projectService.findOne(Long.valueOf(project.getId()));
             model.addAttribute("statusTypes", helperUtils.getStatusTypes());
             model.addAttribute("projectManagerList",userService.findUsersByRoleName("PROJECT_MANAGER"));
             model.addAttribute("clientList",userService.findUsersByRoleName("CLIENT"));

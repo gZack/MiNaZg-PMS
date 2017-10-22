@@ -29,4 +29,8 @@ public class ProjectServiceImpl implements ProjectService {
     public void updateProject(Project project){
         projectRepository.save(project);
     }
+
+    public List<Project> findByName(String name){
+        return (List<Project>) projectRepository.findByName(name);
+    }
 }

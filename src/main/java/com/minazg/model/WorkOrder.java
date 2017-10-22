@@ -1,6 +1,8 @@
 package com.minazg.model;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -12,7 +14,8 @@ import java.util.Date;
 import java.util.Set;
 
 @Entity
-@Data
+@Getter
+@Setter
 public class WorkOrder implements Serializable {
 
     @Id

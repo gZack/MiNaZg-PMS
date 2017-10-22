@@ -1,9 +1,16 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<h2>Add New Project</h2>
+<c:choose>
+    <c:when test="${action eq 'edit'}">
+        <h2>Edit Project</h2>
+    </c:when>
+    <c:otherwise>
+        <h2>Add New Project</h2>
+    </c:otherwise>
+</c:choose>
 <hr/>
 <div class="half-width">
-    <form:form modelAttribute="newProject" cssClass="form-horizontal">
+    <form:form modelAttribute="newProject" cssClass="form-horizontal formWithDateValidation">
         <c:choose>
             <c:when test="${action eq 'edit'}">
                 <form:hidden path="id" id="id"/>
@@ -41,11 +48,11 @@
         </div>
 
         <div class="form-group">
-            <label class="control-label col-sm-2" for="dateStart">Start Date:</label>
+            <label class="control-label col-sm-2" for="startDate">Start Date:</label>
             <div class="col-sm-10">
                 <%--<form:input  path="dateStart" class="form-control" id="dateStart"  />--%>
                     <div class='input-group date' id='datetimepicker1'>
-                        <form:input path="dateStart" class="form-control" />
+                        <form:input id="startDate" path="dateStart" class="form-control" />
                         <span class="input-group-addon">
                             <span class="glyphicon glyphicon-calendar"></span>
                         </span>
@@ -60,10 +67,10 @@
         </div>
 
         <div class="form-group">
-            <label class="control-label col-sm-2" for="dateEnd">End Date:</label>
+            <label class="control-label col-sm-2" for="endDate">End Date:</label>
             <div class="col-sm-10">
                 <div class='input-group date' id='datetimepicker2'>
-                    <form:input path="dateEnd" class="form-control" />
+                    <form:input id="endDate" path="dateEnd" class="form-control" />
                     <span class="input-group-addon">
                             <span class="glyphicon glyphicon-calendar"></span>
                     </span>

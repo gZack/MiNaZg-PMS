@@ -9,4 +9,5 @@ public interface ProjectService {
     public List<Project> findAll();
     public Project findOne(Long id);
     public void updateProject(Project project);
+    public List<Project> findByName(String name);
 }

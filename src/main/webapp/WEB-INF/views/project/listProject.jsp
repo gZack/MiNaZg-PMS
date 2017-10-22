@@ -1,11 +1,28 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <h2>Projects</h2>
 <hr/>
-<div class="">
+<p class="">
     <c:if test="${not empty flashMessage}" >
         <div class="alert alert-success">
             <strong>Success!</strong> ${flashMessage}
         </div>
+    </c:if>
+    <div class="project-search-form">
+        <button href="/project/add" class="col-md-1 btn btn-warning">Add New</button>
+    <form class="col-md-10" method="GET" action="/project/list" >
+        <div class="col-md-4">
+            <div class="input-group">
+                <input class="form-control" placeholder="Filter by Project Name" required name="q" tupe="text" value="${q}"/>
+                <span class="input-group-btn">
+                    <button type="submit" class="btn btn-default" type="button">Go!</button>
+                  </span>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </form>
+    </div>
+    <c:if test="${empty projects}">
+        No Result Found.
     </c:if>
     <c:if test="${not empty projects}">
         <table class="table">
