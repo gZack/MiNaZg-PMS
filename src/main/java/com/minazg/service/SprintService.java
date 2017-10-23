@@ -6,9 +6,10 @@ import java.util.List;
 
 public interface SprintService {
 
-    Sprint findById(Long id);
+    Sprint findOne(Long id);
 
     List<Sprint> findSprintByTitle(String title);
+
 
     void saveSprint(Sprint sprint);
 
@@ -19,6 +20,8 @@ public interface SprintService {
     List<Sprint> findAll();
 
     List<Sprint> findSprintByReleaseId(Long id);
+
+    List<Sprint> findByReleaseIdAndTitle(Long releaseId, String title);
 
 
 

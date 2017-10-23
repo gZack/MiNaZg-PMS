@@ -94,15 +94,16 @@
             </div>
         </div>
 
-        <div class="form-group">
-            <label class="control-label col-sm-2" for="release.id">Release ID:</label>
-            <div class="col-sm-10">
-                <form:input type="text" path="release.id" id="release.id" value="1" class="form-control input-sm" />
-                <div class="has-error">
-                    <form:errors path="release.id" class="help-inline"/>
-                </div>
-            </div>
-        </div>
+        <form:hidden path="release.id" value="${releaseId}" id="release.id"/>
+        <%--<div class="form-group">--%>
+            <%--<label class="control-label col-sm-2" for="release.id">Release ID:</label>--%>
+            <%--<div class="col-sm-10">--%>
+                <%--<form:input type="text" path="release.id" id="release.id" value="1" class="form-control input-sm" />--%>
+                <%--<div class="has-error">--%>
+                    <%--<form:errors path="release.id" class="help-inline"/>--%>
+                <%--</div>--%>
+            <%--</div>--%>
+        <%--</div>--%>
 
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">

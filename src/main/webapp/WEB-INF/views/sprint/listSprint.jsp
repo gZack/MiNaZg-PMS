@@ -13,10 +13,11 @@
         <button href="/sprint/add" class="col-md-1 btn btn-warning">Add New</button>
     </div>
 
-    <form  method="GET" action="/sprint/list" >
+    <form  method="GET" action="/sprint/search" >
         <div class="col-md-4">
             <div class="input-group">
-                <input class="form-control" placeholder="Release ID" required name="q" type="q" value="${q}"/>
+                <input type="hidden" name="releaseId" id="releaseId" value="${releaseId}">
+                <input class="form-control" placeholder="Sprint Title" required name="sprintTitle" tupe="text" value="${sprintTitle}"/>
                 <span class="input-group-btn">
                     <button type="submit" class="btn btn-default" type="button">Search</button>
                   </span>
