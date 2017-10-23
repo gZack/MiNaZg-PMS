@@ -16,7 +16,7 @@ public class SprintServiceImpl implements SprintService {
     @Autowired
     private SprintRepository sprintRepository;
 
-    public Sprint findById(Long id) {
+    public Sprint findOne(Long id) {
         return sprintRepository.findOne(id);
     }
 
@@ -34,6 +34,10 @@ public class SprintServiceImpl implements SprintService {
 
     public List<Sprint> findSprintByReleaseId(Long id) {
         return sprintRepository.findSprintByReleaseId(id);
+    }
+
+    public List<Sprint> findByReleaseIdAndTitle(Long releaseId, String title) {
+        return sprintRepository.findByReleaseIdAndTitle( releaseId,  title);
     }
 
     @Override
