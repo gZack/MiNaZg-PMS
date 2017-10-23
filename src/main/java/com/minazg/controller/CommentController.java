@@ -18,6 +18,7 @@ public class CommentController {
 
     @Autowired
     CommentService commentService;
+
     @RequestMapping(value="/comment/add", method= RequestMethod.POST)
     public String addComment(@Valid @ModelAttribute("newComment") Comment comment,
                              BindingResult bindingResult,
@@ -31,4 +32,19 @@ public class CommentController {
         redirectAttributes.addFlashAttribute("commentMessage", "Success: Comment Added Successfully");
         return "redirect:"+model.asMap().get("redirectUrl");
     }
+
+    @RequestMapping(value="/comment/del/{userId}/{commentId}", method= RequestMethod.GET)
+    public String delComment(@PathVariable String userId, @PathVariable String commentId,
+                             Model model, RedirectAttributes redirectAttributes){
+        try{
+            commentService.delete(Long.valueOf(userId), Long.valueOf(commentId));
+            redirectAttributes.addFlashAttribute("commentMessage", "Success: Comment Deleted Successfully");
+        }
+        catch(Exception e){
+            System.out.println(e);
+        }
+
+        return "redirect:"+model.asMap().get("redirectUrl");
+    }
+
 }

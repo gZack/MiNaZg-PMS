@@ -39,4 +39,8 @@ public class CommentServiceImpl implements CommentService {
         comment.setDateCommented(new Date());
         commentRepository.save(comment);
     }
+
+    public void delete(Long userId, Long commentId ){
+        commentRepository.deleteByIdAndProposerId(commentId,userService.getCurrentAuthenticatedUser().getId());
+    }
 }

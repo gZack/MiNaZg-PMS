@@ -8,4 +8,5 @@ public interface CommentService {
     public List<Comment> findAll();
     public List<Comment> loadComment(Long componentId, String componentType);
     public void save(Comment comment);
+    public void delete(Long userId, Long commentId);
 }
