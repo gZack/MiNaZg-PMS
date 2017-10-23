@@ -16,6 +16,9 @@ public class TaskServiceImpl implements TaskService {
     @Autowired
     private TaskRepository taskRepository;
 
+    @Autowired
+    private UserService userService;
+
     @Override
     public List<WorkOrder> findAll() {
         return (List<WorkOrder>) taskRepository.findAll();
@@ -32,5 +35,10 @@ public class TaskServiceImpl implements TaskService {
         Hibernate.initialize(workOrder.getDeveloper());
         Hibernate.initialize(workOrder.getSprint());
         return workOrder;
+    }
+
+    @Override
+    public List<WorkOrder> getMyTasks() {
+        return taskRepository.findByDeveloper_Id(userService.getCurrentAuthenticatedUser().getId());
     }
 }

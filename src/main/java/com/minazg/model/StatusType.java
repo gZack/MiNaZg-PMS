@@ -5,6 +5,7 @@ public enum StatusType {
     INPROGRESS("INPROGRESS"),
     COMPLETED("COMPLETED"),
     PENDING("PENDING"),
+    RESOLVED("RESOLVED"),
     CANCELLED("CANCELLED");
 
     String statusType;

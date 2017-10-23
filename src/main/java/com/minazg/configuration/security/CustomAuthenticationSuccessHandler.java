@@ -71,7 +71,7 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
         } else if(isPM(roles)){
             targetUrl = "/project";
         } else if (isDeveloper(roles)){
-            targetUrl = "/task";
+            targetUrl = "/dev";
         } else {
             targetUrl = "/Access_Denied";
         }
@@ -88,7 +88,7 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
     }
 
     private boolean isDeveloper(List<String> roles){
-        return roles.contains(ROLE_PREFIX + UserRoleType.PROJECT_MANAGER.getUserRoleType());
+        return roles.contains(ROLE_PREFIX + UserRoleType.DEVELOPER.getUserRoleType());
     }
 
     private boolean isClient(List<String> roles){

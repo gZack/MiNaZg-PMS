@@ -18,7 +18,7 @@ public class SprintConverter implements Converter<Object, Sprint> {
         Sprint sprint = (Sprint)source;
 
         if(sprint != null && sprint.getId() != null){
-            return sprintService.findById(sprint.getId());
+            return sprintService.findOne(sprint.getId());
         }
 
         return null;
