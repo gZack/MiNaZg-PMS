@@ -27,13 +27,13 @@ public class Comment implements Serializable{
     @NotNull
     private Long componentId;
 
-    @NotNull
+    //@NotNull
     @Column(nullable=false)
     @DateTimeFormat(pattern = "MM-dd-yyyy")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dateCommented;
 
-    @ManyToOne()
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinColumn(name = "proposer_user_id")
     private User proposer;
 
@@ -50,12 +50,12 @@ public class Comment implements Serializable{
         return proposer.getId().equals(comment.proposer.getId());
     }
 
-    @Override
-    public int hashCode() {
-        int result = super.hashCode();
-        result = 31 * result + id.hashCode();
-        result = 31 * result + componentType.hashCode();
-        result = 31 * result + proposer.getId().hashCode();
-        return result;
-    }
+//    @Override
+//    public int hashCode() {
+//        int result = super.hashCode();
+//        result = 31 * result + id.hashCode();
+//        result = 31 * result + componentType.hashCode();
+//        result = 31 * result + proposer.getId().hashCode();
+//        return result;
+//    }
 }
