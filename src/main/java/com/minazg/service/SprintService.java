@@ -8,6 +8,8 @@ public interface SprintService {
 
     Sprint findById(Long id);
 
+    List<Sprint> findSprintByTitle(String title);
+
     void saveSprint(Sprint sprint);
 
     void updateSprint(Sprint sprint);
@@ -15,6 +17,9 @@ public interface SprintService {
     void deleteSprintById(Long id);
 
     List<Sprint> findAll();
+
+    List<Sprint> findSprintByReleaseId(Long id);
+
 
 
 }

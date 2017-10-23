@@ -1,5 +1,6 @@
 package com.minazg.controller;
 
+import com.minazg.model.Release;
 import com.minazg.model.Sprint;
 import com.minazg.model.StatusType;
 import com.minazg.service.SprintService;
@@ -9,14 +10,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.naming.Binding;
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 @RequestMapping("/sprint")
@@ -37,36 +36,45 @@ public class SprintController {
     }
 
 
+
     @RequestMapping(value = {"", "/", "/list"})
-    public String list(Model model) {
-        model.addAttribute("sprints", sprintService.findAll());
+    public String list(Model model, @RequestParam(value="q", required = false) String q) {
+        List<Sprint> sprints = null;
+//        model.addAttribute("sprints", sprintService.findAll());
+//       String q = Long.toString(p);
+        q = (q != null) ? q : "";
+        model.addAttribute("q", q);
+        sprints = sprintService.findSprintByTitle(q);
+//        sprints = sprintService.findSprintByReleaseId(Long.valueOf(q));
+        model.addAttribute("sprints", sprints);
         return "sprint/listSprint";
     }
+
 
     @RequestMapping(value = {"/add"}, method = RequestMethod.GET)
     public String getAddNewSprintForm(@ModelAttribute("newSprint") Sprint newSprint, Model model) {
         model.addAttribute("statusTypes", helperUtils.getStatusTypes());
-        model.addAttribute("projectManagerList",userService.findUsersByRoleName("PROJECT_MANAGER"));
-        model.addAttribute("clientList",userService.findUsersByRoleName("CLIENT"));
+//        model.addAttribute("projectManagerList",userService.findUsersByRoleName("PROJECT_MANAGER"));
+//        model.addAttribute("clientList",userService.findUsersByRoleName("CLIENT"));
         return "sprint/addSprint";
     }
 
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public String processAddNewSprintForm(@ModelAttribute("newSprint") @Valid Sprint newSprint, RedirectAttributes redirectAttributes, BindingResult result, Model model) {
-        if(result.hasErrors()) {
+    @RequestMapping(value={"/add"}, method = RequestMethod.POST)
+    public String saveSprint(@Valid @ModelAttribute("newSprint") Sprint sprint, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model){
+        if(bindingResult.hasErrors()){
+            // TODO, remove redundant code
             model.addAttribute("statusTypes", helperUtils.getStatusTypes());
             model.addAttribute("projectManagerList",userService.findUsersByRoleName("PROJECT_MANAGER"));
             model.addAttribute("clientList",userService.findUsersByRoleName("CLIENT"));
             return "sprint/addSprint";
         }
-
-        sprintService.saveSprint(newSprint);
+        sprintService.saveSprint(sprint);
         redirectAttributes.addFlashAttribute("flashMessage","Sprint Added Successfully");
         return "redirect:/sprint/list";
     }
 
     @RequestMapping(value={"/edit/{sid}"}, method = RequestMethod.GET)
-    public String editProjectForm(@PathVariable ("sid") String sid, Model model){
+    public String editSprintForm(@PathVariable ("sid") String sid, Model model){
         Sprint sprint = null;
         try{
             sprint = sprintService.findById(Long.valueOf(sid));
@@ -87,7 +95,7 @@ public class SprintController {
     }
 
     @RequestMapping(value={"/edit/{sid}"}, method = RequestMethod.POST)
-    public String editProjectForm(@Valid @ModelAttribute("newSprint") Sprint sprint, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model){
+    public String editSprintForm(@Valid @ModelAttribute("newSprint") Sprint sprint, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model){
         if(bindingResult.hasErrors()){
 
             sprint = sprintService.findById(Long.valueOf(sprint.getId()));
@@ -95,8 +103,7 @@ public class SprintController {
             model.addAttribute("projectManagerList",userService.findUsersByRoleName("PROJECT_MANAGER"));
             model.addAttribute("clientList",userService.findUsersByRoleName("CLIENT"));
             model.addAttribute("action", "edit");
-            model.addAttribute("newSprint", sprint);
-            return "sprint/addProject";
+            return "sprint/addSprint";
         }
 
         sprintService.updateSprint(sprint);
