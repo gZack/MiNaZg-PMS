@@ -7,12 +7,24 @@
 	<form:form method="POST" modelAttribute="task" class="form-horizontal">
 
 		<form:input type="hidden" path="id" id="id"/>
+		<%--<div class="form-group">
+			<label class="col-sm-3 control-label" for="sprint">Sprint:</label>
+			<div class="col-sm-9">
+				<form:select id="sprint" path="sprint" class="form-control input-sm">
+					<form:option value="">--select sprint--</form:option>
+					<form:options items="${sprints}" itemValue="id" itemLabel="title" />
+				</form:select>
+				<div class="has-error">
+					<form:errors path="sprint.id" class="help-inline"/>
+				</div>
+			</div>
+		</div>--%>
 
 		<div class="form-group">
 			<label class="col-sm-3 control-label" for="sprint">Sprint:</label>
 			<div class="col-sm-9">
 				<form:select id="sprint" path="sprint" class="form-control input-sm">
-					<form:option value="">--select sprint--</form:option>
+					<form:option value="">--select developer--</form:option>
 					<form:options items="${sprints}" itemValue="id" itemLabel="title" />
 				</form:select>
 				<div class="has-error">
@@ -100,14 +112,7 @@
 		</div>
 
 		<div class="form-actions floatRight">
-			<c:choose>
-				<c:when test="${edit}">
-					<input type="submit" value="Update" class="btn btn-primary btn-sm"/> or <a href="<c:url value='/task/list' />">Cancel</a>
-				</c:when>
-				<c:otherwise>
-					<input type="submit" value="Create Task" class="btn btn-primary btn-sm"/> or <a href="<c:url value='/task/list' />">Cancel</a>
-				</c:otherwise>
-			</c:choose>
+			<input type="submit" value="Update" class="btn btn-primary btn-sm"/> or <a href="<c:url value='/task/list' />">Cancel</a>
 		</div>
 	</form:form>
 </div>

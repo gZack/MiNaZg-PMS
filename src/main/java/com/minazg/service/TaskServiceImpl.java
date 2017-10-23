@@ -2,6 +2,7 @@ package com.minazg.service;
 
 import com.minazg.model.WorkOrder;
 import com.minazg.repository.TaskRepository;
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,5 +24,13 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public WorkOrder save(WorkOrder workOrder) {
         return taskRepository.save(workOrder);
+    }
+
+    @Override
+    public WorkOrder findOne(Long id){
+        WorkOrder workOrder = taskRepository.findOne(id);
+        Hibernate.initialize(workOrder.getDeveloper());
+        Hibernate.initialize(workOrder.getSprint());
+        return workOrder;
     }
 }

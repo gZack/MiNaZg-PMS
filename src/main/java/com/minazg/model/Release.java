@@ -1,10 +1,7 @@
 package com.minazg.model;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -39,7 +36,7 @@ public class Release implements Serializable {
     @NotEmpty
     private String remark;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "release")
+    @OneToMany(mappedBy = "release")
     private List<Sprint> sprints;
 
     @ManyToOne()

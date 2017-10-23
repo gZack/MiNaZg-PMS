@@ -10,4 +10,6 @@ public interface TaskService {
 
     WorkOrder save(WorkOrder workOrder);
 
+    WorkOrder findOne(Long id);
+
 }

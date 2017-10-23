@@ -1,1 +1,3 @@
 ALTER TABLE WorkOrder MODIFY sprint_id BIGINT(20) NULL;
+
+ALTER TABLE WorkOrder DROP COLUMN endDate;

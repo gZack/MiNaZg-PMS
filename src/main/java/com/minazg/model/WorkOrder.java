@@ -69,14 +69,14 @@ public class WorkOrder implements Serializable {
 
     private Double totalProgress;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @JoinColumn(name = "dev_user_id")
     private User developer;
 
     @OneToMany(mappedBy = "workOrder",fetch = FetchType.LAZY)
     private Set<Report> workOrderReports;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @JoinColumn(name = "sprint_id")
     private Sprint sprint;
 

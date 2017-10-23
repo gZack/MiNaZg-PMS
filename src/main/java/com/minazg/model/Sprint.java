@@ -44,11 +44,28 @@ public class Sprint implements Serializable {
     @Column(nullable=false)
     private String status = StatusType.CREATED.getStatusType();
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "sprint")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "sprint")
     List<WorkOrder> workOrders;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinColumn(name = "release_id", nullable = false)
     private Release release;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Sprint)) return false;
+
+        Sprint sprint = (Sprint) o;
+
+        if (!id.equals(sprint.id)) return false;
+        return release.getId().equals(sprint.release.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id.hashCode();
+        result = 31 * result + release.hashCode();
+        return result;
+    }
 }

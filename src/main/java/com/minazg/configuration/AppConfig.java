@@ -1,6 +1,10 @@
 package com.minazg.configuration;
 
 import com.minazg.converter.RoleToUserRoleConverter;
+import com.minazg.converter.SprintConverter;
+import com.minazg.converter.UserConverter;
+import com.minazg.formatter.SprintFormatter;
+import com.minazg.formatter.UserFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
@@ -22,7 +26,13 @@ import org.springframework.web.servlet.view.JstlView;
 @EnableWebMvc
 @ComponentScan(basePackages = "com.minazg")
 public class AppConfig extends WebMvcConfigurerAdapter{
-	
+
+	@Autowired
+	private UserFormatter userFormatter;
+
+	@Autowired
+	private SprintFormatter sprintFormatter;
+
 	
 	final RoleToUserRoleConverter roleToUserRoleConverter;
 
@@ -60,6 +70,8 @@ public class AppConfig extends WebMvcConfigurerAdapter{
     @Override
     public void addFormatters(FormatterRegistry registry) {
         registry.addConverter(roleToUserRoleConverter);
+        registry.addFormatter(sprintFormatter);
+        registry.addFormatter(userFormatter);
     }
 	
 

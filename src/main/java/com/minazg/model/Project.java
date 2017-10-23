@@ -48,7 +48,7 @@ public class Project implements Serializable{
     @JoinColumn(name = "client_user_id")
     private User client;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "project")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "project")
     private List<Release> releases;
 
     @Override
