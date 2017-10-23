@@ -2,7 +2,23 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <div class="card-header">
-    <div class="well lead">Task List</div>
+    <div class="well lead">Tasks</div>
+</div>
+
+<div class="project-search-form">
+    <a href="<c:url value='/task/add'/>" class="col-md-1 btn btn-warning">Add New</a>
+    <form class="col-md-10" method="GET" action="/project/list" >
+        <div class="col-md-4">
+            <div class="input-group">
+                <input class="form-control" placeholder="filter by title" required name="q" tupe="text" value="${q}"/>
+                <span class="input-group-btn">
+                        <button type="submit" class="btn btn-default" type="button">Go!</button>
+                      </span>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </form>
+    <div class="clearfix"></div>
 </div>
 
 <table class="table">
@@ -31,9 +47,3 @@
     </c:forEach>
     </tbody>
 </table>
-
-<div class="form-actions floatRight">
-
-    <a href="<c:url value='/task/add'/>">Create Task</a>
-
-</div>

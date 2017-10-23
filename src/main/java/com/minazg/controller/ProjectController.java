@@ -31,11 +31,6 @@ public class ProjectController {
     @Autowired
     CommentService commentService;
 
-//    @ModelAttribute("StatusTypes")
-//    public StatusType[] getStatusTypes(){
-//        return helperUtils.getStatusTypes();
-//    }
-
     @RequestMapping(value = {"", "/", "/list"})
     public String list(Model model, @RequestParam(value="q", required = false) String q) {
         List<Project> projects = null;

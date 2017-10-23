@@ -27,7 +27,7 @@
         </li>
         <li>
             <a href="<c:url value="/task/list"/> ">
-                <i class="fa fa-th"></i> <span>Tasks</span>
+                <i class="fa fa-th"></i> <span>Manage Tasks</span>
                 <span class="pull-right-container">
             </span>
             </a>

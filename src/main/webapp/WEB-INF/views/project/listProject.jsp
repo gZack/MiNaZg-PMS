@@ -1,7 +1,9 @@
-    <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<h2>Projects</h2>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<div class="card-header">
+    <div class="well lead">Projects</div>
+</div>
 <hr/>
-<p class="">
+<div>
     <c:if test="${not empty flashMessage}" >
         <div class="alert alert-success">
             <strong>Success!</strong> ${flashMessage}
@@ -29,7 +31,6 @@
         <table class="table">
             <thead>
             <tr>
-                <th>#</th>
                 <th>Name</th>
                 <th>Release</th>
                 <th>Status</th>
@@ -39,7 +40,6 @@
             <tbody>
                 <c:forEach var="project" items="${projects}">
                     <tr>
-                        <td>${project.id}</td>
                         <td>
                             <c:url value="/project/detail/${project.id}" var="projectViewUrl"/>
                             <a href="<c:out value='${projectViewUrl}'/>">${project.name}</a></td>

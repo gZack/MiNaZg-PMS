@@ -100,14 +100,7 @@
 		</div>
 
 		<div class="form-actions floatRight">
-			<c:choose>
-				<c:when test="${edit}">
-					<input type="submit" value="Update" class="btn btn-primary btn-sm"/> or <a href="<c:url value='/task/list' />">Cancel</a>
-				</c:when>
-				<c:otherwise>
-					<input type="submit" value="Create Task" class="btn btn-primary btn-sm"/> or <a href="<c:url value='/task/list' />">Cancel</a>
-				</c:otherwise>
-			</c:choose>
+			<input type="submit" value="Create Task" class="btn btn-primary btn-sm"/>
 		</div>
 	</form:form>
 </div>
