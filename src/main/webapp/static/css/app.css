@@ -51,3 +51,32 @@ body, .form-control{
 .content hr{
     margin-top:5px;
 }
+.comment-date{
+    margin-top:10px;
+    font-size: 11px;
+}
+.commentMessage{
+    color: #9f191f;
+}
+.comment-form textarea{
+    max-height:70px;
+}
+.comment-submit-btn{
+    position: relative;
+    height:70px;
+}
+.comment-submit-btn .btn-primary{
+    position: absolute;
+    bottom:0px;
+    left:20px;
+}
+.comment-list-wrap{
+    margin-top:15px;
+}
+.comment-list-wrap .media{
+    background: #fafafa;
+    padding: 10px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}

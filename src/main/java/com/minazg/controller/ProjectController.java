@@ -1,8 +1,10 @@
 package com.minazg.controller;
 
+import com.minazg.model.Comment;
+import com.minazg.model.ComponentType;
 import com.minazg.model.Project;
-import com.minazg.model.StatusType;
-import com.minazg.model.User;
+import com.minazg.model.UserRoleType;
+import com.minazg.service.CommentService;
 import com.minazg.service.ProjectService;
 import com.minazg.service.UserService;
 import com.minazg.util.HelperUtils;
@@ -18,6 +20,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/project")
+@SessionAttributes("redirectUrl")
 public class ProjectController {
     @Autowired
     ProjectService projectService;
@@ -25,6 +28,8 @@ public class ProjectController {
     HelperUtils helperUtils;
     @Autowired
     UserService userService;
+    @Autowired
+    CommentService commentService;
 
 //    @ModelAttribute("StatusTypes")
 //    public StatusType[] getStatusTypes(){
@@ -54,8 +59,8 @@ public class ProjectController {
         if(bindingResult.hasErrors()){
             // TODO, remove redundant code
             model.addAttribute("statusTypes", helperUtils.getStatusTypes());
-            model.addAttribute("projectManagerList",userService.findUsersByRoleName("PROJECT_MANAGER"));
-            model.addAttribute("clientList",userService.findUsersByRoleName("CLIENT"));
+            model.addAttribute("projectManagerList",userService.findUsersByRoleName(UserRoleType.PROJECT_MANAGER.getUserRoleType()));
+            model.addAttribute("clientList",userService.findUsersByRoleName(UserRoleType.CLIENT.getUserRoleType()));
             return "project/addProject";
         }
         projectService.save(project);
@@ -72,8 +77,8 @@ public class ProjectController {
                 return "project/notFound";
             }
             model.addAttribute("statusTypes", helperUtils.getStatusTypes());
-            model.addAttribute("projectManagerList",userService.findUsersByRoleName("PROJECT_MANAGER"));
-            model.addAttribute("clientList",userService.findUsersByRoleName("CLIENT"));
+            model.addAttribute("projectManagerList",userService.findUsersByRoleName(UserRoleType.PROJECT_MANAGER.getUserRoleType()));
+            model.addAttribute("clientList",userService.findUsersByRoleName(UserRoleType.CLIENT.getUserRoleType()));
             model.addAttribute("action", "edit");
         }
         catch(Exception e){
@@ -90,10 +95,10 @@ public class ProjectController {
             //TODO, remove redundant code
             //project = projectService.findOne(Long.valueOf(project.getId()));
             model.addAttribute("statusTypes", helperUtils.getStatusTypes());
-            model.addAttribute("projectManagerList",userService.findUsersByRoleName("PROJECT_MANAGER"));
-            model.addAttribute("clientList",userService.findUsersByRoleName("CLIENT"));
+            model.addAttribute("projectManagerList",userService.findUsersByRoleName(UserRoleType.PROJECT_MANAGER.getUserRoleType()));
+            model.addAttribute("clientList",userService.findUsersByRoleName(UserRoleType.CLIENT.getUserRoleType()));
             model.addAttribute("action", "edit");
-            model.addAttribute("newProject", project);
+//            model.addAttribute("newProject", project);
             return "project/addProject";
         }
 
@@ -104,12 +109,17 @@ public class ProjectController {
     }
 
     @RequestMapping(value = "/detail/{pid}", method = RequestMethod.GET)
-    public String showProject(@PathVariable String pid, Model model) {
+    public String showProject(@PathVariable String pid, @ModelAttribute("newComment") Comment comment, Model model) {
         try{
             model.addAttribute("project",projectService.findOne(Long.valueOf(pid)));
+            // TODO, comment should be integrated using Ajax
+            model.addAttribute("redirectUrl", "/project/detail/"+pid);
+            model.addAttribute("componentId", Long.valueOf(pid));
+            model.addAttribute("componentType", ComponentType.PROJECT.getComponentType());
+            model.addAttribute("commentList", commentService.loadComment(Long.valueOf(pid), ComponentType.PROJECT.getComponentType()));
             return "project/detail";
         }
-        catch(IllegalStateException e){
+        catch(Exception e){
             System.out.println(e);
             return "project/notFound";
         }
