@@ -24,19 +24,30 @@ public class CommentServiceImpl implements CommentService {
     HelperUtils helperUtils;
 
     public List<Comment> findAll(){
+
         return (List<Comment>) commentRepository.findAll();
     }
+
     public List<Comment> loadComment(Long componentId, String componentType){
-        List<Comment> comments = (List<Comment>) commentRepository.findByComponentIdAndComponentType(componentId, componentType);
+        List<Comment> comments = (List<Comment>) commentRepository.findByComponentIdAndComponentTypeOrderByDateCommentedDesc(componentId, componentType);
         for(Comment comment : comments){
             Hibernate.initialize(comment.getProposer());
         }
         return comments;
     }
+
+    public Long countComments(Long componentId, String componentType){
+        return commentRepository.countByComponentIdAndComponentType(componentId,componentType);
+    }
+
     public void save(Comment comment){
         comment.setProposer(userService.getCurrentAuthenticatedUser());
 
         comment.setDateCommented(new Date());
         commentRepository.save(comment);
+    }
+
+    public void delete(Long userId, Long commentId ){
+        commentRepository.deleteByIdAndProposerId(commentId,userService.getCurrentAuthenticatedUser().getId());
     }
 }

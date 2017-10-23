@@ -117,6 +117,7 @@ public class ProjectController {
             model.addAttribute("componentId", Long.valueOf(pid));
             model.addAttribute("componentType", ComponentType.PROJECT.getComponentType());
             model.addAttribute("commentList", commentService.loadComment(Long.valueOf(pid), ComponentType.PROJECT.getComponentType()));
+            model.addAttribute("commentCount", commentService.countComments(Long.valueOf(pid), ComponentType.PROJECT.getComponentType()));
             return "project/detail";
         }
         catch(Exception e){
