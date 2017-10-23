@@ -14,4 +14,5 @@ public interface ReleaseRepository extends CrudRepository<Release, Long> {
 
     Release findByVersionNumber(String versionNumber);
 
+    List<Release> findByVersionNumberAndProjectId(String versionNumber, Long projectId);
 }

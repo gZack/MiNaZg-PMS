@@ -28,6 +28,14 @@ public class SprintServiceImpl implements SprintService {
         sprintRepository.delete(id);
     }
 
+    public List<Sprint> findSprintByTitle(String title) {
+        return sprintRepository.findSprintByTitle(title);
+    }
+
+    public List<Sprint> findSprintByReleaseId(Long id) {
+        return sprintRepository.findSprintByReleaseId(id);
+    }
+
     @Override
     public List<Sprint> findAll() {
         return (List<Sprint>) sprintRepository.findAll();
