@@ -9,6 +9,10 @@
     </div>
 </c:if>
 <div class="project-search-form">
+    <div>
+        <button href="/sprint/add" class="col-md-1 btn btn-warning">Add New</button>
+    </div>
+
     <form  method="GET" action="/sprint/list" >
         <div class="col-md-4">
             <div class="input-group">

@@ -23,7 +23,7 @@
     </div>
     <c:if test="${empty projects}">
         No Result Found.
-    </c:if>
+    </c:if>git
     <c:if test="${not empty projects}">
         <table class="table">
             <thead>
