@@ -1,9 +1,9 @@
 package com.minazg.model;
 
 public enum StatusType {
+    CREATED("CREATED"),
     INPROGRESS("INPROGRESS"),
     COMPLETED("COMPLETED"),
-    CREATED("CREATED"),
     PENDING("PENDING"),
     CANCELLED("CANCELLED");
 
