@@ -16,25 +16,26 @@
     <div class="clearfix"></div>
 </form:form>
 <div class="col-md-11 comment-list-wrap">
-<c:forEach items="${commentList}" var="comment" >
-    <div class="media">
-        <div class="media-left">
-            <a href="#">
-                <img width="34px" src='<c:url value="/static/img/avatar.png" />' class="media-object" alt="${comment.proposer.firstName}">
-            </a>
+    <p>There are ${commentCount} Comments </p>
+    <c:forEach items="${commentList}" var="comment" >
+        <div class="media">
+            <div class="media-left">
+                <a href="#">
+                    <img width="34px" src='<c:url value="/static/img/avatar.png" />' class="media-object" alt="${comment.proposer.firstName}">
+                </a>
+            </div>
+            <div class="media-body">
+                <h4 class="media-heading">${comment.proposer.firstName} ${comment.proposer.lastName}</h4>
+                    ${comment.statement}
+                <br/>
+                <p class="comment-date"><fmt:formatDate pattern = "MM-dd-yyyy" value = "${comment.dateCommented}" /></p>
+                <c:if test="${comment.proposer.id eq userDetail.id}">
+                    Edit
+                    <%--<a href="/comment/del/${comment.proposer.id}/${comment.id}">Delete</a>--%>
+                </c:if>
+            </div>
         </div>
-        <div class="media-body">
-            <h4 class="media-heading">${comment.proposer.firstName} ${comment.proposer.lastName}</h4>
-                ${comment.statement}
-            <br/>
-            <p class="comment-date"><fmt:formatDate pattern = "MM-dd-yyyy" value = "${comment.dateCommented}" /></p>
-            <c:if test="${comment.proposer.id eq userDetail.id}">
-                Edit
-                <%--<a href="/comment/del/${comment.proposer.id}/${comment.id}">Delete</a>--%>
-            </c:if>
-        </div>
-    </div>
-    <hr/>
-</c:forEach>
+        <hr/>
+    </c:forEach>
 </div>
 <div class="clearfix"></div>

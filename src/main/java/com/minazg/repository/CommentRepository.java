@@ -9,6 +9,7 @@ import java.util.List;
 
 @Repository
 public interface CommentRepository extends CrudRepository<Comment, Long>{
-    public List<Comment> findByComponentIdAndComponentType(Long componentId, String componentType);
+    public List<Comment> findByComponentIdAndComponentTypeOrderByDateCommentedDesc(Long componentId, String componentType);
     public void deleteByIdAndProposerId(Long commentId, Long userId);
+    public Long countByComponentIdAndComponentType(Long componentId, String componentType);
 }
