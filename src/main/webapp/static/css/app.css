@@ -82,7 +82,7 @@ body, .form-control{
     -moz-border-radius: 5px;
     border-radius: 5px;
 }
-#ajaxResultStatus{
+#ajaxSpinner{
     text-align: center;
     font-size: 25px;
 }

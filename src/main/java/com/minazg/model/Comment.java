@@ -1,6 +1,7 @@
 package com.minazg.model;
 
 import lombok.Data;
+import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -19,7 +20,7 @@ public class Comment implements Serializable{
     private Long id;
 
     @NotEmpty
-    @Size(min = 2)
+    @Size(min = 2, message="${comment.statment.size}")
     @Column(nullable=false)
     private String statement;
 
