@@ -25,21 +25,32 @@
             </span>
             </a>
         </li>
-        <li>
-            <a href="<c:url value="/task/list"/> ">
-                <i class="fa fa-th"></i> <span>Manage Tasks</span>
-                <span class="pull-right-container">
-            </span>
-            </a>
-        </li>
+        <security:authorize access="isAuthenticated() && hasRole('PROJECT_MANAGER')">
+            <li>
+                <a href="<c:url value="/task/list"/> ">
+                    <i class="fa fa-th"></i> <span>Manage Tasks</span>
+                    <span class="pull-right-container">
+                </span>
+                </a>
+            </li>
+        </security:authorize>
         <security:authorize access="isAuthenticated() && hasRole('ADMIN')">
-        <li>
-            <a href="#">
-                <i class="fa fa-user"></i> <span>Manage Users</span>
-                <span class="pull-right-container">
-            </span>
-            </a>
-        </li>
+            <li>
+                <a href="#">
+                    <i class="fa fa-user"></i> <span>Manage Users</span>
+                    <span class="pull-right-container">
+                </span>
+                </a>
+            </li>
+        </security:authorize>
+        <security:authorize access="isAuthenticated() && hasRole('DEVELOPER')">
+            <li>
+                <a href="<c:url value="/dev/list"/> ">
+                    <i class="fa fa-th"></i> <span>My Tasks</span>
+                    <span class="pull-right-container">
+                </span>
+                </a>
+            </li>
         </security:authorize>
     </ul>
 </section>

@@ -12,4 +12,6 @@ public interface TaskService {
 
     WorkOrder findOne(Long id);
 
+    List<WorkOrder> getMyTasks();
+
 }

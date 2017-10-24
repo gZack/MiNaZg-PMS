@@ -4,6 +4,7 @@ import com.minazg.converter.RoleToUserRoleConverter;
 import com.minazg.converter.SprintConverter;
 import com.minazg.converter.UserConverter;
 import com.minazg.formatter.SprintFormatter;
+import com.minazg.formatter.TaskFormatter;
 import com.minazg.formatter.UserFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -32,6 +33,9 @@ public class AppConfig extends WebMvcConfigurerAdapter{
 
 	@Autowired
 	private SprintFormatter sprintFormatter;
+
+	@Autowired
+	private TaskFormatter taskFormatter;
 
 	
 	final RoleToUserRoleConverter roleToUserRoleConverter;
@@ -72,6 +76,7 @@ public class AppConfig extends WebMvcConfigurerAdapter{
         registry.addConverter(roleToUserRoleConverter);
         registry.addFormatter(sprintFormatter);
         registry.addFormatter(userFormatter);
+        registry.addFormatter(taskFormatter);
     }
 	
 

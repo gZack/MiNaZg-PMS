@@ -4,12 +4,11 @@
 <div class="panel panel-default">
 
     <div class="panel-heading">
-        Tasks
+        My Tasks
     </div>
 
     <div class="panel-body">
         <div class="project-search-form">
-            <a href="<c:url value='/task/add'/>" class="col-md-1 btn btn-warning pull-right">Add New</a>
             <form class="col-md-10" method="GET" action="/task/list" >
                 <div class="col-md-4">
                     <div class="input-group">
@@ -45,7 +44,10 @@
                 <td><fmt:formatDate value="${task.startDate}" pattern="MM-dd-yyyy"/> </td>
                 <td><fmt:formatDate value="${task.deadLine}" pattern="MM-dd-yyyy"/></td>
                 <td>
-                    <a href="<c:url value='/task/edit/${task.id}' />" class="fa fa-edit"/>
+                    <c:url value="/dev/detail" var="detailUrl">
+                        <c:param name="id" value="${task.id}"/>
+                    </c:url>
+                    <a href="${detailUrl}" class="fa fa-list"/>
                 </td>
             </tr>
         </c:forEach>
