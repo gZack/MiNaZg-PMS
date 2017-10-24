@@ -48,10 +48,10 @@
                         <c:url value="/project/detail/${project.id}" var="projectViewUrl"/>
                         <a href="<c:out value='${projectViewUrl}'/>">${project.name}</a></td>
                     <td>
-                        <c:url value="/release/list/${project.id}" var="releaseViewUrl"/>
+                        <c:url value="/release/list?projectId=${project.id}" var="releaseViewUrl"/>
                         <a class="fa fa-list" href="<c:out value='${releaseViewUrl}'/>"></a>
                         &nbsp;&nbsp;
-                        <c:url value="/release/add/${project.id}" var="releaseAddUrl"/>
+                        <c:url value="/release/add?projectId=${project.id}" var="releaseAddUrl"/>
                         <a class="fa fa-plus" href="<c:out value='${releaseAddUrl}'/>"></a>
                     </td>
                     <td>${project.status}</td>

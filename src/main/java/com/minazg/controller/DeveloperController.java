@@ -1,7 +1,9 @@
 package com.minazg.controller;
 
+import com.minazg.model.ComponentType;
 import com.minazg.model.Report;
 import com.minazg.model.WorkOrder;
+import com.minazg.service.CommentService;
 import com.minazg.service.ReportService;
 import com.minazg.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,9 @@ public class DeveloperController {
     @Autowired
     private ReportService reportService;
 
+    @Autowired
+    private CommentService commentService;
+
     @ModelAttribute("tasks")
     public List<WorkOrder> collectMyTasks(){
         return taskService.getMyTasks();
@@ -34,8 +39,13 @@ public class DeveloperController {
     }
 
     @GetMapping("/detail")
-    public String detail(@RequestParam("id") Long userId, Model model){
-        model.addAttribute("task",taskService.findOne(userId));
+    public String detail(@RequestParam("id") Long taskId, Model model){
+        model.addAttribute("task",taskService.findOne(taskId));
+        // load comment section
+        model.addAttribute("componentId", Long.valueOf(taskId));
+        model.addAttribute("componentType", ComponentType.WORKORDER.getComponentType());
+        model.addAttribute("commentList", commentService.loadComment(Long.valueOf(taskId), ComponentType.WORKORDER.getComponentType()));
+        model.addAttribute("commentCount", commentService.countComments(Long.valueOf(taskId), ComponentType.WORKORDER.getComponentType()));
         return "dev/detail";
     }
 

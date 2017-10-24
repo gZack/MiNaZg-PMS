@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <hr/>
-<div class="col-md-11">
+<div class="">
 <div class="panel panel-default">
     <div class="panel-heading">Leave Comment</div>
     <div class="panel-body">
@@ -32,8 +32,7 @@
 </div>
 <div class="clearfix"></div>
 
-<div class="col-md-11 comment-list-wrap">
-
+<div class="comment-list-wrap">
     <c:forEach items="${commentList}" var="comment" >
         <div class="media">
             <div class="media-left">

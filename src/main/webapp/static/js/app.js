@@ -77,9 +77,7 @@ function submitCommentAjax(){
             $("#commentCounter").text(counter);
             $("#ajaxSpinner").hide();
             console.log("success...");
-
-            console.log(response);
-            console.log(response.commentId);
+            $('.commentMessage').html("");
             resetForm('commentForm');
         },
         error : function(errorObject) {
@@ -87,7 +85,6 @@ function submitCommentAjax(){
             if (errorObject.responseJSON.errorType == "ValidationError") {
                 $("#ajaxSpinner").hide();
                 $('.commentMessage').html("");
-                $(".commentMessage").append('<h4> An Error has Occured! </h4>');
                 $(".commentMessage").append('<p>');
 
                 var errorList = errorObject.responseJSON.errors;

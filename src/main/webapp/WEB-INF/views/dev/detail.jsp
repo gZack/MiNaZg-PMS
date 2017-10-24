@@ -88,5 +88,6 @@
 
     <a class="btn btn-default" href="${reportUrl}" role="button">Daily Report</a>
 
+    <jsp:include page="../common/comment.jsp" />
 </div>
 

@@ -20,7 +20,7 @@ public class Comment implements Serializable{
     private Long id;
 
     @NotEmpty
-    @Size(min = 2, message="${comment.statment.size}")
+    @Size(min = 2, message="{comment.statment.size}")
     @Column(nullable=false)
     private String statement;
 
