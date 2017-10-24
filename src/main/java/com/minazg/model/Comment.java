@@ -1,11 +1,13 @@
 package com.minazg.model;
 
 import lombok.Data;
+import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -18,6 +20,7 @@ public class Comment implements Serializable{
     private Long id;
 
     @NotEmpty
+    @Size(min = 2, message="${comment.statment.size}")
     @Column(nullable=false)
     private String statement;
 
@@ -33,7 +36,7 @@ public class Comment implements Serializable{
     @Temporal(TemporalType.TIMESTAMP)
     private Date dateCommented;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @JoinColumn(name = "proposer_user_id")
     private User proposer;
 

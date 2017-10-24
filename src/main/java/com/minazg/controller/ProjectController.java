@@ -104,7 +104,8 @@ public class ProjectController {
     }
 
     @RequestMapping(value = "/detail/{pid}", method = RequestMethod.GET)
-    public String showProject(@PathVariable String pid, @ModelAttribute("newComment") Comment comment, Model model) {
+//    public String showProject(@PathVariable String pid, @ModelAttribute("newComment") Comment comment, Model model) {
+    public String showProject(@PathVariable String pid, Model model) {
         try{
             model.addAttribute("project",projectService.findOne(Long.valueOf(pid)));
             // TODO, comment should be integrated using Ajax

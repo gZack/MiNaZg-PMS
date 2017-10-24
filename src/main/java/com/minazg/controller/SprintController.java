@@ -7,10 +7,12 @@ import com.minazg.service.ReleaseService;
 import com.minazg.service.SprintService;
 import com.minazg.service.UserService;
 import com.minazg.util.HelperUtils;
+import com.minazg.validator.DateSequenceValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -33,6 +35,9 @@ public class SprintController {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    DateSequenceValidator dateSequenceValidator;
 
     @ModelAttribute("StatusTypes")
     public StatusType[] getStatusTypes(){
@@ -87,6 +92,12 @@ public class SprintController {
         return "redirect:/sprint/list";
     }
 
+
+//    @InitBinder
+//    public void dataBinding(WebDataBinder binder) {
+//        binder.addValidators(dateSequenceValidator);
+//    }
+
     @RequestMapping(value={"/edit/{sprintId}"}, method = RequestMethod.GET)
     public String editSprintForm(@PathVariable ("sprintId") String sprintId, Model model){
         Sprint sprint = null;
@@ -98,6 +109,7 @@ public class SprintController {
             model.addAttribute("statusTypes", helperUtils.getStatusTypes());
             model.addAttribute("versionNumber", sprint.getRelease().getVersionNumber());
             model.addAttribute("action", "edit");
+            model.addAttribute("startDate", sprint.getStartDate());
         }
         catch(Exception e){
             System.out.println(e);
@@ -139,7 +151,7 @@ public class SprintController {
     }
 
     @RequestMapping(value = {"/search"}, method = RequestMethod.GET)
-    public String releaseDetail(Model model, @RequestParam(value = "releaseId", required = false) String releaseId,
+    public String sprintDetail(Model model, @RequestParam(value = "releaseId", required = false) String releaseId,
                                 @RequestParam(value = "sprintTitle", required = false) String sprintTitle) {
 
         releaseId = (releaseId != null) ? releaseId : "";
@@ -147,7 +159,7 @@ public class SprintController {
 
 
         if (!releaseId.equals("") && !sprintTitle.equals(""))
-            model.addAttribute("sprint", sprintService.findByReleaseIdAndTitle(Long.valueOf(releaseId), sprintTitle));
+            model.addAttribute("sprints", sprintService.findByReleaseIdAndTitle(Long.valueOf(releaseId), sprintTitle));
 
         model.addAttribute("releaseNumber", releaseService.findOne(Long.valueOf(releaseId)).getVersionNumber());
         model.addAttribute("releaseId", releaseId);
@@ -155,8 +167,6 @@ public class SprintController {
 
         return "sprint/listSprint";
     }
-
-
 
 
 }

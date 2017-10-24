@@ -19,7 +19,7 @@
     <ul class="sidebar-menu" data-widget="tree">
         <li class="header">MAIN NAVIGATION</li>
 
-        <security:authorize access="isAuthenticated() && hasRole('PROJECT_MANAGER') && hasRole('ADMIN')">
+        <security:authorize access="isAuthenticated() && (hasRole('PROJECT_MANAGER') || hasRole('ADMIN'))">
             <li>
                 <a href='<spring:url value="/project/" />'>
                     <i class="fa fa-dashboard"></i> <span>Dashboard</span>

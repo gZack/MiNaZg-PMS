@@ -1,5 +1,6 @@
 package com.minazg.model;
 
+import com.minazg.validator.DateField;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -7,6 +8,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -28,9 +30,12 @@ public class Sprint implements Serializable {
     @Column(nullable=true)
     private String description;
 
-    @NotNull
+//    @NotNull
     @Column(nullable=false)
     @DateTimeFormat(pattern = "MM-dd-yyyy")
+//    @Pattern(regexp = " ", message ="{com.minazg.validator.DateField.message}")
+
+    //@DateField(message = "com.minazg.validator.DateField.message")
     @Temporal(TemporalType.TIMESTAMP)
     private Date startDate;
 
@@ -69,4 +74,12 @@ public class Sprint implements Serializable {
                 release.getId().hashCode() : 0);
         return result;
     }
+
+//    @Override
+//    public int hashCode() {
+//        int result = id.hashCode();
+//        result = 31 * result + release.hashCode();
+//        return result;
+//    }
+
 }

@@ -40,11 +40,13 @@ public class CommentServiceImpl implements CommentService {
         return commentRepository.countByComponentIdAndComponentType(componentId,componentType);
     }
 
-    public void save(Comment comment){
+    public Comment save(Comment comment){
         comment.setProposer(userService.getCurrentAuthenticatedUser());
-
         comment.setDateCommented(new Date());
-        commentRepository.save(comment);
+        comment = commentRepository.save(comment);
+        Hibernate.initialize(comment.getProposer());
+        Hibernate.initialize(comment.getProposer().getUserRoles());
+        return comment;
     }
 
     public void delete(Long userId, Long commentId ){

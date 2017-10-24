@@ -87,7 +87,8 @@ public class AppConfig extends WebMvcConfigurerAdapter{
     @Bean
 	public MessageSource messageSource() {
 	    ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
-	    messageSource.setBasename("messages");
+//	    messageSource.setBasename("messages");
+		messageSource.setBasenames("messages","errorMessages");
 	    return messageSource;
 	}
     
@@ -101,22 +102,26 @@ public class AppConfig extends WebMvcConfigurerAdapter{
         matcher.setUseRegisteredSuffixPatternMatch(true);
     }
 
-	@Bean
-	public LocalValidatorFactoryBean validator() {
-		LocalValidatorFactoryBean bean = new LocalValidatorFactoryBean();
-		bean.setValidationMessageSource(messageSource());
-		return bean;
-	}
 
-	@Override
-	public Validator getValidator(){
-		return validator();
-	}
+    /* This is the validation bean*/
+
+//	@Bean(name = "validator")
+//	public LocalValidatorFactoryBean validator() {
+//		LocalValidatorFactoryBean bean = new LocalValidatorFactoryBean();
+//		bean.setValidationMessageSource(messageSource());
+//		return bean;
+//	}
+//
+//	@Override
+//	public Validator getValidator(){
+//		return validator();
+//	}
 
 	@Bean
 	public MessageSourceAccessor messageAccessor(){
 		MessageSourceAccessor sourceAccessor = new MessageSourceAccessor(messageSource());
 		return sourceAccessor;
 	}
+
 }
 

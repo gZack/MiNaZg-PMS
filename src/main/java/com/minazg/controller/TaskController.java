@@ -82,7 +82,7 @@ public class TaskController {
 
         taskService.save(workOrder);
 
-        return "task/tasks";
+        return "redirect:/task/list";
     }
 
     @GetMapping("/edit/{id}")
