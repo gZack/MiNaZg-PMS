@@ -2,6 +2,7 @@ package com.minazg.formatter;
 
 import com.minazg.model.WorkOrder;
 import com.minazg.service.TaskService;
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.Formatter;
 import org.springframework.stereotype.Component;
@@ -18,7 +19,9 @@ public class TaskFormatter implements Formatter<WorkOrder> {
     @Override
     public WorkOrder parse(String text, Locale locale) throws ParseException {
         if(text != null && !text.isEmpty()){
-            return taskService.findOne(Long.parseLong(text));
+            WorkOrder workOrder = taskService.findOne(Long.parseLong(text));
+            //Hibernate.initialize(workOrder.getWorkOrderReports());
+            return workOrder;
         }
         return null;
     }

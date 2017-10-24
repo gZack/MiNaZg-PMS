@@ -74,9 +74,15 @@
                             0%
                         </c:when>
                         <c:otherwise>
-                            ${task.totalProgress}
+                            ${task.totalProgress}%
                         </c:otherwise>
                     </c:choose>
+                </span>
+            </li>
+            <li class="list-group-item">
+                Total Duration
+                <span class="badge">
+                    <span class="badge">${task.totalDuration} hrs</span>
                 </span>
             </li>
         </ul>

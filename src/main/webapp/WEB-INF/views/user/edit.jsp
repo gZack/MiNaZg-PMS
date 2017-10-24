@@ -4,7 +4,11 @@
 
 <div class="half-width container">
 	<div class="well lead">User Edit Form</div>
-	<form:form method="POST" modelAttribute="user" class="form-horizontal">
+	<c:url value="/edit-user-${ssoId}" var="editUrl"/>
+	<form:form method="POST" modelAttribute="user"
+			   class="form-horizontal"
+			   action="${editUrl}?${_csrf.parameterName}=${_csrf.token}"
+			   enctype="multipart/form-data">
 		<form:input type="hidden" path="id" id="id"/>
 
 		<div class="form-group">
@@ -30,17 +34,10 @@
 		<div class="form-group">
 			<label class="col-sm-3 control-label" for="ssoId">SSO ID</label>
 			<div class="col-sm-9">
-				<c:choose>
-					<c:when test="${edit}">
-						<form:input type="text" path="ssoId" id="ssoId" class="form-control input-sm" disabled="true"/>
-					</c:when>
-					<c:otherwise>
-						<form:input type="text" path="ssoId" id="ssoId" class="form-control input-sm" />
-						<div class="has-error">
-							<form:errors path="ssoId" class="help-inline"/>
-						</div>
-					</c:otherwise>
-				</c:choose>
+				<form:input type="text" path="ssoId" id="ssoId" class="form-control input-sm" disabled="true"/>
+				<div class="has-error">
+					<form:errors path="ssoId" class="help-inline"/>
+				</div>
 			</div>
 		</div>
 
@@ -100,6 +97,17 @@
 				<form:input type="text" path="address.zipCode" id="zipCode" class="form-control input-sm" />
 				<div class="has-error">
 					<form:errors path="address.zipCode" class="help-inline"/>
+				</div>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="col-sm-3 control-label" for="profPic">Profile Pic</label>
+			<div class="col-sm-9">
+				<form:input type="file" path="userProfPic" id="profPic"
+							class="form-control input-sm" />
+				<div class="has-error">
+					<form:errors path="userProfPic" class="help-inline"/>
 				</div>
 			</div>
 		</div>

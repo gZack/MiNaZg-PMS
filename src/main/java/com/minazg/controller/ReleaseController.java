@@ -19,7 +19,6 @@ import java.util.List;
 
 @Controller
 @RequestMapping(value = "/release")
-//@SessionAttributes("")
 public class ReleaseController {
 
     @Autowired
@@ -42,6 +41,7 @@ public class ReleaseController {
     public String list(@PathVariable("projectId") String projectId, Model model) {
 
         List<Release> release = null;
+
         try {
             release = releaseService.findReleaseByProjectId(Long.valueOf(projectId));
         } catch (Exception e) {
@@ -53,19 +53,36 @@ public class ReleaseController {
         return "release/listRelease";
     }
 
-    @RequestMapping(value = {"/add/{projectId}"}, method = RequestMethod.GET)
-    public String addReleaseForm(@PathVariable("projectId") String projectId,
-                                 @ModelAttribute("newRelease") Release release,
+    @RequestMapping(value = {"/add"}, method = RequestMethod.GET)
+    public String addReleaseForm(@RequestParam(value = "projectId", required = false) Long projectId,
                                  Model model) {
 
-        model.addAttribute("projectName", projectService.findOne(Long.valueOf(projectId)).getName());
-        model.addAttribute("projectId", projectId);
+        Release release = new Release();
+        model.addAttribute("newRelease",release);
+
+        if(projectId != null){
+
+            Project project = projectService.findOne(projectId);
+            release.setProject(project);
+
+            model.addAttribute("project",project);
+
+            model.addAttribute("projectId", projectId);
+
+        } else {
+
+            model.addAttribute("projects", projectService.findAll());
+        }
+
         model.addAttribute("statusTypes", helperUtils.getStatusTypes());
+
         return "release/addRelease";
     }
 
-    @RequestMapping(value = "/add/{projectId}", method = RequestMethod.POST)
-    public String addRelease(@Valid @ModelAttribute("newRelease") Release release, BindingResult br, Model model) {
+    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    public String addRelease(@Valid @ModelAttribute("newRelease") Release release, BindingResult br,
+                             @RequestParam(value = "projectId",required = false) String projectId,
+                             Model model) {
 
         if (br.hasErrors()) {
             model.addAttribute("projectName", release.getProject().getName());

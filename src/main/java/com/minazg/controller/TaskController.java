@@ -59,9 +59,13 @@ public class TaskController {
 
         if(sprintId != null){
 
+            Sprint sprint = sprintService.findOne(sprintId);
+            WorkOrder workOrder = new WorkOrder();
+            workOrder.setSprint(sprint);
+
             model.addAttribute("sprintId",sprintId);
 
-            model.addAttribute("task", new WorkOrder());
+            model.addAttribute("task",workOrder);
 
         } else {
 
