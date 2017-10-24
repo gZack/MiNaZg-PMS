@@ -70,16 +70,14 @@ function submitCommentAjax(){
                             <p class="comment-date">`+ formatDate(new Date(response.commentDate)) +`</p>
 
                                 <a href="#">Edit</a>
-                                <a href="/comment/del/`+ response.commentUserId +`/`+ response.commentId +`">Delete</a>
+                                <!--<a href="/comment/del/`+ response.commentUserId +`/`+ response.commentId +`">Delete</a>-->
                         </div>
                     </div>`);
             var counter = parseInt($("#commentCounter").text()) + 1;
             $("#commentCounter").text(counter);
             $("#ajaxSpinner").hide();
             console.log("success...");
-
-            console.log(response);
-            console.log(response.commentId);
+            $('.commentMessage').html("");
             resetForm('commentForm');
         },
         error : function(errorObject) {
@@ -87,7 +85,6 @@ function submitCommentAjax(){
             if (errorObject.responseJSON.errorType == "ValidationError") {
                 $("#ajaxSpinner").hide();
                 $('.commentMessage').html("");
-                $(".commentMessage").append('<h4> An Error has Occured! </h4>');
                 $(".commentMessage").append('<p>');
 
                 var errorList = errorObject.responseJSON.errors;
