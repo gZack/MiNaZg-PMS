@@ -47,7 +47,7 @@
                 <p class="comment-date"><fmt:formatDate pattern = "MM-dd-yyyy" value = "${comment.dateCommented}" /></p>
                 <c:if test="${comment.proposer.id eq userDetail.id}">
                     <a href="#">Edit</a>
-                    <a href="/comment/del/${comment.proposer.id}/${comment.id}">Delete</a>
+                    <%--<a href="/comment/del/${comment.proposer.id}/${comment.id}">Delete</a>--%>
                 </c:if>
             </div>
         </div>
