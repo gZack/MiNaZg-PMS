@@ -9,23 +9,28 @@
     </div>
 </c:if>
 <div class="project-search-form">
-    <div>
-        <button href="/sprint/add" class="col-md-1 btn btn-warning">Add New</button>
-    </div>
 
-    <form  method="GET" action="/sprint/search" >
-        <div class="col-md-4">
-            <div class="input-group">
-                <input type="hidden" name="releaseId" id="releaseId" value="${releaseId}">
-                <input class="form-control" placeholder="Sprint Title" required name="sprintTitle" tupe="text" value="${sprintTitle}"/>
-                <span class="input-group-btn">
+   <div>
+       <form  method="GET" action="/sprint/search" >
+           <div class="col-md-4">
+               <div class="input-group">
+                   <input type="hidden" name="releaseId" id="releaseId" value="${releaseId}">
+                   <input class="form-control" placeholder="Sprint Title" required name="sprintTitle" type="text" value="${sprintTitle}"/>
+                   <span class="input-group-btn">
                     <button type="submit" class="btn btn-default" type="button">Search</button>
                   </span>
-            </div>
-        </div>
-        <div class="clearfix"></div>
-    </form>
+               </div>
+           </div>
+           <div class="clearfix"></div>
+       </form>
+   </div>
 </div>
+    <div>
+        <a class="list-group-item active">
+            <b>Version ${versionNumber} list of Sprints</b>
+        </a>
+    </div>
+
 <c:if test="${empty sprints}">
     No Result Found.
 </c:if>
@@ -51,11 +56,11 @@
                     <td>${sprint.description}</td>
 
                     <td>
-                    <c:url value="/workorder/list/${sprint.id}" var="workOrderViewUrl"/>
-                    <a class="fa fa-list" href="<c:out value='${workOrderViewUrl}'/>"></a>
+                    <c:url value="/task/list?=sprintId=${sprint.id}" var="taskUrl"/>
+                    <a class="fa fa-list" href="<c:out value='${taskUrl}'/>"></a>
                     &nbsp;&nbsp;
-                    <c:url value="/workorder/add/${sprint.id}" var="workOrderAddUrl"/>
-                    <a class="fa fa-plus" href="<c:out value='${workOrderAddUrl}'/>"></a>
+                    <c:url value="/task/add?=sprintId=${sprint.id}" var="taskAddUrl"/>
+                    <a class="fa fa-plus" href="<c:out value='${taskAddUrl}'/>"></a>
                     </td>
                     <td>${sprint.status}</td>
                     <td>
@@ -67,4 +72,7 @@
         </tbody>
     </table>
 </c:if>
+    <div class="well well-sm">
+        <a href="<c:url value="/sprint/add/${releaseId}"/>">Add New Release</a>
+    </div>
 </div>

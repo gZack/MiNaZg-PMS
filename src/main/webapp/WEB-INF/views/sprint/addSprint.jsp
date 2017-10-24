@@ -14,7 +14,7 @@
 
 
 
-    <form:form modelAttribute="newSprint" class="form-horizontal formWithDateValidation">
+    <form:form modelAttribute="newSprint" class="form-horizontal ">
         <c:choose>
             <c:when test="${action eq 'edit'}">
                 <form:hidden path="id" id="id"/>
@@ -48,7 +48,7 @@
             <div class="col-sm-10">
 
                 <div class="datepicker">
-                <div class='input-group date' >
+                <div class='input-group datex' >
                     <form:input id="startDate" path="startDate" class="form-control" />
                     <span class="input-group-addon">
                             <span class="glyphicon glyphicon-calendar"></span>
@@ -68,7 +68,7 @@
             <div class="col-sm-10">
 
                 <div class="datepicker">
-                <div class='input-group date'>
+                <div class='input-group datex'>
                     <form:input id="endDate" path="endDate" class="form-control" />
                     <span class="input-group-addon">
                             <span class="glyphicon glyphicon-calendar"></span>
