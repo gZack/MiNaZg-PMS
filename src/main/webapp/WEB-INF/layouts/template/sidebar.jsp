@@ -15,16 +15,15 @@
         </div>
         </security:authorize>
     </div>
-
     <ul class="sidebar-menu" data-widget="tree">
         <li class="header">MAIN NAVIGATION</li>
 
         <security:authorize access="isAuthenticated() && (hasRole('PROJECT_MANAGER') || hasRole('ADMIN'))">
             <li>
                 <a href='<spring:url value="/project/" />'>
-                    <i class="fa fa-dashboard"></i> <span>Dashboard</span>
+                    <i class="fa fa-dashboard"></i> <span><spring:message code="sidebar.dashboard" /></span>
                     <span class="pull-right-container">
-            </span>
+                        </span>
                 </a>
             </li>
         </security:authorize>
@@ -32,7 +31,7 @@
         <security:authorize access="isAuthenticated() && hasRole('PROJECT_MANAGER')">
             <li>
                 <a href="<c:url value="/task/list"/> ">
-                    <i class="fa fa-th"></i> <span>Manage Tasks</span>
+                    <i class="fa fa-th"></i> <span><spring:message code="sidebar.managetasks" /></span>
                     <span class="pull-right-container">
                 </span>
                 </a>
@@ -41,7 +40,7 @@
         <security:authorize access="isAuthenticated() && hasRole('ADMIN')">
             <li>
                 <a href="#">
-                    <i class="fa fa-user"></i> <span>Manage Users</span>
+                    <i class="fa fa-user"></i> <span><spring:message code="sidebar.manageusers" /></span>
                     <span class="pull-right-container">
                 </span>
                 </a>
@@ -50,7 +49,7 @@
         <security:authorize access="isAuthenticated() && hasRole('DEVELOPER')">
             <li>
                 <a href="<c:url value="/dev/list"/> ">
-                    <i class="fa fa-th"></i> <span>My Tasks</span>
+                    <i class="fa fa-th"></i> <span><spring:message code="sidebar.mytasks" /></span>
                     <span class="pull-right-container">
                 </span>
                 </a>

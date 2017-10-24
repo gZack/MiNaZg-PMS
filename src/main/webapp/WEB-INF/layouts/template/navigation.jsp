@@ -17,7 +17,13 @@ href="<spring:url value="/project/" />"
 
     <div class="navbar-custom-menu">
         <ul class="nav navbar-nav">
-
+            <li>
+                <a href="?language=en">
+                    <img src='<c:url value="/static/img/en.png" />' class="" alt="EN"></a>
+            </li>
+            <li><a href="?language=am">
+                    <img src='<c:url value="/static/img/et.png" />' class="" alt="ET"></a>
+            </li>
             <!-- Tasks: style can be found in dropdown.less -->
             <li class="dropdown tasks-menu">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
