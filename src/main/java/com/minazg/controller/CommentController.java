@@ -2,7 +2,6 @@ package com.minazg.controller;
 
 import com.minazg.model.Comment;
 import com.minazg.service.CommentService;
-import com.minazg.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,13 +12,14 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.validation.Valid;
 
 @Controller
+@RequestMapping("/comment")
 @SessionAttributes("redirectUrl")
 public class CommentController {
 
     @Autowired
     CommentService commentService;
 
-    @RequestMapping(value="/comment/add", method= RequestMethod.POST)
+    @RequestMapping(value="/add", method= RequestMethod.POST)
     public String addComment(@Valid @ModelAttribute("newComment") Comment comment,
                              BindingResult bindingResult,
                              Model model, RedirectAttributes redirectAttributes){
@@ -33,7 +33,7 @@ public class CommentController {
         return "redirect:"+model.asMap().get("redirectUrl");
     }
 
-    @RequestMapping(value="/comment/del/{userId}/{commentId}", method= RequestMethod.GET)
+    @RequestMapping(value="/del/{userId}/{commentId}", method= RequestMethod.GET)
     public String delComment(@PathVariable String userId, @PathVariable String commentId,
                              Model model, RedirectAttributes redirectAttributes){
         try{

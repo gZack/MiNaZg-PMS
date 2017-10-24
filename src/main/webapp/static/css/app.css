@@ -62,13 +62,15 @@ body, .form-control{
     max-height:70px;
 }
 .comment-submit-btn{
-    position: relative;
-    height:70px;
+    /*position: relative;*/
+    /*height:70px;*/
 }
 .comment-submit-btn .btn-primary{
-    position: absolute;
-    bottom:0px;
-    left:20px;
+    margin-top:10px;
+
+    /*position: absolute;*/
+    /*bottom:0px;*/
+    /*left:20px;*/
 }
 .comment-list-wrap{
     margin-top:15px;
@@ -79,4 +81,14 @@ body, .form-control{
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
+}
+#ajaxResultStatus{
+    text-align: center;
+    font-size: 25px;
+}
+.hidden{
+    display: none;
+}
+.show{
+    display: block;
 }

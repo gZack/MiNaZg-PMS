@@ -18,7 +18,7 @@ public class SprintFormatter implements Formatter<Sprint>{
     @Override
     public Sprint parse(String text, Locale locale) throws ParseException {
         if(text != null && !text.isEmpty()){
-            return sprintService.findById(Long.parseLong(text));
+            return sprintService.findOne(Long.parseLong(text));
         }
         return null;
     }
