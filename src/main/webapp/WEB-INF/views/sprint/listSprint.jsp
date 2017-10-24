@@ -51,10 +51,14 @@
                     <td>${sprint.description}</td>
 
                     <td>
-                    <c:url value="/workorder/list/${sprint.id}" var="workOrderViewUrl"/>
+                        <c:url value="/task/list" var="workOrderViewUrl">
+                            <c:param name="sprintId" value="${sprint.id}"/>
+                        </c:url>
                     <a class="fa fa-list" href="<c:out value='${workOrderViewUrl}'/>"></a>
                     &nbsp;&nbsp;
-                    <c:url value="/workorder/add/${sprint.id}" var="workOrderAddUrl"/>
+                        <c:url value="/task/add" var="workOrderAddUrl">
+                            <c:param name="sprintId" value="${sprint.id}"/>
+                        </c:url>
                     <a class="fa fa-plus" href="<c:out value='${workOrderAddUrl}'/>"></a>
                     </td>
                     <td>${sprint.status}</td>

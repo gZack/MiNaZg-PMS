@@ -36,30 +36,37 @@ public class TaskController {
     @ModelAttribute("developers")
     public List<User> collectDevelopers(Model model){
 
-        model.addAttribute("sprints", sprintService.findAll());
         model.addAttribute("workOrderTypes", helperUtils.getWorkOrderTypes());
-        model.addAttribute("tasks",taskService.findAll());
 
         return userService.findUsersByRoleName(UserRoleType.DEVELOPER.getUserRoleType());
     }
 
     @GetMapping(value = {"","/list"})
-    public String tasks(Model model){
+    public String tasks(@RequestParam(value = "sprintId",required = false) Long sprintId, Model model){
+
+        if(sprintId == null){
+            //model.addAttribute("sprints", sprintService.findAll());
+            model.addAttribute("tasks",taskService.findAll());
+        } else {
+            model.addAttribute("tasks", taskService.findBySprintId(sprintId));
+        }
 
         return "task/tasks";
-
     }
 
     @GetMapping("/add")
-    public String addTask(@ModelAttribute("task") WorkOrder workOrder, Model model){
+    public String addTask(@RequestParam(value = "sprintId",required = false) Long sprintId, Model model){
 
-        Sprint sprint = (Sprint)model.asMap().get("sprint");
+        if(sprintId != null){
 
-        if(null == sprint && model.asMap().get("sprints") == null){
-            // we shouldn't do the population for each call
-            // should be put in session and each created
-            // sprint should be added to that list in session
+            model.addAttribute("sprintId",sprintId);
+
+            model.addAttribute("task", new WorkOrder());
+
+        } else {
+
             model.addAttribute("sprints", sprintService.findAll());
+
         }
 
         return "task/add";

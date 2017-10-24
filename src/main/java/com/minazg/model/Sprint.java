@@ -65,7 +65,8 @@ public class Sprint implements Serializable {
     @Override
     public int hashCode() {
         int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (release != null ? release.getId().hashCode() : 0);
+        result = 31 * result + (release != null && release.getId() != null ?
+                release.getId().hashCode() : 0);
         return result;
     }
 }
