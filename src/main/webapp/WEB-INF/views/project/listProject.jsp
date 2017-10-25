@@ -20,8 +20,11 @@
                         <input class="form-control" placeholder="Filter by Project Name" required name="q" tupe="text" value="${q}"/>
                         <span class="input-group-btn">
                         <button type="submit" class="btn btn-default" type="button">Go!</button>
-                      </span>
+                        </span>
                     </div>
+                </div>
+                <div style="col-md-1">
+                    <a href="/project/" class="btn btn-warning" type="button">Reset</a>
                 </div>
                 <div class="clearfix"></div>
             </form>
@@ -29,7 +32,7 @@
         </div>
     </div>
     <c:if test="${empty projects}">
-        No Result Found.
+        <div class="table padd">No Result Found.</div>
     </c:if>
     <c:if test="${not empty projects}">
         <table class="table">

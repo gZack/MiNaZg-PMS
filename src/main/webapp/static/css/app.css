@@ -92,3 +92,12 @@ body, .form-control{
 .show{
     display: block;
 }
+.padd{
+    padding:10px;
+}
+.project-detail-container{
+    max-width:65%; background: #fff; border-radius:5px;
+}
+.back-btn{
+    float:right; margin-top: 10px;
+}
