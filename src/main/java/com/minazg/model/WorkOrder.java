@@ -43,6 +43,14 @@ public class WorkOrder implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date startDate;
 
+/*
+    @NotNull
+    @Column(nullable=false)
+    @DateTimeFormat(pattern = "MM-dd-yyyy")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date endDate;
+*/
+
     @DateTimeFormat(pattern = "MM-dd-yyyy")
     @Temporal(TemporalType.TIMESTAMP)
     private Date resolvedDate;
