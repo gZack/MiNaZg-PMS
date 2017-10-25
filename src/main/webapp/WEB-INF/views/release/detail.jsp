@@ -6,9 +6,9 @@
             <span class="badge">${release.status}</span>
             <div class="btn-group pull-right">
 
-                <c:url value="/release/list?projectId=${release.id}" var="projectUrl"/>
-                <a title="View Sprints" class="btn btn-primary" href="<c:out value='${projectUrl}'/>">
-                </a>
+                <%--<c:url value="/release/list?projectId=${release.id}" var="projectUrl"/>--%>
+                <%--<a title="View Sprints" class="btn btn-primary" href="<c:out value='${projectUrl}'/>">--%>
+                <%--</a>--%>
             </div>
 
         </div>

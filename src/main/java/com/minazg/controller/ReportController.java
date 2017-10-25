@@ -35,18 +35,12 @@ public class ReportController {
         searchType.put("Task", "Task");
         searchType.put("Status", "Status");
 
-//        return new String[]{"Developer", "Task", "Status"};
         return searchType;
 
     }
 
     @RequestMapping(value = {"", "/", "list"})
     public String showTaskReport(Model model) {
-
-//        List<WorkOrder> workOrders = reportService.findAll();
-
-//        List<Report> reports = (List<Report>) workOrders.get(0).getWorkOrderReports();
-
 
         model.addAttribute("reports", reportService.findAll());
         return "report/reportTask";
@@ -58,7 +52,6 @@ public class ReportController {
 
         List<Report> reports = null;
 
-
         if (searchType.equals("Developer")) {
             reports = reportService.findReportsByWorkOrder_Developer_LastName(key);
         } else if (searchType.equals("Task")) {
@@ -68,9 +61,6 @@ public class ReportController {
         }
 
         model.addAttribute("reports", reports);
-//        model.addAttribute("projectName", projectService.findOne(Long.valueOf(projectId)).getName());
-//        model.addAttribute("projectId", projectId);
-//        model.addAttribute("statusTypes", helperUtils.getStatusTypes());
 
         return "report/reportTask";
     }

@@ -7,37 +7,14 @@
              <b>${project.name}</b>
         </c:if>
     </div>
-    <%----%>
-    <%--<a class="list-group-item active">--%>
-       <%----%>
-    <%--</a>--%>
-    <div class="half-width">
-        <form:form modelAttribute="newRelease" cssClass="form-horizontal">
+
+    <div class="">
+        <form:form modelAttribute="newRelease" cssClass="form-horizontal formWithDateValidation">
             <c:choose>
                 <c:when test="${action eq 'edit'}">
                     <form:hidden path="id" id="id"/>
                 </c:when>
             </c:choose>
-
-            <%--<c:choose>--%>
-                <%--<c:when test="${projectId != null}">--%>
-                    <%--<form:input type="hidden" path="project.id"/>--%>
-                <%--</c:when>--%>
-                <%--<c:otherwise>--%>
-                    <%--<div class="form-group">--%>
-                        <%--<label class="col-sm-2 control-label" for="project.id">projects:</label>--%>
-                        <%--<div class="col-sm-10">--%>
-                            <%--<form:select id="project" path="project.id" class="form-control">--%>
-                                <%--<form:option value="">--select project--</form:option>--%>
-                                <%--<form:options items="${projects}" itemValue="id" itemLabel="name" />--%>
-                            <%--</form:select>--%>
-                            <%--<div class="has-error">--%>
-                                <%--<form:errors path="project.id" class="help-inline"/>--%>
-                            <%--</div>--%>
-                        <%--</div>--%>
-                    <%--</div>--%>
-                <%--</c:otherwise>--%>
-            <%--</c:choose>--%>
 
             <form:hidden path="project.id" value="${projectId}" id="project.id"/>
 
@@ -62,33 +39,51 @@
             </div>
 
             <div class="form-group">
-                <label class="col-sm-3 control-label" for="status">Status:</label>
-                <div class="col-sm-10">
-                    <form:select class="form-control input-sm" path="status"  items="${statusTypes}"
+                <label class="control-label col-sm-3" for="status">Status:</label>
+                <div class="col-sm-9">
+                    <form:select class="form-control input-sm" path="status" items="${statusTypes}"
                                  itemLabel="StatusType"
                                  itemValue="StatusType"/>
                     <div class="has-error">
-                        <form:errors path="status" class="help-inline"/>
+                        <form:errors path="status" />
                     </div>
                 </div>
             </div>
 
+            <%--<div class="form-group">--%>
+                <%--<label class="col-sm-3 control-label" for="releaseDate">Release Date:</label>--%>
+                <%--<div class="col-sm-10">--%>
+                    <%--<div class='input-group date' id='datetimepicker1'>--%>
+                        <%--<form:input path="releaseDate" class="form-control"/>--%>
+                        <%--<span class="input-group-addon">--%>
+                            <%--<span class="glyphicon glyphicon-calendar"></span>--%>
+                        <%--</span>--%>
+                    <%--</div>--%>
+                    <%--<div class="has-error">--%>
+                        <%--<form:errors path="releaseDate"/>--%>
+                    <%--</div>--%>
+                <%--</div>--%>
+            <%--</div>--%>
+
             <div class="form-group">
-                <label class="col-sm-3 control-label" for="releaseDate">Release Date:</label>
-                <div class="col-sm-10">
+                <label class="control-label col-sm-3" for="releaseDate">Release Date:</label>
+                <div class="col-sm-9">
                     <div class='input-group date' id='datetimepicker1'>
-                        <form:input path="releaseDate" class="form-control"/>
+                        <form:input id="releaseDate" path="releaseDate" class="form-control input-sm" />
                         <span class="input-group-addon">
                             <span class="glyphicon glyphicon-calendar"></span>
                         </span>
                     </div>
                     <div class="has-error">
-                        <form:errors path="releaseDate"/>
+                        <form:errors path="releaseDate" />
+                    </div>
+                    <div class='col-sm-6'>
+
                     </div>
                 </div>
             </div>
 
-            <div class="form-group">
+            <div class="form-group floatRight">
                 <div class="col-sm-offset-2 col-sm-10">
                     <c:choose>
                         <c:when test="${action eq 'edit'}">
