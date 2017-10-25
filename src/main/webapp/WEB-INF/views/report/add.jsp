@@ -10,7 +10,7 @@
 			Log Report
 			<div class="pull-right">
 				<c:url value='/dev/detail' var="backToDetailUrl">
-					<c:param name="id" value="${taskId}"/>
+					<c:param name="id" value="${task.id}"/>
 				</c:url>
 				<a href="${backToDetailUrl}" class="btn btn-primary btn-xs">Back</a>
 			</div>
@@ -20,6 +20,24 @@
 
 		<div class="form-padding">
 			<form:input type="hidden" path="workOrder"/>
+
+			<div class="form-group">
+				<label class="col-sm-3 control-label" >Task Title:</label>
+				<div class="col-sm-9">
+					<p class="badge">
+						<strong>${task.title}</strong>
+					</p>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="col-sm-3 control-label">Task Status:</label>
+				<div class="col-sm-9">
+					<p class="badge">
+						<strong>${task.status}</strong>
+					</p>
+				</div>
+			</div>
 
 			<div class="form-group">
 				<label class="col-sm-3 control-label" for="hour">Hour:</label>

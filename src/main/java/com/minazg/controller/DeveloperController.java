@@ -69,14 +69,20 @@ public class DeveloperController {
     public String logReport(@RequestParam("taskId") Long taskId,
                             Model model){
 
-        WorkOrder workOrder = new WorkOrder();
-        workOrder.setId(taskId);
+        WorkOrder workOrder = null;
+
+        if(taskId != null && model.asMap().get("task") == null){
+
+            workOrder = taskService.findOne(taskId);
+
+            model.addAttribute("task", workOrder);
+
+        }
 
         Report report = new Report();
         report.setWorkOrder(workOrder);
 
         model.addAttribute("report", report);
-        model.addAttribute("taskId", taskId);
 
         return "report/add";
 
@@ -89,7 +95,11 @@ public class DeveloperController {
                             Model model){
 
         //taskId shouldnt be null
-        model.addAttribute("taskId", taskId);
+        if(taskId != null && model.asMap().get("task") == null){
+
+            model.addAttribute("task", taskService.findOne(taskId));
+
+        }
 
         if(result.hasErrors()){
             return "report/add";
