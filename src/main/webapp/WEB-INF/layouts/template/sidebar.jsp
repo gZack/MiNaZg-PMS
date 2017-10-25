@@ -6,7 +6,7 @@
     <div class="user-panel">
         <security:authorize access="isAuthenticated()">
         <div class="pull-left image">
-            <img src='<c:url value="/static/img/avatar.png" />' class="img-circle" alt="User Image">
+            <img src='<c:url value="/static/img/9.png" />' class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
             <p>${userDetail.firstName} ${userDetail.lastName}</p>

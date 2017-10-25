@@ -150,16 +150,18 @@ public class AppController {
 		}*/
 
 		MultipartFile productImage = user.getUserProfPic();
-		String rootDirectory = request.getSession().getServletContext().getRealPath("/");
+		//String rootDirectory = request.getSession().getServletContext().getRealPath("/");
+		String uploadLocation = request.getServletContext()
+				.getInitParameter("upload.location");
+		uploadLocation = messageSource.getMessage("upload.location",null,null);
 
 		if (productImage!=null && !productImage.isEmpty()) {
 			try {
-				productImage.transferTo(new File(rootDirectory+"static\\img\\"+ user.getId() + ".png"));
+				productImage.transferTo(new File(uploadLocation + user.getId() + ".png"));
 			} catch (Exception e) {
 				throw new RuntimeException("Product Image saving failed", e);
 			}
 		}
-
 
 		userService.updateUser(user);
 
