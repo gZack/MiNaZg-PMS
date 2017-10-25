@@ -1,6 +1,5 @@
 package com.minazg.controller;
 
-import com.minazg.model.Release;
 import com.minazg.model.Sprint;
 import com.minazg.model.StatusType;
 import com.minazg.service.ReleaseService;
@@ -16,7 +15,6 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.naming.Binding;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -35,6 +33,7 @@ public class SprintController {
 
     @Autowired
     UserService userService;
+
 
     @Autowired
     DateSequenceValidator dateSequenceValidator;
@@ -150,19 +149,25 @@ public class SprintController {
         }
     }
 
+    @InitBinder
+    public void initialiseBinder(WebDataBinder binder) {
+//		binder.setValidator(dateSequenceValidator);
+//
+
+    }
+
+
     @RequestMapping(value = {"/search"}, method = RequestMethod.GET)
-    public String sprintDetail(Model model, @RequestParam(value = "releaseId", required = false) String releaseId,
+    public String sprintDetail(Model model,
                                 @RequestParam(value = "sprintTitle", required = false) String sprintTitle) {
 
-        releaseId = (releaseId != null) ? releaseId : "";
+
         sprintTitle = (sprintTitle != null) ? sprintTitle : "";
 
 
-        if (!releaseId.equals("") && !sprintTitle.equals(""))
-            model.addAttribute("sprints", sprintService.findByReleaseIdAndTitle(Long.valueOf(releaseId), sprintTitle));
+        if ( !sprintTitle.equals(""))
+            model.addAttribute("sprints", sprintService.findByTitle(sprintTitle));
 
-        model.addAttribute("releaseNumber", releaseService.findOne(Long.valueOf(releaseId)).getVersionNumber());
-        model.addAttribute("releaseId", releaseId);
         model.addAttribute("statusTypes", helperUtils.getStatusTypes());
 
         return "sprint/listSprint";

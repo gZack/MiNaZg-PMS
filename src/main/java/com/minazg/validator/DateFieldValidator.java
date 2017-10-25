@@ -16,7 +16,7 @@ public class DateFieldValidator implements ConstraintValidator<DateField, Date> 
     }
 
     @Override
-    public boolean isValid(Date datefield, ConstraintValidatorContext ctx) {
+    public boolean isValid(Date datefield, final ConstraintValidatorContext ctx) {
 
         if(datefield == null){
             return false;
