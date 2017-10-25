@@ -1,4 +1,4 @@
-package com.minazg.controller;
+package com.minazg.exception;
 
 public class ProjectNotFoundException extends RuntimeException {
     private static final long serialVersionUID = 9060751397339719682L;

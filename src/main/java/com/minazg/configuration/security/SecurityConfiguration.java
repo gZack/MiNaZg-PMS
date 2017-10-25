@@ -47,12 +47,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
-				.antMatchers("/", "/list").access("hasRole('USER') or hasRole('ADMIN') or hasRole('DBA')")
+				.antMatchers("/", "/list").access("hasRole('USER') or hasRole('ADMIN')")
 				.antMatchers("/newuser/**", "/delete-user-*").access("hasRole('ADMIN')")
-				.antMatchers("/edit-user-*").access("hasRole('ADMIN') or hasRole('DBA')")
-				.antMatchers("/task/**").access("hasRole('PROJECT_MANAGER')")
-				.antMatchers("/sprint/**").access("hasRole('PROJECT_MANAGER')")
-				.antMatchers("/dev/**").access("hasRole('DEVELOPER')")
+				.antMatchers("/edit-user-*").access("hasRole('ADMIN')")
+				.antMatchers("/task/**").access("hasRole('PROJECT_MANAGER') or hasRole('ADMIN')")
+				.antMatchers("/sprint/**").access("hasRole('PROJECT_MANAGER') or hasRole('ADMIN')")
+				.antMatchers("/project/**").access("hasRole('PROJECT_MANAGER') or hasRole('ADMIN')")
+				.antMatchers("/dev/**").access("hasRole('DEVELOPER') or hasRole('ADMIN')")
 				.and().formLogin().loginPage("/login").successHandler(successHandler)
 				.loginProcessingUrl("/login").usernameParameter("ssoId").passwordParameter("password")
 				//.and().rememberMe().rememberMeParameter("remember-me").tokenRepository(tokenRepository).tokenValiditySeconds(86400)

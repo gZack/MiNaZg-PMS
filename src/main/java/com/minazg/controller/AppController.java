@@ -1,6 +1,6 @@
 package com.minazg.controller;
 
-import java.io.File;
+import java.io.*;
 import java.util.List;
 import java.util.Locale;
 
@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
+import com.minazg.exception.UserNotFoundException;
 import com.minazg.model.UserRole;
 import com.minazg.service.UserRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -98,11 +99,23 @@ public class AppController {
 		}*/
 
 		MultipartFile productImage = user.getUserProfPic();
+
+		String uploadLocation = messageSource
+				.getMessage("upload.location",null,null);
+
 		String rootDirectory = request.getSession().getServletContext().getRealPath("/");
 
+		File tempFile = new File(rootDirectory+"static\\img\\"+ user.getId() + ".png");
+		File permanentFile = new File(uploadLocation + user.getId() + ".png");
+
 		if (productImage!=null && !productImage.isEmpty()) {
+
 			try {
-				productImage.transferTo(new File(rootDirectory+"static\\img\\"+ user.getId() + ".png"));
+
+				copyFileUsingFileStreams(productImage.getInputStream(), tempFile);
+
+				productImage.transferTo(permanentFile);
+
 			} catch (Exception e) {
 				throw new RuntimeException("Product Image saving failed", e);
 			}
@@ -123,6 +136,9 @@ public class AppController {
 	@RequestMapping(value = { "/edit-user-{ssoId}" }, method = RequestMethod.GET)
 	public String editUser(@PathVariable String ssoId, ModelMap model) {
 		User user = userService.findBySSO(ssoId);
+		if(user == null){
+			throw new UserNotFoundException("Unable to find user with user name: " + ssoId);
+		}
 		model.addAttribute("user", user);
 		model.addAttribute("edit", true);
 		model.addAttribute("loggedinuser", getPrincipal());
@@ -150,11 +166,23 @@ public class AppController {
 		}*/
 
 		MultipartFile productImage = user.getUserProfPic();
+
+		String uploadLocation = messageSource
+				.getMessage("upload.location",null,null);
+
+		String rootDirectory = request.getSession().getServletContext().getRealPath("/");
+
+		File tempFile = new File(rootDirectory+"static\\img\\"+ user.getId() + ".png");
+		File permanentFile = new File(uploadLocation + user.getId() + ".png");
+
 		if (productImage!=null && !productImage.isEmpty()) {
-			String uploadLocation = messageSource
-					.getMessage("upload.location",null,null);
+
 			try {
-				productImage.transferTo(new File(uploadLocation + user.getId() + ".png"));
+
+				copyFileUsingFileStreams(productImage.getInputStream(), tempFile);
+
+				productImage.transferTo(permanentFile);
+
 			} catch (Exception e) {
 				throw new RuntimeException("Product Image saving failed", e);
 			}
@@ -226,6 +254,24 @@ public class AppController {
 			userName = principal.toString();
 		}
 		return userName;
+	}
+
+
+
+	private static void copyFileUsingFileStreams(InputStream input, File dest)
+			throws IOException {
+		OutputStream output = null;
+		try {
+			output = new FileOutputStream(dest);
+			byte[] buf = new byte[1024];
+			int bytesRead;
+			while ((bytesRead = input.read(buf)) > 0) {
+				output.write(buf, 0, bytesRead);
+			}
+		} finally {
+			input.close();
+			output.close();
+		}
 	}
 
 }

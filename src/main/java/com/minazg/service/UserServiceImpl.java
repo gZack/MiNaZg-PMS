@@ -2,6 +2,7 @@ package com.minazg.service;
 
 import java.util.List;
 
+import com.minazg.exception.UserNotFoundException;
 import com.minazg.repository.UserRepository;
 import com.minazg.util.SecurityUtils;
 import org.hibernate.Hibernate;
@@ -38,6 +39,9 @@ public class UserServiceImpl implements UserService{
 
 	public User findBySSO(String sso) {
 		User user = userRepository.findUserBySsoId(sso);
+		if(user == null){
+			throw new UserNotFoundException("Unable to find user with user name: " + sso);
+		}
 		Hibernate.initialize(user.getUserRoles());
 		return user;
 	}

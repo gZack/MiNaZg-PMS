@@ -1,6 +1,6 @@
 package com.minazg.controller;
 
-import com.minazg.model.Comment;
+import com.minazg.exception.ProjectNotFoundException;
 import com.minazg.model.ComponentType;
 import com.minazg.model.Project;
 import com.minazg.model.UserRoleType;
