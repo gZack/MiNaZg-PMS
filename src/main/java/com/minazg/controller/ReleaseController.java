@@ -44,7 +44,7 @@ public class ReleaseController {
 
         }
 
-        model.addAttribute("projectId",projectId);
+        model.addAttribute("projectId", projectId);
         model.addAttribute("releases", releaseService.findReleaseByProjectId(Long.valueOf(projectId)));
         model.addAttribute("projectTitle", projectService.findOne(Long.valueOf(projectId)).getName());
         return "release/listRelease";
@@ -55,14 +55,14 @@ public class ReleaseController {
                                  Model model) {
 
         Release release = new Release();
-        model.addAttribute("newRelease",release);
+        model.addAttribute("newRelease", release);
 
-        if(projectId != null){
+        if (projectId != null) {
 
             Project project = projectService.findOne(projectId);
             release.setProject(project);
 
-            model.addAttribute("project",project);
+            model.addAttribute("project", project);
 
             model.addAttribute("projectId", projectId);
 
@@ -78,7 +78,7 @@ public class ReleaseController {
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public String addRelease(@Valid @ModelAttribute("newRelease") Release release, BindingResult br,
-                             @RequestParam(value = "projectId",required = false) String projectId,
+                             @RequestParam(value = "projectId", required = false) String projectId,
                              Model model, RedirectAttributes ra) {
 
         if (br.hasErrors()) {
@@ -90,8 +90,8 @@ public class ReleaseController {
         }
 
         releaseService.save(release);
-        ra.addFlashAttribute("flashMessage","Release Added Successfully");
-        return "redirect:/release/list?projectId="+projectId;
+        ra.addFlashAttribute("flashMessage", "Release Added Successfully");
+        return "redirect:/release/list?projectId=" + projectId;
     }
 
     @RequestMapping(value = {"/edit/{releaseId}"}, method = RequestMethod.GET)
@@ -99,6 +99,7 @@ public class ReleaseController {
         Release release = null;
         try {
             release = releaseService.findOne(Long.valueOf(releaseId));
+            model.addAttribute("projectId", release.getProject().getId());
             model.addAttribute("projectName", release.getProject().getName());
             model.addAttribute("statusTypes", helperUtils.getStatusTypes());
             model.addAttribute("action", "edit");
@@ -110,7 +111,8 @@ public class ReleaseController {
     }
 
     @RequestMapping(value = {"/edit/{releaseId}"}, method = RequestMethod.POST)
-    public String editReleaseForm(@Valid @ModelAttribute("newRelease") Release release, BindingResult bindingResult, Model model) {
+    public String editReleaseForm(@Valid @ModelAttribute("newRelease") Release release, BindingResult bindingResult, Model model,
+                                  RedirectAttributes ra) {
 
         if (bindingResult.hasErrors()) {
             //todo
@@ -121,7 +123,9 @@ public class ReleaseController {
         }
         releaseService.save(release);
 
-        return "redirect:/release/list";
+        ra.addFlashAttribute("flashMessage", "Release Edited Successfully");
+        ra.addFlashAttribute("projectId", release.getProject().getId());
+        return "redirect:/release/list?projectId=" + release.getProject().getId();
 
     }
 

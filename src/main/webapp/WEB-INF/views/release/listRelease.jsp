@@ -66,6 +66,7 @@
                             <a title="Add Sprints" class="fa fa-plus" href="<c:out value='${sprintAddUrl}'/>"></a>
                         </td>
                         <td>
+
                             <c:url value="/release/edit/${release.id}" var="editUrl"/>
                             <a title="Edit Release" class="fa fa-edit" href="<c:out value='${editUrl}'/>"></a>
                         </td>

@@ -55,6 +55,15 @@
                 </a>
             </li>
         </security:authorize>
+        <security:authorize access="isAuthenticated() && hasRole('PROJECT_MANAGER')">
+            <li>
+                <<a href="/report">
+                    <i class="fa fa-th"></i> <span><spring:message code="sidebar.taskreport" /></span>
+                    <span class="pull-right-container">
+                </span>
+                </a>
+            </li>
+        </security:authorize>
     </ul>
 </section>
 
