@@ -8,9 +8,9 @@
         <strong>Success</strong> ${flashMessage}
     </div>
 </c:if>
-<div class="project-search-form">
-
-   <div>
+    <div class="panel-body">
+    <div class="project-search-form">
+        <a href="<c:url value="/sprint/add/${releaseId}"/>" class="col-md-2 btn btn-warning pull-right">Add New Sprint</a>
        <form  method="GET" action="/sprint/search" >
            <div class="col-md-4">
                <div class="input-group">
@@ -19,12 +19,14 @@
                    <span class="input-group-btn">
                     <button type="submit" class="btn btn-default" type="button">Search</button>
                   </span>
+
+                   </div>
                </div>
            </div>
            <div class="clearfix"></div>
        </form>
-   </div>
-</div>
+    </div>
+
     <div>
         <a class="list-group-item active">
             <b>Version ${versionNumber} list of Sprints</b>
@@ -38,7 +40,7 @@
     <table class="table">
         <thead>
         <tr>
-                <th>Sprint Id</th>
+
                 <th>Title</th>
                 <th>Description</th>
                 <th>View/Edit WorkOrder</th>
@@ -49,7 +51,7 @@
         <tbody>
         <c:forEach var="sprint" items="${sprints}">
             <tr>
-                    <td>${sprint.id}</td>
+
                     <td>
                     <c:url value="/sprint/detail/${sprint.id}" var="sprintViewUrl"/>
                     <a href="<c:out value='${sprintViewUrl}'/>">${sprint.title}</a></td>
@@ -76,7 +78,5 @@
         </tbody>
     </table>
 </c:if>
-    <div class="well well-sm">
-        <a href="<c:url value="/sprint/add/${releaseId}"/>">Add New Release</a>
-    </div>
+
 </div>

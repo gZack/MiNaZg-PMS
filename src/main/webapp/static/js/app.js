@@ -69,7 +69,7 @@ function submitCommentAjax(){
                             <br>
                             <p class="comment-date">`+ formatDate(new Date(response.commentDate)) +`</p>
 
-                                <a href="#">Edit</a>
+                                <!--<a href="#">Edit</a>-->
                                 <!--<a href="/comment/del/`+ response.commentUserId +`/`+ response.commentId +`">Delete</a>-->
                         </div>
                     </div>`);

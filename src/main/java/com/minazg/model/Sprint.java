@@ -1,6 +1,7 @@
 package com.minazg.model;
 
 import com.minazg.validator.DateField;
+import com.minazg.validator.DateSequence;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -16,7 +17,11 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
+
+
 public class Sprint implements Serializable {
+
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -33,9 +38,8 @@ public class Sprint implements Serializable {
 //    @NotNull
     @Column(nullable=false)
     @DateTimeFormat(pattern = "MM-dd-yyyy")
-//    @Pattern(regexp = " ", message ="{com.minazg.validator.DateField.message}")
-
-    //@DateField(message = "com.minazg.validator.DateField.message")
+//  @Pattern(regexp = " ", message ="{com.minazg.validator.DateField.message}")
+//  @DateField
     @Temporal(TemporalType.TIMESTAMP)
     private Date startDate;
 
@@ -43,6 +47,7 @@ public class Sprint implements Serializable {
     @Column(nullable=false)
     @DateTimeFormat(pattern = "MM-dd-yyyy")
     @Temporal(TemporalType.TIMESTAMP)
+
     private Date endDate;
 
     @NotEmpty

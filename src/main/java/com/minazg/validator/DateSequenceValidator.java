@@ -5,24 +5,28 @@ import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
+import javax.validation.ConstraintValidator;
+import javax.validation.ConstraintValidatorContext;
+
 @Component
 
-public class DateSequenceValidator implements Validator {
+public class DateSequenceValidator implements ConstraintValidator<DateSequence, Sprint>{
     @Override
-    public boolean supports(Class<?> aClass) {
-        return Sprint.class.isAssignableFrom(aClass);
+    public void initialize(DateSequence dateField) {
+
     }
 
     @Override
-    public void validate(Object target, Errors errors) {
+    public boolean isValid(Sprint sprint, ConstraintValidatorContext constraintValidatorContext) {
 
-        Sprint sprint = (Sprint)  target;
+        if((sprint.getStartDate().compareTo(sprint.getEndDate())<0)){
+            constraintValidatorContext.disableDefaultConstraintViolation();
+            constraintValidatorContext.buildConstraintViolationWithTemplate("{com.minazg.validator.dateSequence.message}");
 
-        if(sprint.getStartDate().after(sprint.getEndDate())) {
-            errors.rejectValue("dateSequence", "com.minazg.DateSequenceValidator.message");
+            return true;
         }
 
+        return  false;
     }
-
 
 }

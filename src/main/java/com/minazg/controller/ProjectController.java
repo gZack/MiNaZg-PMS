@@ -108,7 +108,9 @@ public class ProjectController {
     public String showProject(@PathVariable String pid, Model model) {
         try{
             model.addAttribute("project",projectService.findOne(Long.valueOf(pid)));
-            // TODO, comment should be integrated using Ajax
+            // load project details
+            model.addAttribute("projectDetails",projectService.getProjectDetail(Long.valueOf(pid)));
+            // load comment
             model.addAttribute("redirectUrl", "/project/detail/"+pid);
             model.addAttribute("componentId", Long.valueOf(pid));
             model.addAttribute("componentType", ComponentType.PROJECT.getComponentType());

@@ -14,7 +14,7 @@
 
 
 
-    <form:form modelAttribute="newSprint" class="form-horizontal ">
+    <form:form modelAttribute="newSprint" class="form-horizontal formWithDateValidation">
         <c:choose>
             <c:when test="${action eq 'edit'}">
                 <form:hidden path="id" id="id"/>
@@ -48,7 +48,7 @@
             <div class="col-sm-10">
 
                 <div class="datepicker">
-                <div class='input-group datex' >
+                <div class='input-group date' >
                     <form:input id="startDate" path="startDate" class="form-control" />
                     <span class="input-group-addon">
                             <span class="glyphicon glyphicon-calendar"></span>
@@ -68,7 +68,7 @@
             <div class="col-sm-10">
 
                 <div class="datepicker">
-                <div class='input-group datex'>
+                <div class='input-group date'>
                     <form:input id="endDate" path="endDate" class="form-control" />
                     <span class="input-group-addon">
                             <span class="glyphicon glyphicon-calendar"></span>
@@ -95,15 +95,7 @@
         </div>
 
         <form:hidden path="release.id" value="${releaseId}" id="release.id"/>
-        <%--<div class="form-group">--%>
-            <%--<label class="control-label col-sm-2" for="release.id">Release ID:</label>--%>
-            <%--<div class="col-sm-10">--%>
-                <%--<form:input type="text" path="release.id" id="release.id" value="1" class="form-control input-sm" />--%>
-                <%--<div class="has-error">--%>
-                    <%--<form:errors path="release.id" class="help-inline"/>--%>
-                <%--</div>--%>
-            <%--</div>--%>
-        <%--</div>--%>
+
 
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
