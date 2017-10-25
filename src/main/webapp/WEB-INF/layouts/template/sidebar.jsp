@@ -6,7 +6,14 @@
     <div class="user-panel">
         <security:authorize access="isAuthenticated()">
         <div class="pull-left image">
-            <img src='<c:url value="/static/img/${userDetail.id}.png" />' class="img-circle" alt="User Image">
+            <c:choose>
+                <c:when test="${hasProfPic == true}">
+                    <img src='<c:url value="/static/img/${userDetail.id}.png" />' class="img-circle" alt="User Image">
+                </c:when>
+                <c:otherwise>
+                    <img src='<c:url value="/static/img/avatar.png" />' class="img-circle" alt="User Image">
+                </c:otherwise>
+            </c:choose>
         </div>
         <div class="pull-left info">
             <p>${userDetail.firstName} ${userDetail.lastName}</p>
