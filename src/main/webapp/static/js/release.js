@@ -1,75 +1,46 @@
 
-function makeAjaxCall(){
-    var sendToSend = JSON.stringify(serializeObject($('#searchReleaseForm')));
+$(document).ready(function(){
+    searchRelease();
+});
+
+function searchRelease(){
+
     var contextRoot = "/" + window.location.pathname.split( '/' )[1];
 
     $.ajax({
-        url: contextRoot + '/release/search',
-        type: 'POST',
-        dataType: "json",
-        data:sendToSend,
-        contentType: 'application/json',
-        success: function(release){
-            $('#formInput').html("");
-            $("#formInput").append( '<H3 align="center"> New Employee Information <H3>');
-            $('#formInput').show();
-            $('#errors').hide();
+        dataType : "json",
+        url : "search/"+projectId+"/"+versionNumber,
+        headers : {
+            'Accept' : 'application/json',
+            'Content-Type' : 'application/json'
         },
+        type: 'POST',
+        // data:$('#formSearch').serialize(),
+        success : function(responce) {
 
-        error: function(jqXHR,  textStatus,  exception ){
+            /* what  i have to put here to updte my table <table id="table_grid"> */
+            // $.each( responce,function(key, card) {
+            //     var htmlrow ="<tr><td>" + card.name + "</td></tr>";
+            //     $('#table_grid').append(htmlrow);
+            // }
 
-            if (jqXHR.responseJSON.errorType == "ValidationError") {
-                $('#errors').html("");
-                $("#errors").append( '<H3 align="center"> Error(s)!! <H3>');
-                $("#errors").append( '<p>');
-
-                var errorList = jqXHR.responseJSON.errors;
-                $.each(errorList,  function(i,error) {
-                    $("#errors").append( error.message + '<br>');
-                });
-                $("#errors").append( '</p>');
-                $('#errors').show();
-            }
-            else {
-                alert(jqXHR.responseJSON.message);
-            }
+        },
+        error : function(){
+            alert("error");
         }
-
     });
-}
 
-toggle_visibility = function(id) {
-    var e = document.getElementById(id);
-    if(e.style.display == 'block')
-        e.style.display = 'none';
-    else
-        e.style.display = 'block';
-}
+    // var post = function post() {
+    //     return $.post(contextPath + "search/" + projectId + "/" + versionNumber).fail(function(error) {
+    //         alert("ERROR: " + error.responseText);
+    //     });
+    // }
+    //
+    // post().done(function(done) {
+    //     location.reload();
+    // });
 
-make_hidden = function(id) {
-    var e = document.getElementById(id);
-    e.style.display = 'none';
-}
-
-make_visible = function(id) {
-    var e = document.getElementById(id);
-    e.style.display = 'block';
-}
-
-resetForm = function(id) {
-    var e = document.getElementById(id);
-    $(e)[0].reset();
 
 }
 
-function serializeObject (form)
-{
-    var jsonObject = {};
-    var array = form.serializeArray();
-    $.each(array, function() {
-        jsonObject[this.name] = this.value;
-    });
-    return jsonObject;
-
-};
 

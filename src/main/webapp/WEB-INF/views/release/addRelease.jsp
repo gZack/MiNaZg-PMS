@@ -1,14 +1,16 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<div class="list-group">
-    <a class="list-group-item active">
-        New Release
+<div class="half-width container">
+    <div class="well lead"> New Release for
         <c:if test="${project.name != null}">
-            for <b>${project.name}</b>
+             <b>${project.name}</b>
         </c:if>
-    </a>
-    <br/><br/>
+    </div>
+    <%----%>
+    <%--<a class="list-group-item active">--%>
+       <%----%>
+    <%--</a>--%>
     <div class="half-width">
         <form:form modelAttribute="newRelease" cssClass="form-horizontal">
             <c:choose>
@@ -17,62 +19,62 @@
                 </c:when>
             </c:choose>
 
-            <c:choose>
-                <c:when test="${projectId != null}">
-                    <form:input type="hidden" path="project.id"/>
-                </c:when>
-                <c:otherwise>
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label" for="project.id">projects:</label>
-                        <div class="col-sm-10">
-                            <form:select id="project" path="project.id" class="form-control">
-                                <form:option value="">--select project--</form:option>
-                                <form:options items="${projects}" itemValue="id" itemLabel="name" />
-                            </form:select>
-                            <div class="has-error">
-                                <form:errors path="project.id" class="help-inline"/>
-                            </div>
-                        </div>
-                    </div>
-                </c:otherwise>
-            </c:choose>
+            <%--<c:choose>--%>
+                <%--<c:when test="${projectId != null}">--%>
+                    <%--<form:input type="hidden" path="project.id"/>--%>
+                <%--</c:when>--%>
+                <%--<c:otherwise>--%>
+                    <%--<div class="form-group">--%>
+                        <%--<label class="col-sm-2 control-label" for="project.id">projects:</label>--%>
+                        <%--<div class="col-sm-10">--%>
+                            <%--<form:select id="project" path="project.id" class="form-control">--%>
+                                <%--<form:option value="">--select project--</form:option>--%>
+                                <%--<form:options items="${projects}" itemValue="id" itemLabel="name" />--%>
+                            <%--</form:select>--%>
+                            <%--<div class="has-error">--%>
+                                <%--<form:errors path="project.id" class="help-inline"/>--%>
+                            <%--</div>--%>
+                        <%--</div>--%>
+                    <%--</div>--%>
+                <%--</c:otherwise>--%>
+            <%--</c:choose>--%>
 
-            <%--<form:hidden path="project.id" value="${projectId}" id="project.id"/>--%>
+            <form:hidden path="project.id" value="${projectId}" id="project.id"/>
 
             <div class="form-group">
-                <label class="control-label col-sm-2" for="versionNumber">Version Number:</label>
-                <div class="col-sm-10">
-                    <form:input path="versionNumber" class="form-control" id="versionNumber"/>
+                <label class="col-sm-3 control-label" for="versionNumber">Version Number:</label>
+                <div class="col-sm-9">
+                    <form:input type="text" path="versionNumber" id="versionNumber" class="form-control input-sm"/>
                     <div class="has-error">
-                        <form:errors path="versionNumber"/>
+                        <form:errors path="versionNumber" class="help-inline"/>
                     </div>
                 </div>
             </div>
 
             <div class="form-group">
-                <label class="control-label col-sm-2" for="remark">Remark:</label>
-                <div class="col-sm-10">
-                    <form:textarea path="remark" class="form-control" id="remark"/>
+                <label class="col-sm-3 control-label" for="remark">Remark:</label>
+                <div class="col-sm-9">
+                    <form:input type="text" path="remark" id="remark" class="form-control input-sm"/>
                     <div class="has-error">
-                        <form:errors path="remark"/>
+                        <form:errors path="remark" class="help-inline"/>
                     </div>
                 </div>
             </div>
 
             <div class="form-group">
-                <label class="control-label col-sm-2" for="status">Status:</label>
+                <label class="col-sm-3 control-label" for="status">Status:</label>
                 <div class="col-sm-10">
-                    <form:select class="form-control" path="status" items="${statusTypes}"
+                    <form:select class="form-control input-sm" path="status"  items="${statusTypes}"
                                  itemLabel="StatusType"
                                  itemValue="StatusType"/>
                     <div class="has-error">
-                        <form:errors path="status"/>
+                        <form:errors path="status" class="help-inline"/>
                     </div>
                 </div>
             </div>
 
             <div class="form-group">
-                <label class="control-label col-sm-2" for="releaseDate">Release Date:</label>
+                <label class="col-sm-3 control-label" for="releaseDate">Release Date:</label>
                 <div class="col-sm-10">
                     <div class='input-group date' id='datetimepicker1'>
                         <form:input path="releaseDate" class="form-control"/>
@@ -82,9 +84,6 @@
                     </div>
                     <div class="has-error">
                         <form:errors path="releaseDate"/>
-                    </div>
-                    <div class='col-sm-6'>
-
                     </div>
                 </div>
             </div>

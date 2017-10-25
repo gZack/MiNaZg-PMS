@@ -60,7 +60,7 @@ href="<spring:url value="/project/" />"
             <!-- User Account: style can be found in dropdown.less -->
             <li class="dropdown user user-menu">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                    <img src='<c:url value="/static/img/avatar.png" />' class="user-image" alt="User Image">
+                    <img src='<c:url value="/static/img/${userDetail.id}.png" />' class="user-image" alt="User Image">
                     <span class="hidden-xs">
                         <%--<secuirty:authentication property="principal.username"/>--%>
                         &nbsp;

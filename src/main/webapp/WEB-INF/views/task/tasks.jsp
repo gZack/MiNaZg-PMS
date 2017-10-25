@@ -45,7 +45,13 @@
                 <td><fmt:formatDate value="${task.startDate}" pattern="MM-dd-yyyy"/> </td>
                 <td><fmt:formatDate value="${task.deadLine}" pattern="MM-dd-yyyy"/></td>
                 <td>
-                    <a href="<c:url value='/task/edit/${task.id}' />" class="fa fa-edit"/>
+                    <c:url value="/task/edit" var="editTaskUrl">
+                        <c:param name="taskId" value="${task.id}"/>
+                        <c:if test="${param['sprintId'].length() > 0}">
+                            <c:param name="sprintId" value="${param['sprintId']}"/>
+                        </c:if>
+                    </c:url>
+                    <a href="<c:url value='${editTaskUrl}'/>" class="fa fa-edit"/>
                 </td>
             </tr>
         </c:forEach>

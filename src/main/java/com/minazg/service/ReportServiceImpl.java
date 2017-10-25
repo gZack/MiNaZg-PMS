@@ -10,7 +10,14 @@ import org.springframework.stereotype.Service;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+
 @Service
+@Transactional
 public class ReportServiceImpl implements ReportService {
 
     @Autowired
@@ -20,14 +27,10 @@ public class ReportServiceImpl implements ReportService {
     TaskService taskService;
 
     @Override
-    public Report findOne(Long id) {
-        return reportRepository.findOne(id);
+    public List<Report> findById(Integer id) {
+        return reportRepository.findById(id);
     }
 
-    @Override
-    public List<Report> findAll() {
-        return (List<Report>) reportRepository.findAll();
-    }
 
     @Override
     public Report save(Report report) {
@@ -57,4 +60,76 @@ public class ReportServiceImpl implements ReportService {
 
         return report;
     }
+    @Override
+    public List<Report> findAll() {
+
+        List<Report> reports = (List<Report>) reportRepository.findAll();
+        for (Report report:
+             reports) {
+            Hibernate.initialize(report.getWorkOrder());
+            Hibernate.initialize(report.getWorkOrder().getDeveloper());
+
+        }
+
+        return reports;
+    }
+
+    @Override
+    public List<Report> findByWorkOrderId(Long workOrderId) {
+        return reportRepository.findByWorkOrderId(workOrderId);
+    }
+
+    @Override
+    public List<Report> findReportsByWorkOrder_Status(String status) {
+
+        List<Report> reports = reportRepository.findReportsByWorkOrder_Status(status);
+
+        for (Report report:
+             reports) {
+            Hibernate.initialize(report.getWorkOrder());
+            Hibernate.initialize(report.getWorkOrder().getDeveloper());
+        }
+
+        return reports;
+    }
+
+    @Override
+    public List<Report> findReportsByWorkOrder_Developer_LastName(String lastName){
+
+        List<Report> reports = reportRepository.findReportsByWorkOrder_Developer_LastName(lastName);
+
+        for (Report report:
+                reports) {
+            Hibernate.initialize(report.getWorkOrder());
+            Hibernate.initialize(report.getWorkOrder().getDeveloper());
+        }
+
+        return reports;
+    }
+
+    @Override
+    public List<Report> findReportsByWorkOrder_Title(String title){
+
+        List<Report> reports = reportRepository.findReportsByWorkOrder_Title(title);
+
+        for (Report report:
+                reports) {
+            Hibernate.initialize(report.getWorkOrder());
+            Hibernate.initialize(report.getWorkOrder().getDeveloper());
+        }
+
+        return reports;
+    }
+
+//    @Override
+//    public List<WorkOrder> findAll() {
+//
+//        List<WorkOrder> workOrders = (List<WorkOrder>)reportRepository.findAll();
+//
+//        for (WorkOrder workOrder : workOrders){
+//            Hibernate.initialize(workOrder.getWorkOrderReports());
+//        }
+//
+//        return workOrders;
+//    }
 }
