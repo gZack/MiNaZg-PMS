@@ -4,7 +4,10 @@
 
 <div class="half-width container">
 	<div class="well lead">User Registration Form</div>
-	<form:form method="POST" modelAttribute="user" class="form-horizontal">
+	<form:form method="POST" modelAttribute="user"
+			   enctype="multipart/form-data"
+			   action="/newuser?${_csrf.parameterName}=${_csrf.token}"
+			   class="form-horizontal">
 		<form:input type="hidden" path="id" id="id"/>
 
 		<div class="form-group">
@@ -97,9 +100,21 @@
 		<div class="form-group">
 			<label class="col-sm-3 control-label" for="zipCode">Zip Code</label>
 			<div class="col-sm-9">
-				<form:input type="text" path="address.zipCode" id="zipCode" class="form-control input-sm" />
+				<form:input type="text" path="address.zipCode" id="zipCode"
+							class="form-control input-sm" />
 				<div class="has-error">
 					<form:errors path="address.zipCode" class="help-inline"/>
+				</div>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="col-sm-3 control-label" for="profPic">Profile Pic</label>
+			<div class="col-sm-9">
+				<form:input type="file" path="userProfPic" id="profPic"
+							class="form-control input-sm" />
+				<div class="has-error">
+					<form:errors path="userProfPic" class="help-inline"/>
 				</div>
 			</div>
 		</div>
@@ -115,14 +130,7 @@
 		</div>
 
 		<div class="form-actions floatRight">
-			<c:choose>
-				<c:when test="${edit}">
-					<input type="submit" value="Update" class="btn btn-primary btn-sm"/> or <a href="<c:url value='/list' />">Cancel</a>
-				</c:when>
-				<c:otherwise>
-					<input type="submit" value="Register" class="btn btn-primary btn-sm"/> or <a href="<c:url value='/list' />">Cancel</a>
-				</c:otherwise>
-			</c:choose>
+			<input type="submit" value="Register" class="btn btn-primary btn-sm"/> or <a href="<c:url value='/list' />">Cancel</a>
 		</div>
 	</form:form>
 </div>

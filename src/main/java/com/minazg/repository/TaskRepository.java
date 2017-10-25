@@ -12,5 +12,6 @@ public interface TaskRepository extends PagingAndSortingRepository<WorkOrder,Lon
 
     List<WorkOrder> findByDeveloper_Id(Long userId);
 
-    List<WorkOrder> findBySprintId(Long sprintId);
+    //List<WorkOrder> findBySprintId(Long sprintId);
+    List<WorkOrder> findBySprint_Id(Long sprintId);
 }

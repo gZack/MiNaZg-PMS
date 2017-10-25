@@ -1,24 +1,31 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
-<div class="project-search-form">
-    <form  method="GET" action="/release/search" >
-        <div class="col-md-4">
-            <div class="input-group">
-                <input type="hidden" name="projectId" id="projectId" value="${projectId}">
-                <input class="form-control" placeholder="Version Number" required name="versionNumber" tupe="text" value="${versionNumber}"/>
-                <span class="input-group-btn">
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <b>${projectTitle} list of Releases</b>
+    </div>
+
+    <div class="panel-body">
+        <div class="project-search-form">
+            <a href="<c:url value="/release/add/${projectId}"/>" class="col-md-2 btn btn-warning pull-right">Add New Release</a>
+            <form  method="GET" action="/release/search" >
+                <div class="col-md-4">
+                    <div class="input-group">
+                        <input type="hidden" name="projectId" id="projectId" value="${projectId}">
+                        <input class="form-control" placeholder="Version Number" required name="versionNumber" tupe="text" value="${versionNumber}"/>
+                        <span class="input-group-btn">
                     <button type="submit" class="btn btn-default" type="button">Search</button>
                   </span>
-            </div>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+            </form>
         </div>
-        <div class="clearfix"></div>
-    </form>
-</div>
-<div class="list-group">
-    <a class="list-group-item active">
-        <b>${projectTitle} list of Releases</b>
-    </a>
+
+    </div>
+
     <div>
         <c:if test="${not empty releases}">
             <table class="table">
@@ -63,9 +70,6 @@
         </c:if>
     </div>
 
-    <div class="well well-sm">
-        <a href="<c:url value="/release/add/${projectId}"/>">Add New Release</a>
-    </div>
 </div>
 
 

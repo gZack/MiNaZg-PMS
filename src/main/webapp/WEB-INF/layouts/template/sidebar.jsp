@@ -18,13 +18,16 @@
     <ul class="sidebar-menu" data-widget="tree">
         <li class="header">MAIN NAVIGATION</li>
 
-        <li>
-            <a href='<spring:url value="/project/" />'>
-                <i class="fa fa-dashboard"></i> <span><spring:message code="sidebar.dashboard" /></span>
-                <span class="pull-right-container">
-            </span>
-            </a>
-        </li>
+        <security:authorize access="isAuthenticated() && (hasRole('PROJECT_MANAGER') || hasRole('ADMIN'))">
+            <li>
+                <a href='<spring:url value="/project/" />'>
+                    <i class="fa fa-dashboard"></i> <span><spring:message code="sidebar.dashboard" /></span>
+                    <span class="pull-right-container">
+                        </span>
+                </a>
+            </li>
+        </security:authorize>
+
         <security:authorize access="isAuthenticated() && hasRole('PROJECT_MANAGER')">
             <li>
                 <a href="<c:url value="/task/list"/> ">

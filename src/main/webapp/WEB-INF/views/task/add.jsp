@@ -8,19 +8,25 @@
 
 		<form:input type="hidden" path="id" id="id"/>
 
-		<div class="form-group">
-			<label class="col-sm-3 control-label" for="sprint">Sprint:</label>
-			<div class="col-sm-9">
-				<form:select id="sprint" path="sprint" class="form-control input-sm">
-					<form:option value="">--select sprint--</form:option>
-					<form:options items="${sprints}" itemValue="id" itemLabel="title" />
-				</form:select>
-				<div class="has-error">
-					<form:errors path="sprint.id" class="help-inline"/>
+		<c:choose>
+			<c:when test="${sprintId != null}">
+				<form:input type="hidden" path="sprint"/>
+			</c:when>
+			<c:otherwise>
+				<div class="form-group">
+					<label class="col-sm-3 control-label" for="sprint">Sprint:</label>
+					<div class="col-sm-9">
+						<form:select id="sprint" path="sprint" class="form-control input-sm">
+							<form:option value="">--select sprint--</form:option>
+							<form:options items="${sprints}" itemValue="id" itemLabel="title" />
+						</form:select>
+						<div class="has-error">
+							<form:errors path="sprint.id" class="help-inline"/>
+						</div>
+					</div>
 				</div>
-			</div>
-		</div>
-
+			</c:otherwise>
+		</c:choose>
 		<div class="form-group">
 			<label class="col-sm-3 control-label" for="title">Title:</label>
 			<div class="col-sm-9">

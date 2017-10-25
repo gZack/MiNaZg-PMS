@@ -35,7 +35,7 @@ public class Report implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date timeLog;
 
-    @ManyToOne()
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "workOrder_id", nullable = false)
     private WorkOrder workOrder;
 

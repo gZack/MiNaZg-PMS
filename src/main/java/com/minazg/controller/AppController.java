@@ -1,5 +1,6 @@
 package com.minazg.controller;
 
+import java.io.File;
 import java.util.List;
 import java.util.Locale;
 
@@ -19,14 +20,11 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.*;
 
 import com.minazg.model.User;
 import com.minazg.service.UserService;
+import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 @SessionAttributes("roles")
@@ -77,9 +75,9 @@ public class AppController {
 	 * This method will be called on form submission, handling POST request for
 	 * saving user in database. It also validates the user input
 	 */
-	@RequestMapping(value = { "/newuser" }, method = RequestMethod.POST)
+	@PostMapping(value = { "/newuser" })
 	public String saveUser(@Valid User user, BindingResult result,
-						   ModelMap model) {
+						   ModelMap model, HttpServletRequest request) {
 
 		if (result.hasErrors()) {
 			return "user/registration";
@@ -92,11 +90,22 @@ public class AppController {
 		 * Below mentioned peace of code [if block] is to demonstrate that you can fill custom errors outside the validation
 		 * framework as well while still using internationalized messages.
 		 *
-		 */
+		 *//*
 		if(!userService.isUserSSOUnique(user.getId(), user.getSsoId())){
 			FieldError ssoError =new FieldError("user","ssoId",messageSource.getMessage("non.unique.ssoId", new String[]{user.getSsoId()}, Locale.getDefault()));
 			result.addError(ssoError);
 			return "user/registration";
+		}*/
+
+		MultipartFile productImage = user.getUserProfPic();
+		String rootDirectory = request.getSession().getServletContext().getRealPath("/");
+
+		if (productImage!=null && !productImage.isEmpty()) {
+			try {
+				productImage.transferTo(new File(rootDirectory+"static\\img\\"+ user.getId() + ".png"));
+			} catch (Exception e) {
+				throw new RuntimeException("Product Image saving failed", e);
+			}
 		}
 
 		userService.saveUser(user);
@@ -104,7 +113,7 @@ public class AppController {
 		model.addAttribute("success", "User " + user.getFirstName() + " "+ user.getLastName() + " registered successfully");
 		model.addAttribute("loggedinuser", getPrincipal());
 		//return "success";
-		return "user/registrationsuccess";
+		return "redirect:/list";
 	}
 
 
@@ -126,7 +135,8 @@ public class AppController {
 	 */
 	@RequestMapping(value = { "/edit-user-{ssoId}" }, method = RequestMethod.POST)
 	public String updateUser(@Valid User user, BindingResult result,
-							 ModelMap model, @PathVariable String ssoId) {
+							 ModelMap model, @PathVariable String ssoId,
+							 HttpServletRequest request) {
 
 		if (result.hasErrors()) {
 			return "user/edit";
@@ -139,12 +149,23 @@ public class AppController {
 			return "registration";
 		}*/
 
+		MultipartFile productImage = user.getUserProfPic();
+		String rootDirectory = request.getSession().getServletContext().getRealPath("/");
+
+		if (productImage!=null && !productImage.isEmpty()) {
+			try {
+				productImage.transferTo(new File(rootDirectory+"static\\img\\"+ user.getId() + ".png"));
+			} catch (Exception e) {
+				throw new RuntimeException("Product Image saving failed", e);
+			}
+		}
+
 
 		userService.updateUser(user);
 
 		model.addAttribute("success", "User " + user.getFirstName() + " "+ user.getLastName() + " updated successfully");
 		model.addAttribute("loggedinuser", getPrincipal());
-		return "user/registrationsuccess";
+		return "redirect:/list";
 	}
 
 

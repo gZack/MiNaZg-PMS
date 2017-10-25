@@ -14,4 +14,6 @@ public interface TaskService {
 
     List<WorkOrder> getMyTasks();
 
+    List<WorkOrder> findBySprintId(Long sprintId);
+
 }

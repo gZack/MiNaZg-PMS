@@ -3,6 +3,7 @@ package com.minazg.service;
 import com.minazg.model.Report;
 import com.minazg.model.WorkOrder;
 import com.minazg.repository.ReportRepository;
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -37,10 +38,20 @@ public class ReportServiceImpl implements ReportService {
     @Override
     public Report addReportForTask(Report report){
 
+        report.setTimeLog(new Date());
+
         WorkOrder workOrder = report.getWorkOrder();
         workOrder.setTotalProgress(report.getProgressPercentage());
-        workOrder.setTotalDuration(workOrder.getTotalDuration() != null ? workOrder.getTotalDuration() : 0.0
+        workOrder.setTotalDuration((workOrder.getTotalDuration() != null ? workOrder.getTotalDuration() : 0.0)
                 + report.getHoursSpent());
+
+        report.setWorkOrder(workOrder);
+
+        workOrder.getWorkOrderReports().add(report);
+
+        Hibernate.initialize(workOrder.getDeveloper());
+
+        //save(report);
 
         taskService.save(workOrder);
 

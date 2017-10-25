@@ -9,6 +9,7 @@ import javax.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.web.multipart.MultipartFile;
 
 @Entity
 @Setter
@@ -43,6 +44,12 @@ public class User implements Serializable{
 				joinColumns = {@JoinColumn(name = "user_id")},
 				inverseJoinColumns = {@JoinColumn(name = "userRole_name")})
 	private Set<UserRole> userRoles = new HashSet<>();
+
+	@OneToOne(mappedBy = "developer", fetch = FetchType.LAZY)
+	private WorkOrder workOrder;
+
+	@Transient
+	private MultipartFile userProfPic;
 
 	@Override
 	public int hashCode() {

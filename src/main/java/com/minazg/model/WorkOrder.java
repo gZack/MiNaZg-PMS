@@ -43,14 +43,6 @@ public class WorkOrder implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date startDate;
 
-/*
-    @NotNull
-    @Column(nullable=false)
-    @DateTimeFormat(pattern = "MM-dd-yyyy")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date endDate;
-*/
-
     @DateTimeFormat(pattern = "MM-dd-yyyy")
     @Temporal(TemporalType.TIMESTAMP)
     private Date resolvedDate;
@@ -69,11 +61,11 @@ public class WorkOrder implements Serializable {
 
     private Double totalProgress;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinColumn(name = "dev_user_id")
     private User developer;
 
-    @OneToMany(mappedBy = "workOrder",fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "workOrder",fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Report> workOrderReports;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)

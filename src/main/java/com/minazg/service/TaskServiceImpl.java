@@ -41,4 +41,9 @@ public class TaskServiceImpl implements TaskService {
     public List<WorkOrder> getMyTasks() {
         return taskRepository.findByDeveloper_Id(userService.getCurrentAuthenticatedUser().getId());
     }
+
+    @Override
+    public List<WorkOrder> findBySprintId(Long sprintId){
+        return taskRepository.findBySprint_Id(sprintId);
+    }
 }

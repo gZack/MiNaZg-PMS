@@ -65,7 +65,7 @@ public class ProjectServiceImpl implements ProjectService {
             List<Sprint> sprint = sprintRepository.findSprintByReleaseId(release.getId());
             sprints.add(sprint);
             sprint.forEach(s -> {
-                List<WorkOrder> task = taskRepository.findBySprintId(s.getId());
+                List<WorkOrder> task = taskRepository.findBySprint_Id(s.getId());
                 tasks.add(task);
             });
         });

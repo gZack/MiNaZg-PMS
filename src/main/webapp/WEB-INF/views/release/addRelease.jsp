@@ -3,7 +3,10 @@
 
 <div class="list-group">
     <a class="list-group-item active">
-        <b>New Release for <b>${projectName}</b>
+        New Release
+        <c:if test="${project.name != null}">
+            for <b>${project.name}</b>
+        </c:if>
     </a>
     <br/><br/>
     <div class="half-width">
@@ -14,7 +17,28 @@
                 </c:when>
             </c:choose>
 
-            <form:hidden path="project.id" value="${projectId}" id="project.id"/>
+            <c:choose>
+                <c:when test="${projectId != null}">
+                    <form:input type="hidden" path="project.id"/>
+                </c:when>
+                <c:otherwise>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="project.id">projects:</label>
+                        <div class="col-sm-10">
+                            <form:select id="project" path="project.id" class="form-control">
+                                <form:option value="">--select project--</form:option>
+                                <form:options items="${projects}" itemValue="id" itemLabel="name" />
+                            </form:select>
+                            <div class="has-error">
+                                <form:errors path="project.id" class="help-inline"/>
+                            </div>
+                        </div>
+                    </div>
+                </c:otherwise>
+            </c:choose>
+
+            <%--<form:hidden path="project.id" value="${projectId}" id="project.id"/>--%>
+
             <div class="form-group">
                 <label class="control-label col-sm-2" for="versionNumber">Version Number:</label>
                 <div class="col-sm-10">
