@@ -20,4 +20,6 @@ public interface SprintRepository extends CrudRepository<Sprint, Long> {
 
     List<Sprint> findByReleaseIdAndTitle(Long releaseId, String title);
 
+//    @Query("select s from Sprint s where s.release.id IN :id")
+//    public List<Sprint> findSprintByMultipleReleaseId(@Param("id") Long[] id);
 }
