@@ -57,15 +57,16 @@ public class TaskController {
     @GetMapping("/add")
     public String addTask(@RequestParam(value = "sprintId",required = false) Long sprintId, Model model){
 
+        WorkOrder workOrder = new WorkOrder();
+        model.addAttribute("task",workOrder);
+
         if(sprintId != null){
 
             Sprint sprint = sprintService.findOne(sprintId);
-            WorkOrder workOrder = new WorkOrder();
             workOrder.setSprint(sprint);
 
             model.addAttribute("sprintId",sprintId);
 
-            model.addAttribute("task",workOrder);
 
         } else {
 
@@ -95,6 +96,8 @@ public class TaskController {
         WorkOrder workOrder = taskService.findOne(id);
 
         model.addAttribute("task",workOrder);
+        model.addAttribute("projectName", workOrder.getSprint().getRelease().getProject().getName());
+        model.addAttribute("releaseVersion", workOrder.getSprint().getRelease().getVersionNumber());
 
         return "task/edit";
 

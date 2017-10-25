@@ -39,7 +39,7 @@
         </security:authorize>
         <security:authorize access="isAuthenticated() && hasRole('ADMIN')">
             <li>
-                <a href="#">
+                <a href="/list">
                     <i class="fa fa-user"></i> <span><spring:message code="sidebar.manageusers" /></span>
                     <span class="pull-right-container">
                 </span>

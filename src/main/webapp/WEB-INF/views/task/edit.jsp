@@ -3,7 +3,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <div class="half-width container">
-	<div class="well lead">Create Task</div>
+	<div class="well lead">Edit Task</div>
+
 	<form:form method="POST" modelAttribute="task" class="form-horizontal">
 
 		<form:input type="hidden" path="id" id="id"/>
@@ -19,17 +20,31 @@
 				</div>
 			</div>
 		</div>--%>
+		<div class="form-group">
+			<label class="col-sm-3 control-label" for="sprint">Project:</label>
+			<div class="col-sm-9">
+				<p class="badge">
+					<strong>${task.sprint.release.project.name}</strong>
+				</p>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="col-sm-3 control-label" for="sprint">Release:</label>
+			<div class="col-sm-9">
+				<p class="badge">
+					<strong>${task.sprint.release.versionNumber}</strong>
+				</p>
+			</div>
+		</div>
 
 		<div class="form-group">
 			<label class="col-sm-3 control-label" for="sprint">Sprint:</label>
 			<div class="col-sm-9">
-				<form:select id="sprint" path="sprint" class="form-control input-sm">
-					<form:option value="">--select developer--</form:option>
-					<form:options items="${sprints}" itemValue="id" itemLabel="title" />
-				</form:select>
-				<div class="has-error">
-					<form:errors path="sprint.id" class="help-inline"/>
-				</div>
+				<form:input type="hidden" path="sprint"/>
+				<p class="badge">
+					<strong>${task.sprint.title}</strong>
+				</p>
 			</div>
 		</div>
 

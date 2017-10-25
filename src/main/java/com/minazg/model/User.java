@@ -39,6 +39,9 @@ public class User implements Serializable{
 	@JoinColumn(name = "address_id")
 	private Address address;
 
+	/*@OneToOne(mappedBy = "projectManager", cascade = CascadeType.MERGE)
+	private Project project;*/
+
 	@ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
 	@JoinTable(name = "User_UserRole",
 				joinColumns = {@JoinColumn(name = "user_id")},
