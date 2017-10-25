@@ -97,8 +97,8 @@ public class SprintController {
 //        binder.addValidators(dateSequenceValidator);
 //    }
 
-    @RequestMapping(value={"/edit/{releaseId}"}, method = RequestMethod.GET)
-    public String editSprintForm(@PathVariable ("releaseId") String sprintId, Model model){
+    @RequestMapping(value={"/edit/{sprintId}"}, method = RequestMethod.GET)
+    public String editSprintForm(@PathVariable ("sprintId") String sprintId, Model model){
         Sprint sprint = null;
         try{
             sprint = sprintService.findOne(Long.valueOf(sprintId));
@@ -118,11 +118,11 @@ public class SprintController {
         return "sprint/addSprint";
     }
 
-    @RequestMapping(value={"/edit/{releaseId}"}, method = RequestMethod.POST)
-    public String editSprintForm(@Valid @ModelAttribute("newSprint") Sprint sprint, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model){
+    @RequestMapping(value={"/edit/{sprintId}"}, method = RequestMethod.POST)
+    public String editSprintForm(@Valid @ModelAttribute("newSprint") Sprint sprint, @PathVariable("sprintId") String sprintId,  BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model){
         if(bindingResult.hasErrors()){
 
-//            sprint = sprintService.findOne(Long.valueOf(sprint.getId()));
+            sprint = sprintService.findOne(Long.valueOf(sprintId));
             model.addAttribute("statusTypes", helperUtils.getStatusTypes());
             model.addAttribute("versionNumber", sprint.getRelease().getVersionNumber());
             model.addAttribute("action", "edit");
@@ -130,8 +130,8 @@ public class SprintController {
         }
 
         sprintService.updateSprint(sprint);
-//        redirectAttributes.addFlashAttribute("flashMessage","Sprint Updated Successfully");
-        return "redirect:/sprint/list";
+        redirectAttributes.addFlashAttribute("flashMessage","Sprint Updated Successfully");
+        return "redirect:/sprint/list/"+sprint.getRelease().getId();
 
     }
 

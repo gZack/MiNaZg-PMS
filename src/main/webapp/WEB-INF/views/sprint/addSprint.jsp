@@ -13,7 +13,7 @@
             </c:otherwise>
         </c:choose>
     </div>
-    <form:form method="POST" modelAttribute="newSprint" class="form-horizontal">
+    <form:form method="POST" modelAttribute="newSprint" class="form-horizontal formWithDateValidation">
     <%--<form:form modelAttribute="newSprint" class="form-horizontal formWithDateValidation">--%>
 
 
