@@ -46,6 +46,7 @@ public class TaskController {
 
         if(sprintId == null){
             //model.addAttribute("sprints", sprintService.findAll());
+            model.addAttribute("sprintId",sprintId);
             model.addAttribute("tasks",taskService.findAll());
         } else {
             model.addAttribute("tasks", taskService.findBySprintId(sprintId));
@@ -90,8 +91,9 @@ public class TaskController {
         return "redirect:/task/list";
     }
 
-    @GetMapping("/edit/{id}")
-    public String editTask(@PathVariable("id") Long id, Model model){
+    @GetMapping("/edit")
+    public String editTask(@RequestParam("taskId") Long id,
+                           @RequestParam(value = "sprintId", required = false) Long sprintId, Model model){
 
         WorkOrder workOrder = taskService.findOne(id);
 
@@ -103,9 +105,9 @@ public class TaskController {
 
     }
 
-    @PostMapping("/edit/{id}")
+    @PostMapping("/edit")
     public String saveEditTask(@Valid @ModelAttribute("task") WorkOrder workOrder,
-                               BindingResult bindingResult, Model model){
+                               BindingResult bindingResult, @RequestParam("taskId") Long taskId, Model model){
 
         if(bindingResult.hasErrors()){
             return "task/edit";

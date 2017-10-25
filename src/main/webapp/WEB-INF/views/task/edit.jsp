@@ -9,7 +9,12 @@
 		<div class="panel-heading">
 			Edit Task
 			<div class="pull-right">
-				<a href="<c:url value='/task/list' />" class="btn btn-primary btn-xs">Back</a>
+				<c:url value="/task/list" var="taskListUrl">
+					<c:if test="${param['sprintId'].length() > 0}">
+						<c:param name="sprintId" value="${param['sprintId']}"/>
+					</c:if>
+				</c:url>
+				<a href="<c:url value='${taskListUrl}' />" class="btn btn-primary btn-xs">Back</a>
 			</div>
 		</div>
 
