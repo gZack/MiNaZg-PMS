@@ -134,7 +134,7 @@ public class AppController {
 	 * updating user in database. It also validates the user input
 	 */
 	@RequestMapping(value = { "/edit-user-{ssoId}" }, method = RequestMethod.POST)
-	public String updateUser(@Valid User user, BindingResult result,
+	public String updateUser(@Valid @ModelAttribute("user") User user, BindingResult result,
 							 ModelMap model, @PathVariable String ssoId,
 							 HttpServletRequest request) {
 
@@ -150,12 +150,9 @@ public class AppController {
 		}*/
 
 		MultipartFile productImage = user.getUserProfPic();
-		//String rootDirectory = request.getSession().getServletContext().getRealPath("/");
-		String uploadLocation = request.getServletContext()
-				.getInitParameter("upload.location");
-		uploadLocation = messageSource.getMessage("upload.location",null,null);
-
 		if (productImage!=null && !productImage.isEmpty()) {
+			String uploadLocation = messageSource
+					.getMessage("upload.location",null,null);
 			try {
 				productImage.transferTo(new File(uploadLocation + user.getId() + ".png"));
 			} catch (Exception e) {
@@ -169,7 +166,6 @@ public class AppController {
 		model.addAttribute("loggedinuser", getPrincipal());
 		return "redirect:/list";
 	}
-
 
 	/**
 	 * This method will delete an user by it's SSOID value.

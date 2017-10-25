@@ -98,6 +98,10 @@ body, .form-control{
 .project-detail-container{
     max-width:65%; background: #fff; border-radius:5px;
 }
-.back-btn{
-    float:right; margin-top: 10px;
+.back-btn {
+    float: right;
+    margin-top: 10px;
+}
+.form-padding{
+    padding: 1em;
 }

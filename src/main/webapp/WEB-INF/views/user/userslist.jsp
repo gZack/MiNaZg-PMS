@@ -47,17 +47,33 @@
 </html>--%>
 
 
-	<!-- Default panel contents -->
-	<div class="card-header">
-		<div class="well lead">List of Users </div>
+<div class="panel panel-default">
+
+	<div class="panel-heading">
+		Users
 	</div>
+	<div class="panel-body">
+		<a href="<c:url value='/newuser' />" class="col-md-1 btn btn-warning pull-right">Add User</a>
+		<form class="col-md-10" method="GET" action="/task/list" >
+			<div class="col-md-4">
+				<div class="input-group">
+					<input class="form-control" placeholder="filter by username" required name="q" tupe="text" value="${q}"/>
+					<span class="input-group-btn">
+                        <button type="submit" class="btn btn-default" type="button">Go!</button>
+                      </span>
+				</div>
+			</div>
+			<div class="clearfix"></div>
+		</form>
+		<div class="clearfix"></div>
+	</div>
+
 	<table class="table">
 		<thead>
 		<tr>
 			<th scope="col">Firstname</th>
 			<th scope="col">Lastname</th>
-			<th scope="col">SSO ID</th>
-			<th scope="col" width="100"></th>
+			<th scope="col">Username</th>
 			<th scope="col" width="100"></th>
 		</tr>
 		</thead>
@@ -68,14 +84,12 @@
 				<td>${user.lastName}</td>
 				<td>${user.ssoId}</td>
 				<td>
-					<a href="<c:url value='/edit-user-${user.ssoId}' />" class="btn btn-success">edit</a>
+					<a href="<c:url value='/edit-user-${user.ssoId}'  />" class="fa fa-edit"/>
 				</td>
-				<td><a href="<c:url value='/delete-user-${user.ssoId}' />" class="btn btn-danger">delete</a></td>
 			</tr>
 		</c:forEach>
 		</tbody>
 	</table>
-	<div class="well">
-		<a href="<c:url value='/newuser' />">Add New User</a>
-	</div>
+
+</div>
 

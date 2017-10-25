@@ -9,6 +9,7 @@
 			   class="form-horizontal"
 			   action="${editUrl}?${_csrf.parameterName}=${_csrf.token}"
 			   enctype="multipart/form-data">
+
 		<form:input type="hidden" path="id" id="id"/>
 
 		<div class="form-group">
@@ -60,6 +61,8 @@
 				</div>
 			</div>
 		</div>
+
+		<form:input type="hidden" path="address.id" id="address.id"/>
 
 		<div class="form-group">
 			<label class="col-sm-3 control-label" for="street">Street</label>
@@ -123,14 +126,7 @@
 		</div>
 
 		<div class="form-actions floatRight">
-			<c:choose>
-				<c:when test="${edit}">
-					<input type="submit" value="Update" class="btn btn-primary btn-sm"/> or <a href="<c:url value='/list' />">Cancel</a>
-				</c:when>
-				<c:otherwise>
-					<input type="submit" value="Register" class="btn btn-primary btn-sm"/> or <a href="<c:url value='/list' />">Cancel</a>
-				</c:otherwise>
-			</c:choose>
+			<input type="submit" value="Update" class="btn btn-primary btn-sm"/> or <a href="<c:url value='/list' />">Cancel</a>
 		</div>
 	</form:form>
 </div>

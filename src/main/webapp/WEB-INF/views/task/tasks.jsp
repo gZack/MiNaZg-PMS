@@ -1,7 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<div class="panel panel-primary">
+<div class="panel panel-default">
 
     <div class="panel-heading">
         Tasks
@@ -32,7 +32,7 @@
             <th scope="col">Type</th>
             <th scope="col">Status</th>
             <th scope="col">Start Date</th>
-            <th scope="col">End Date</th>
+            <th scope="col">Deadline</th>
             <th scope="col" width="100"></th>
         </tr>
         </thead>

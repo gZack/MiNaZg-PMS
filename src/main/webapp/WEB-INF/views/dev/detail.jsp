@@ -36,6 +36,10 @@
                         </c:url>
                         <li><a href="${statusChangeUrl}">Close</a></li>
                     </c:if>
+
+                    <li role="separator" class="divider"></li>
+                    <c:url value="/dev/list" var="backToList"/>
+                    <li><a href="${backToList}">Back</a></li>
                 </ul>
             </div>
 
