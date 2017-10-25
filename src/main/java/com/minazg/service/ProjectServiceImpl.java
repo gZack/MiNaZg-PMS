@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -49,37 +50,29 @@ public class ProjectServiceImpl implements ProjectService {
         return (List<Project>) projectRepository.findByName(name);
     }
 
-    public HashMap<String, Object> getProjectDetail(Long pid){
-        HashMap<String, Object> projectDetail = new HashMap<String, Object>();
-
+    //public HashMap<String, Object> getProjectDetail(Long pid){
+        //HashMap<String, Object> projectDetail = new HashMap<String, Object>();
+    public List<Release> getProjectDetail(Long pid){
         // list & number of release
         List<Release> releases = releaseRepository.findReleaseByProjectId(pid);
-        projectDetail.put("releases", releases);
-        projectDetail.put("numberOfReleases", releases.size());
 
-        // list of sprint
-        List<List<Sprint>> sprints = new ArrayList<List<Sprint>>();
-        //list of workorder
-        List<List<WorkOrder>> tasks = new ArrayList<List<WorkOrder>>();
+        // TODO, Optimize! getting data thru joined tables results in lazy initiailization error
         releases.forEach( release -> {
-            List<Sprint> sprint = sprintRepository.findSprintByReleaseId(release.getId());
-            sprints.add(sprint);
-            sprint.forEach(s -> {
-                List<WorkOrder> task = taskRepository.findBySprint_Id(s.getId());
-                tasks.add(task);
-            });
+            // load sprints
+            release.setSprints(sprintRepository.findSprintByReleaseId(release.getId()));
+            // load task from each sprint
+            release.getSprints().forEach(
+                    sprint -> sprint.setWorkOrders(taskRepository.findBySprint_Id(sprint.getId()))
+            );
         });
-        /*
-        for(Release release: releases){
-            List<Sprint> s = sprintRepository.findSprintByReleaseId(release.getId());
-//                                            .stream()
-//                                            .filter( t -> t.getStatus().equals(""))
-//                                            .collect(Collectors.toList());
-            sprints.add(s);
-        }*/
-        projectDetail.put("sprints", sprints);
-        projectDetail.put("tasks", tasks);
+        // sort in reverse order
+        releases.sort(
+                (a,b) -> b.getVersionNumber().compareTo(a.getVersionNumber())
+        );
 
-        return projectDetail;
+//        projectDetail.put("releases", releases);
+//        projectDetail.put("numberOfReleases", releases.size());
+
+        return releases;
     }
 }
