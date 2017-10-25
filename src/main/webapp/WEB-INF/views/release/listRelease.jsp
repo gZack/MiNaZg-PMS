@@ -9,7 +9,7 @@
 
     <div class="panel-body">
         <div class="project-search-form">
-            <a href="<c:url value="/release/add/${projectId}"/>" class="col-md-2 btn btn-warning pull-right">Add New Release</a>
+            <a href="<c:url value="/release/add?projectId=${projectId}"/>" class="col-md-2 btn btn-warning pull-right">Add New Release</a>
             <form  method="GET" action="/release/search" >
                 <div class="col-md-4">
                     <div class="input-group">

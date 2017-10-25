@@ -30,24 +30,21 @@ public class ReleaseController {
     @Autowired
     HelperUtils helperUtils;
 
-    @RequestMapping(value = {"", "/", "/list"})
-    public String list(Model model) {
 
-        model.addAttribute("releases", releaseService.findAll());
-        return "release/listRelease";
-    }
-
-    @RequestMapping(value = {"/list/{projectId}"})
-    public String list(@PathVariable("projectId") String projectId, Model model) {
+    @RequestMapping(value = {"/list"})
+    public String list(@RequestParam(value = "projectId", required = false) String projectId, Model model) {
 
         List<Release> release = null;
 
         try {
+
             release = releaseService.findReleaseByProjectId(Long.valueOf(projectId));
+
         } catch (Exception e) {
 
         }
 
+        model.addAttribute("projectId",projectId);
         model.addAttribute("releases", releaseService.findReleaseByProjectId(Long.valueOf(projectId)));
         model.addAttribute("projectTitle", projectService.findOne(Long.valueOf(projectId)).getName());
         return "release/listRelease";
