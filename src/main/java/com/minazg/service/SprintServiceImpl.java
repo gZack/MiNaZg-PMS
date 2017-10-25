@@ -36,8 +36,8 @@ public class SprintServiceImpl implements SprintService {
         return sprintRepository.findSprintByReleaseId(id);
     }
 
-    public List<Sprint> findByReleaseIdAndTitle(Long releaseId, String title) {
-        return sprintRepository.findByReleaseIdAndTitle( releaseId,  title);
+    public List<Sprint> findByTitle(String title) {
+        return sprintRepository.findByTitle(title);
     }
 
     @Override

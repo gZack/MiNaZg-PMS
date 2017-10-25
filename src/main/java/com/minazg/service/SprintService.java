@@ -20,6 +20,6 @@ public interface SprintService {
 
     List<Sprint> findSprintByReleaseId(Long id);
 
-    List<Sprint> findByReleaseIdAndTitle(Long releaseId, String title);
+    List<Sprint> findByTitle(String title);
 
 }
