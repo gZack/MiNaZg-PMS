@@ -1,20 +1,26 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
+<div class="panel panel-default">
 
-<div class="panel panel-primary">
     <div class="panel-heading">
         <b>${projectTitle} list of Releases</b>
     </div>
 
     <div class="panel-body">
+        <c:if test="${not empty flashMessage}" >
+            <div class="alert alert-success">
+                <strong>Success!</strong> ${flashMessage}
+            </div>
+        </c:if>
         <div class="project-search-form">
-            <a href="<c:url value="/release/add?projectId=${projectId}"/>" class="col-md-2 btn btn-warning pull-right">Add New Release</a>
-            <form  method="GET" action="/release/search" >
+            <a href="<c:url value="/release/add?projectId=${projectId}"/>" class="col-md-2 btn btn-warning pull-right">Add
+                New Release</a>
+            <form method="GET" action="/release/search">
                 <div class="col-md-4">
                     <div class="input-group">
                         <input type="hidden" name="projectId" id="projectId" value="${projectId}">
-                        <input class="form-control" placeholder="Version Number" required name="versionNumber" tupe="text" value="${versionNumber}"/>
+                        <input class="form-control" placeholder="Version Number" required name="versionNumber"
+                               tupe="text" value="${versionNumber}"/>
                         <span class="input-group-btn">
                     <button type="submit" class="btn btn-default" type="button">Search</button>
                   </span>
@@ -25,13 +31,14 @@
         </div>
 
     </div>
-
+    <c:if test="${empty releases}">
+        No Result Found.
+    </c:if>
     <div>
         <c:if test="${not empty releases}">
             <table class="table">
                 <thead>
                 <tr>
-                    <th>ID</th>
                     <th>Version No.</th>
                     <th>Status</th>
                     <th>Release Date</th>
@@ -43,7 +50,6 @@
                 <tbody>
                 <c:forEach var="release" items="${releases}">
                     <tr>
-                        <td>${release.id}</td>
                         <td>
                             <c:url value="/release/detail/${release.id}" var="releaseViewUrl"/>
                             <a href="<c:out value='${releaseViewUrl}'/>">${release.versionNumber}</a>

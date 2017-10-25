@@ -79,7 +79,7 @@ public class ReleaseController {
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public String addRelease(@Valid @ModelAttribute("newRelease") Release release, BindingResult br,
                              @RequestParam(value = "projectId",required = false) String projectId,
-                             Model model) {
+                             Model model, RedirectAttributes ra) {
 
         if (br.hasErrors()) {
             model.addAttribute("projectName", release.getProject().getName());
@@ -88,9 +88,10 @@ public class ReleaseController {
             model.addAttribute("newRelease", release);
             return "release/addRelease";
         }
-        releaseService.save(release);
 
-        return "redirect:/release/list";
+        releaseService.save(release);
+        ra.addFlashAttribute("flashMessage","Release Added Successfully");
+        return "redirect:/release/list?projectId="+projectId;
     }
 
     @RequestMapping(value = {"/edit/{releaseId}"}, method = RequestMethod.GET)
