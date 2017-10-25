@@ -12,7 +12,7 @@
             </div>
             <div class="clearfix"></div>
             <div class="col-md-10 comment-submit-btn">
-                <p>There are <span id="commentCounter">${commentCount}</span> Comment/s </p>
+                <p>There are <span id="commentCounter">${commentCount}</span> Comment(s) </p>
                 <div id="ajaxSpinner" class="hidden">
                     <span ><i width="30px" class='fa fa-spinner fa-spin '></i></span>
                 </div>

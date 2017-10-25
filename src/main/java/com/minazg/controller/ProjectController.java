@@ -13,8 +13,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -104,10 +106,11 @@ public class ProjectController {
     }
 
     @RequestMapping(value = "/detail/{pid}", method = RequestMethod.GET)
-//    public String showProject(@PathVariable String pid, @ModelAttribute("newComment") Comment comment, Model model) {
     public String showProject(@PathVariable String pid, Model model) {
+
         try{
-            model.addAttribute("project",projectService.findOne(Long.valueOf(pid)));
+            Project project = projectService.findOne(Long.valueOf(pid));
+            model.addAttribute("project",project);
             // load project details
             model.addAttribute("projectDetails",projectService.getProjectDetail(Long.valueOf(pid)));
             // load comment
@@ -119,8 +122,15 @@ public class ProjectController {
             return "project/detail";
         }
         catch(Exception e){
-            System.out.println(e);
-            return "project/notFound";
+            throw new ProjectNotFoundException("Project Not Found for Id " + pid);
         }
+    }
+
+    @ExceptionHandler(ProjectNotFoundException.class)
+    public ModelAndView soso(HttpServletRequest req, ProjectNotFoundException exception) {
+        ModelAndView mav = new ModelAndView();
+        mav.addObject("msg", exception.getMessage());
+        mav.setViewName("project/notFound");
+        return mav;
     }
 }
