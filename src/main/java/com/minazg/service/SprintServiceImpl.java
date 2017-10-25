@@ -47,17 +47,19 @@ public class SprintServiceImpl implements SprintService {
 
     public void updateSprint(Sprint sprint) {
 
-        Sprint entity = sprintRepository.findOne(sprint.getId());
-        if(entity!=null){
-            entity.setDescription(sprint.getDescription());
-            entity.setStartDate(sprint.getStartDate());
-            entity.setEndDate(sprint.getEndDate());
-            entity.setTitle(sprint.getTitle());
-            entity.setRelease(sprint.getRelease());
-            entity.setStatus(sprint.getStatus());
-            entity.setWorkOrders(sprint.getWorkOrders());
+        sprintRepository.save(sprint);
 
-        }
+//        Sprint entity = sprintRepository.findOne(sprint.getId());
+//        if(entity!=null){
+//            entity.setDescription(sprint.getDescription());
+//            entity.setStartDate(sprint.getStartDate());
+//            entity.setEndDate(sprint.getEndDate());
+//            entity.setTitle(sprint.getTitle());
+//            entity.setRelease(sprint.getRelease());
+//            entity.setStatus(sprint.getStatus());
+//            entity.setWorkOrders(sprint.getWorkOrders());
+//
+//        }
 
     }
 
