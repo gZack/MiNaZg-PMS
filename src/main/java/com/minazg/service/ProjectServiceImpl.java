@@ -2,8 +2,6 @@ package com.minazg.service;
 
 import com.minazg.model.Project;
 import com.minazg.model.Release;
-import com.minazg.model.Sprint;
-import com.minazg.model.WorkOrder;
 import com.minazg.repository.ProjectRepository;
 import com.minazg.repository.ReleaseRepository;
 import com.minazg.repository.SprintRepository;
@@ -12,11 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -50,8 +44,6 @@ public class ProjectServiceImpl implements ProjectService {
         return (List<Project>) projectRepository.findByName(name);
     }
 
-    //public HashMap<String, Object> getProjectDetail(Long pid){
-        //HashMap<String, Object> projectDetail = new HashMap<String, Object>();
     public List<Release> getProjectDetail(Long pid){
         // list & number of release
         List<Release> releases = releaseRepository.findReleaseByProjectId(pid);
@@ -69,9 +61,6 @@ public class ProjectServiceImpl implements ProjectService {
         releases.sort(
                 (a,b) -> b.getVersionNumber().compareTo(a.getVersionNumber())
         );
-
-//        projectDetail.put("releases", releases);
-//        projectDetail.put("numberOfReleases", releases.size());
 
         return releases;
     }

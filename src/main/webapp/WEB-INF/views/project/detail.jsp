@@ -6,9 +6,11 @@
 
     <hr/>
     <p>${project.description}</p>
-    <p>Status: ${project.status}</p>
     <p>
-        No of Releases:  ${fn:length(projectDetails)}
+        Status: <span class="badge">${project.status}</span>
+    </p>
+    <p>
+        Number of Releases:  <span class="badge">${fn:length(projectDetails)}</span>
     </p>
 
     <hr/>
@@ -21,13 +23,15 @@
                 <div class="panel-heading" role="tab" id="headingOne">
                     <h4 class="panel-title">
                         <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse<c:out value = "${ctr}"/>" aria-expanded="true" aria-controls="collapseOne">
-                            <p>Release ${release.versionNumber}</p>
+                            <p>Release: ${release.versionNumber}</p>
                         </a>
                     </h4>
                 </div>
                 <div id="collapse<c:out value = "${ctr}"/>" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
                     <div class="panel-body">
+                        <c:set var="sprintCtr" scope="page" value="0"/>
                         <c:forEach var="sprint" items="${release.sprints}">
+                            <c:set var="sprintCtr" scope="page" value="1" />
                             <c:set var="sprintTotal" scope="page" value="0.0"/>
                             <c:set var="taskCtr" scope="page" value="0"/>
                             <p><strong>Sprint: <a target="blank" href="/task/list?sprintId=${sprint.id}">${sprint.title}</a></strong></p>
@@ -47,6 +51,9 @@
                                 </div>
                             </div>
                         </c:forEach>
+                        <c:if test="${sprintCtr eq 0}">
+                            <p>No Sprint Found under this Release.</p>
+                        </c:if>
                     </div>
                 </div>
             </div>

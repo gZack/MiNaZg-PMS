@@ -105,7 +105,7 @@
                 </c:otherwise>
             </c:choose>
 
-            <a href="<c:url value="/sprint/list/${releaseId}"/>" class="btn btn-primary btn-sm">Back to Sprint</a>
+            <a href="/sprint/list/${releaseId}" class="btn btn-primary btn-sm">Back to Sprint</a>
 
         </div>
     </form:form>
