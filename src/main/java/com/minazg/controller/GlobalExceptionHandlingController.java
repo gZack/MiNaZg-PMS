@@ -1,5 +1,6 @@
 package com.minazg.controller;
 
+import com.minazg.exception.TaskNotFoundException;
 import com.minazg.exception.UserNotFoundException;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -21,7 +22,20 @@ public class GlobalExceptionHandlingController {
         ModelAndView mav = new ModelAndView();
 
         mav.addObject("exception", e);
-        mav.addObject("url", req.getRequestURL());
+        mav.addObject("url", req.getRequestURI());
+        mav.setViewName(DEFAULT_ERROR_VIEW);
+
+        return mav;
+
+    }
+
+    @ExceptionHandler(TaskNotFoundException.class)
+    public ModelAndView noTaskException(HttpServletRequest req, TaskNotFoundException e){
+
+        ModelAndView mav = new ModelAndView();
+
+        mav.addObject("exception", e);
+        mav.addObject("url", req.getRequestURI());
         mav.setViewName(DEFAULT_ERROR_VIEW);
 
         return mav;

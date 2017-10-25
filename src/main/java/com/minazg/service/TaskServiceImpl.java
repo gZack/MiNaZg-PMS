@@ -1,5 +1,6 @@
 package com.minazg.service;
 
+import com.minazg.exception.TaskNotFoundException;
 import com.minazg.model.WorkOrder;
 import com.minazg.repository.TaskRepository;
 import org.hibernate.Hibernate;
@@ -32,6 +33,9 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public WorkOrder findOne(Long id){
         WorkOrder workOrder = taskRepository.findOne(id);
+        if(workOrder == null){
+            throw new TaskNotFoundException("Unable to find task with task Id: " +id);
+        }
         Hibernate.initialize(workOrder.getDeveloper());
         Hibernate.initialize(workOrder.getSprint());
         return workOrder;
