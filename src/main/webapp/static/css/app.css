@@ -92,3 +92,7 @@ body, .form-control{
 .show{
     display: block;
 }
+
+.form-padding{
+    padding: 1em;
+}

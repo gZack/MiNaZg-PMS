@@ -84,7 +84,12 @@ public class DeveloperController {
 
     @PostMapping("/report")
     public String logReport(@Valid @ModelAttribute("report") Report report,
-                            BindingResult result, Model model){
+                            BindingResult result,
+                            @RequestParam(value = "taskId",required = false) Long taskId,
+                            Model model){
+
+        //taskId shouldnt be null
+        model.addAttribute("taskId", taskId);
 
         if(result.hasErrors()){
             return "report/add";
