@@ -41,11 +41,11 @@ public class SprintController {
     DateSequenceValidator dateSequenceValidator;
 
 
-    @ModelAttribute("releases")
-    public List<Release> collectReleases() {
-
-        return releaseService.findAll();
-    }
+//    @ModelAttribute("releases")
+//    public List<Release> collectReleases() {
+//
+//        return releaseService.findAll();
+//    }
 
     @ModelAttribute("StatusTypes")
     public StatusType[] getStatusTypes() {
@@ -65,6 +65,8 @@ public class SprintController {
         List<Sprint> sprints = null;
         try {
             sprints = sprintService.findSprintByReleaseId(Long.valueOf(releaseId));
+            model.addAttribute("releases", releaseService.findReleaseByProjectId(sprints.get(0).getRelease().getProject().getId()));
+
         } catch (Exception e) {
 
         }
@@ -177,6 +179,7 @@ public class SprintController {
 
         model.addAttribute("statusTypes", helperUtils.getStatusTypes());
         model.addAttribute("versionNumber", sprint.getRelease().getVersionNumber());
+        model.addAttribute("releases", releaseService.findReleaseByProjectId(sprint.getRelease().getProject().getId()));
         model.addAttribute("releaseId", releaseId);
 
         return "sprint/listSprint";
@@ -193,9 +196,10 @@ public class SprintController {
             model.addAttribute("sprints", sprintService.findSprintByReleaseId(Long.valueOf(releases)));
 
         model.addAttribute("statusTypes", helperUtils.getStatusTypes());
-        model.addAttribute("versionNumber", releaseService.findOne(Long.valueOf(releases)).getVersionNumber());
+        Release release = releaseService.findOne(Long.valueOf(releases));
+        model.addAttribute("versionNumber", release.getVersionNumber());
+        model.addAttribute("releases", releaseService.findReleaseByProjectId(release.getProject().getId()));
         model.addAttribute("releaseId", releases);
-
 
         return "sprint/listSprint";
     }

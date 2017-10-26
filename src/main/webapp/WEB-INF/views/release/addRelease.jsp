@@ -2,10 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <div class="half-width container">
-    <div class="well lead"> New Release for
-        <c:if test="${project.name != null}">
-             <b>${project.name}</b>
-        </c:if>
+    <div class="well lead"> New Release for <b>${projectName}</b>
     </div>
 
     <div class="">
