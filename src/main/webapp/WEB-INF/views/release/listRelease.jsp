@@ -13,10 +13,14 @@
                 <strong>Success!</strong> ${flashMessage}
             </div>
         </c:if>
+
         <div class="project-search-form">
+            <a href="<c:url value="/release/add?projectId=${projectId}"/>" class="col-md-2 btn btn-warning pull-right">Add
+                New Release</a>
+
             <form method="GET" action="/release/releaseByProject">
                 <div class="col-md-4">
-                    <div class="input-group">
+                    <div class="input-group pull-right">
                         <select class="form-control" id="projects" name="projects">
                             <option value="NONE" selected> ---- Select Project ---- </option>
                             <c:forEach items="${projects}" var="p">
@@ -29,10 +33,7 @@
                     </div>
                 </div>
             </form>
-        </div>
-        <div class="project-search-form">
-            <a href="<c:url value="/release/add?projectId=${projectId}"/>" class="col-md-2 btn btn-warning pull-right">Add
-                New Release</a>
+
             <form method="GET" action="/release/search">
                 <div class="col-md-4">
                     <div class="input-group">
