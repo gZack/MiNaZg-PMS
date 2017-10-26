@@ -72,6 +72,49 @@ public class TaskController {
         return "task/tasks";
     }
 
+
+    @GetMapping("/list/search")
+    public String searchTask(@RequestParam("q") String query,
+                             @RequestParam(value = "sprintId",required = false) Long sprintId,
+                             @PageableDefault(size = 10) Pageable pageable, Model model){
+
+        List<WorkOrder> matcherTasks = null;
+
+        if(sprintId != null){
+
+            matcherTasks = taskService.filterBySprintId(sprintId,query,pageable);
+
+        }else {
+
+            matcherTasks = taskService.filterTaskByCriteria(query,pageable);
+
+        }
+
+        model.addAttribute("tasks",matcherTasks);
+
+        int size = 0;
+
+        if(query.isEmpty() && sprintId == null){
+
+            size = taskService.totalRecord();
+
+        }else if (query.isEmpty() && sprintId == null){
+
+            size = taskService.totalRecordBySprintId(sprintId);
+
+        }
+
+        int pages = (size/10) + (size % 10 > 0 ? 1 : 0);
+        model.addAttribute("totalRecords",size);
+        model.addAttribute("pages", pages);
+
+        model.addAttribute("prevPage",pageable.getPageNumber());
+        model.addAttribute("nextPage",pageable.getPageNumber() + 1);
+        model.addAttribute("pageSize", pageable.getPageSize());
+
+        return "task/tasks";
+    }
+
     @GetMapping("/add")
     public String addTask(@RequestParam(value = "sprintId",required = false) Long sprintId, Model model){
 
@@ -84,7 +127,6 @@ public class TaskController {
             workOrder.setSprint(sprint);
 
             model.addAttribute("sprintId",sprintId);
-
 
         } else {
 
@@ -117,6 +159,8 @@ public class TaskController {
         model.addAttribute("task",workOrder);
         model.addAttribute("projectName", workOrder.getSprint().getRelease().getProject().getName());
         model.addAttribute("releaseVersion", workOrder.getSprint().getRelease().getVersionNumber());
+
+        model.addAttribute("sprints",sprintService.findAll());
 
         return "task/edit";
 

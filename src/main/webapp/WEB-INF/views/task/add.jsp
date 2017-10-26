@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <div class="half-width container">
 
@@ -9,7 +10,12 @@
 		<div class="panel-heading">
 			Create Task
 			<div class="pull-right">
-				<a href="<c:url value='/task/list' />" class="btn btn-primary btn-xs">Back</a>
+				<c:url value="/task/list" var="backToListUrl">
+					<c:if test="${fn:length(param['sprintId']) > 0}">
+						<c:param name="sprintId" value="${param['sprintId']}"/>
+					</c:if>
+				</c:url>
+				<a href="${backToListUrl}" class="btn btn-primary btn-xs">Back</a>
 			</div>
 		</div>
 
@@ -19,6 +25,16 @@
 			<c:choose>
 				<c:when test="${sprintId != null}">
 					<form:input type="hidden" path="sprint"/>
+
+					<div class="form-group">
+						<label class="col-sm-3 control-label" >Sprint Title:</label>
+						<div class="col-sm-9">
+							<p class="label label-info">
+								<strong>${task.sprint.title}</strong>
+							</p>
+						</div>
+					</div>
+
 				</c:when>
 				<c:otherwise>
 					<div class="form-group">

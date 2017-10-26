@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <div class="panel panel-default">
 
@@ -9,11 +10,26 @@
 
     <div class="panel-body">
         <div class="project-search-form">
-            <a href="<c:url value='/task/add'/>" class="col-md-1 btn btn-warning pull-right">Add New</a>
-            <form class="col-md-10" method="GET" action="/task/list" >
+            <c:url value="/task/add" var="addTaskUrl">
+                <c:if test="${fn:length(param['sprintId']) > 0}">
+                    <c:param name="sprintId" value="${param['sprintId']}"/>
+                </c:if>
+            </c:url>
+            <a href="<c:url value='${addTaskUrl}'/>" class="col-md-1 btn btn-warning pull-right">Add New</a>
+
+            <c:url value="/task/list/search" var="taskSearchUrl">
+                <c:if test="${fn:length(param['sprintId']) > 0}">
+                    <c:param name="sprintId" value="${param['sprintId']}"/>
+                </c:if>
+            </c:url>
+            <form class="col-md-10" method="GET" action="/task/list/search" >
                 <div class="col-md-4">
                     <div class="input-group">
-                        <input class="form-control" placeholder="filter by title" required name="q" tupe="text" value="${q}"/>
+                        <c:if test="${fn:length(param['sprintId']) > 0}">
+                            <input type="hidden" name="sprintId" value="${param['sprintId']}"/>
+                        </c:if>
+                        <input class="form-control" name="q" type="text" value="${param['q']}"
+                               placeholder="title or type or status" />
                         <span class="input-group-btn">
                         <button type="submit" class="btn btn-default" type="button">Go!</button>
                       </span>
