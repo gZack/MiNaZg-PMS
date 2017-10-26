@@ -5,6 +5,7 @@ import com.minazg.model.WorkOrder;
 import com.minazg.repository.TaskRepository;
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,8 +22,8 @@ public class TaskServiceImpl implements TaskService {
     private UserService userService;
 
     @Override
-    public List<WorkOrder> findAll() {
-        return (List<WorkOrder>) taskRepository.findAll();
+    public List<WorkOrder> findAll(Pageable pageable) {
+        return taskRepository.findAll(pageable).getContent();
     }
 
     @Override
@@ -49,5 +50,20 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public List<WorkOrder> findBySprintId(Long sprintId){
         return taskRepository.findBySprint_Id(sprintId);
+    }
+
+    @Override
+    public List<WorkOrder> findBySprintIdPageable(Long sprintId, Pageable pageable){
+        return taskRepository.findBySprint_Id(sprintId, pageable);
+    }
+
+    @Override
+    public int totalRecord(){
+        return taskRepository.countAllByIdIsNotNull();
+    }
+
+    @Override
+    public int totalRecordBySprintId(Long sprintId){
+        return taskRepository.countAllBySprint_Id(sprintId);
     }
 }

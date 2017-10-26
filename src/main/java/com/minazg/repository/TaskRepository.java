@@ -1,7 +1,7 @@
 package com.minazg.repository;
 
 import com.minazg.model.WorkOrder;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
@@ -12,6 +12,11 @@ public interface TaskRepository extends PagingAndSortingRepository<WorkOrder,Lon
 
     List<WorkOrder> findByDeveloper_Id(Long userId);
 
-    //List<WorkOrder> findBySprintId(Long sprintId);
     List<WorkOrder> findBySprint_Id(Long sprintId);
+
+    List<WorkOrder> findBySprint_Id(Long sprintId, Pageable pageable);
+
+    int countAllByIdIsNotNull();
+
+    int countAllBySprint_Id(Long sprintId);
 }

@@ -2,7 +2,6 @@ package com.minazg.controller;
 
 import java.io.*;
 import java.util.List;
-import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -12,7 +11,10 @@ import com.minazg.exception.UserNotFoundException;
 import com.minazg.model.UserRole;
 import com.minazg.service.UserRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.MessageSource;
+import org.springframework.context.support.MessageSourceAccessor;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -20,15 +22,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
+
+import org.springframework.data.domain.Pageable;
 
 import com.minazg.model.User;
 import com.minazg.service.UserService;
 import org.springframework.web.multipart.MultipartFile;
 
 @Controller
-@SessionAttributes("roles")
+@SessionAttributes(value = {"roles","pages","page","pageSize","totalRecords"})
 public class AppController {
 
 	@Autowired
@@ -38,7 +41,10 @@ public class AppController {
 	UserService userService;
 
 	@Autowired
-	MessageSource messageSource;
+	MessageSourceAccessor messageSource;
+
+	//@Value("#{'${upload.locations}'.split(',')}")
+	//private List<String> uploadLocations;
 
 	/**
 	 * This method will provide UserProfile list to views
@@ -53,13 +59,49 @@ public class AppController {
 	 * This method will list all existing users.
 	 */
 	@RequestMapping(value = { "/", "/list" }, method = RequestMethod.GET)
-	public String listUsers(ModelMap model) {
+	public String listUsers(ModelMap model, @PageableDefault(size = 10) Pageable pageable) {
 
-		List<User> users = userService.findAllUsers();
+		List<User> users = userService.findAllUsers(pageable);
+
+		int size = userService.totalRecord();
+		int pages = (size/10) + (size % 10 > 0 ? 1 : 0);
+		model.addAttribute("totalRecords",size);
+		model.addAttribute("pages", pages);
+
+		model.addAttribute("prevPage",pageable.getPageNumber());
+		model.addAttribute("nextPage",pageable.getPageNumber() + 1);
+		model.addAttribute("pageSize", pageable.getPageSize());
+
+
 		model.addAttribute("users", users);
 		model.addAttribute("loggedinuser", getPrincipal());
 
 		return "user/userslist";
+	}
+
+	@GetMapping("/user-search")
+	public String searchUser(@RequestParam("q") String query,
+							 @PageableDefault(size = 10) Pageable pageable, Model model){
+
+		List<User> matchedUser = userService.filterUserByCriteria(query,pageable);
+		model.addAttribute("users", matchedUser);
+
+		int size = 0;
+		if(query.isEmpty()){
+			size = userService.totalRecord();
+		}else {
+			size = matchedUser.size();
+		}
+		int pages = (size/10) + (size % 10 > 0 ? 1 : 0);
+		model.addAttribute("totalRecords",size);
+		model.addAttribute("pages", pages);
+
+		model.addAttribute("prevPage",pageable.getPageNumber());
+		model.addAttribute("nextPage",pageable.getPageNumber() + 1);
+		model.addAttribute("pageSize", pageable.getPageSize());
+
+		return "user/userslist";
+
 	}
 
 	/**
@@ -98,15 +140,37 @@ public class AppController {
 			return "user/registration";
 		}*/
 
+		user = userService.saveUser(user);
+
 		MultipartFile productImage = user.getUserProfPic();
 
-		String uploadLocation = messageSource
-				.getMessage("upload.location",null,null);
+		String[] uploadLocations = messageSource
+				.getMessage("upload.locations").split(",");
+
+		String[] staticImgPaths = messageSource
+				.getMessage("static.img.paths").split(",");
+
+		String imageName = user.getId() + ".png";
 
 		String rootDirectory = request.getSession().getServletContext().getRealPath("/");
 
-		File tempFile = new File(rootDirectory+"static\\img\\"+ user.getId() + ".png");
-		File permanentFile = new File(uploadLocation + user.getId() + ".png");
+		File tempFile = null; //new File(rootDirectory+"static\\img\\"+ imageName);
+
+		for (String staticImgPath : staticImgPaths){
+			if(new File(rootDirectory + staticImgPath).exists()){
+				tempFile = new File(rootDirectory + staticImgPath + imageName);
+			}
+		}
+
+		File permanentFile = null;
+		for(String uploadLocation : uploadLocations){
+
+			if((new File(uploadLocation)).exists()){
+				permanentFile = new File(uploadLocation + imageName);
+				break;
+			}
+
+		}
 
 		if (productImage!=null && !productImage.isEmpty()) {
 
@@ -121,11 +185,10 @@ public class AppController {
 			}
 		}
 
-		userService.saveUser(user);
 
 		model.addAttribute("success", "User " + user.getFirstName() + " "+ user.getLastName() + " registered successfully");
 		model.addAttribute("loggedinuser", getPrincipal());
-		//return "success";
+
 		return "redirect:/list";
 	}
 
@@ -165,15 +228,37 @@ public class AppController {
 			return "registration";
 		}*/
 
+		user = userService.updateUser(user);
+
 		MultipartFile productImage = user.getUserProfPic();
 
-		String uploadLocation = messageSource
-				.getMessage("upload.location",null,null);
+		String[] uploadLocations = messageSource
+				.getMessage("upload.locations").split(",");
+
+		String[] staticImgPaths = messageSource
+				.getMessage("static.img.paths").split(",");
+
+		String imageName = user.getId() + ".png";
 
 		String rootDirectory = request.getSession().getServletContext().getRealPath("/");
 
-		File tempFile = new File(rootDirectory+"static\\img\\"+ user.getId() + ".png");
-		File permanentFile = new File(uploadLocation + user.getId() + ".png");
+		File tempFile = null; //new File(rootDirectory+"static\\img\\"+ imageName);
+		for (String staticImgPath : staticImgPaths){
+			if(new File(rootDirectory + staticImgPath).exists()){
+				tempFile = new File(rootDirectory + staticImgPath + imageName);
+				break;
+			}
+		}
+
+		File permanentFile = null;
+		for(String uploadLocation : uploadLocations){
+
+			if((new File(uploadLocation)).exists()){
+				permanentFile = new File(uploadLocation + imageName);
+				break;
+			}
+
+		}
 
 		if (productImage!=null && !productImage.isEmpty()) {
 
@@ -188,7 +273,7 @@ public class AppController {
 			}
 		}
 
-		userService.updateUser(user);
+
 
 		model.addAttribute("success", "User " + user.getFirstName() + " "+ user.getLastName() + " updated successfully");
 		model.addAttribute("loggedinuser", getPrincipal());
@@ -240,6 +325,8 @@ public class AppController {
 		}
 		return "redirect:/login?logout";
 	}
+
+
 
 	/**
 	 * This method returns the principal[user-name] of logged-in user.
