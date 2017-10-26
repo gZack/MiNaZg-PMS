@@ -5,13 +5,31 @@
     <div class="panel-heading">
         <b>${projectTitle} list of Releases</b>
     </div>
-
+    <br/>
     <div class="panel-body">
-        <c:if test="${not empty flashMessage}" >
+
+        <c:if test="${not empty flashMessage}">
             <div class="alert alert-success">
                 <strong>Success!</strong> ${flashMessage}
             </div>
         </c:if>
+        <div class="project-search-form">
+            <form method="GET" action="/release/releaseByProject">
+                <div class="col-md-4">
+                    <div class="input-group">
+                        <select class="form-control" id="projects" name="projects">
+                            <option value="NONE" selected> ---- Select Project ---- </option>
+                            <c:forEach items="${projects}" var="p">
+                                <option value="${p.id}">${p.name}</option>
+                            </c:forEach>
+                        </select>
+                        <span class="input-group-btn">
+                    <button type="submit" class="btn btn-default" type="button">Show</button>
+                  </span>
+                    </div>
+                </div>
+            </form>
+        </div>
         <div class="project-search-form">
             <a href="<c:url value="/release/add?projectId=${projectId}"/>" class="col-md-2 btn btn-warning pull-right">Add
                 New Release</a>

@@ -28,8 +28,10 @@ public class SprintServiceImpl implements SprintService {
         sprintRepository.delete(id);
     }
 
-    public List<Sprint> findSprintByTitle(String title) {
-        return sprintRepository.findSprintByTitle(title);
+
+    @Override
+    public List<Sprint> findByTitleAndReleaseId(String title, Long releaseId) {
+        return sprintRepository.findByTitleAndReleaseId(title, releaseId);
     }
 
     public List<Sprint> findSprintByReleaseId(Long id) {

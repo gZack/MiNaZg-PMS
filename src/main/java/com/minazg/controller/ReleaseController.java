@@ -1,10 +1,9 @@
 package com.minazg.controller;
 
-import com.minazg.model.Project;
-import com.minazg.model.Release;
-import com.minazg.model.StatusType;
+import com.minazg.model.*;
 import com.minazg.service.ProjectService;
 import com.minazg.service.ReleaseService;
+import com.minazg.service.UserService;
 import com.minazg.util.HelperUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,6 +29,14 @@ public class ReleaseController {
     @Autowired
     HelperUtils helperUtils;
 
+    @Autowired
+    UserService userService;
+
+    @ModelAttribute("projects")
+    public List<Project> collectProjects(){
+
+        return projectService.findAll();
+    }
 
     @RequestMapping(value = {"/list"})
     public String list(@RequestParam(value = "projectId", required = false) String projectId, Model model) {
@@ -153,7 +160,24 @@ public class ReleaseController {
             model.addAttribute("releases", releaseService.findByVersionNumberAndProjectId(versionNumber, Long.valueOf(projectId)));
 
         model.addAttribute("projectName", projectService.findOne(Long.valueOf(projectId)).getName());
+        model.addAttribute("projectTitle", projectService.findOne(Long.valueOf(projectId)).getName());
         model.addAttribute("projectId", projectId);
+        model.addAttribute("statusTypes", helperUtils.getStatusTypes());
+
+        return "release/listRelease";
+    }
+
+    @RequestMapping(value = {"/releaseByProject"}, method = RequestMethod.GET)
+    public String listPerProject(Model model, @RequestParam(value = "projects", required = false) String projects) {
+
+        projects = (projects != null) ? projects : "";
+
+        if (!projects.equals(""))
+            model.addAttribute("releases", releaseService.findReleaseByProjectId(Long.valueOf(projects)));
+
+        model.addAttribute("projectName", projectService.findOne(Long.valueOf(projects)).getName());
+        model.addAttribute("projectTitle", projectService.findOne(Long.valueOf(projects)).getName());
+        model.addAttribute("projectId", projects);
         model.addAttribute("statusTypes", helperUtils.getStatusTypes());
 
         return "release/listRelease";
