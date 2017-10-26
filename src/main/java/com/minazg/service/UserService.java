@@ -3,6 +3,7 @@ package com.minazg.service;
 import java.util.List;
 
 import com.minazg.model.User;
+import org.springframework.data.domain.Pageable;
 
 public interface UserService {
 	
@@ -10,13 +11,13 @@ public interface UserService {
 	
 	User findBySSO(String sso);
 	
-	void saveUser(User user);
+	User saveUser(User user);
 	
-	void updateUser(User user);
+	User updateUser(User user);
 	
 	void deleteUserBySSO(String sso);
 
-	List<User> findAllUsers(); 
+	List<User> findAllUsers(Pageable pageable);
 	
 	boolean isUserSSOUnique(Long id, String sso);
 
@@ -38,5 +39,10 @@ public interface UserService {
 	 * @return boolean
 	 */
 	boolean isUserAuthenticated();
+
+
+	int totalRecord();
+
+	List<User> filterUserByCriteria(String query, Pageable pageable);
 
 }

@@ -58,6 +58,32 @@
         </tbody>
     </table>
 
+    <c:if test="${pages > 0}">
+        <div class="panel-body">
+            <div class="pull-right">
+                <nav aria-label="pager">
+                    <ul class="pager">
+                        <c:if test="${prevPage > 0}">
+                            <c:url value="/task/list" var="prevPage">
+                                <c:param name="page" value="${prevPage - 1}"/>
+                                <c:param name="size" value="${pageSize}"/>
+                            </c:url>
+                            <li><a href="${prevPage}">Previous</a></li>
+                        </c:if>
+
+                        <c:if test="${nextPage <= pages - 1}">
+                            <c:url value="/task/list" var="nextPage">
+                                <c:param name="page" value="${nextPage}"/>
+                                <c:param name="size" value="${pageSize}"/>
+                            </c:url>
+                            <li><a href="${nextPage}">Next</a></li>
+                        </c:if>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </c:if>
+
 </div>
 
 

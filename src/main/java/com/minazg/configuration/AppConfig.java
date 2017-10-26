@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.support.MessageSourceAccessor;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
+import org.springframework.data.web.config.EnableSpringDataWebSupport;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.LocaleResolver;
@@ -26,6 +27,7 @@ import java.util.Locale;
 @Configuration
 @Import(JpaConfiguration.class)
 @EnableWebMvc
+@EnableSpringDataWebSupport
 @ComponentScan(basePackages = "com.minazg")
 public class AppConfig extends WebMvcConfigurerAdapter{
 

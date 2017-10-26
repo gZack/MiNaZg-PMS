@@ -44,22 +44,25 @@ public class CommonController {
 
             user = userService.getCurrentAuthenticatedUser();
 
-            Map<String, String> stringMap = new HashMap<>();
-            stringMap.put("id",String.valueOf(user.getId()));
-            StrSubstitutor strSubstitutor = new StrSubstitutor(stringMap);
-            String imagePath = strSubstitutor.replace(PROFILE_PIC_PATH);
+            String[] uploadLocations = messageSourceAccessor
+                    .getMessage("upload.locations").split(",");
 
-            String picPath = messageSourceAccessor.getMessage("upload.location") + user.getId() + ".png";
+            String imageName = user.getId() + ".png";
 
-            File imageFile = new File(picPath);
+            File imageFile = null; //new File(picPath);
 
-            if(imageFile.exists()){
-                model.addAttribute("hasProfPic", true);
-                model.addAttribute("profPicUrl",picPath);
+            for(String uploadLocation : uploadLocations){
+                if(new File(uploadLocation).exists()){
+                    imageFile = new File(uploadLocation + imageName);
+                    break;
+                }
             }
 
-        }
-        catch (Exception e){
+            if(imageFile != null && imageFile.exists()){
+                model.addAttribute("hasProfPic", true);
+            }
+
+        } catch (Exception e){
             System.out.println("User not Logged In!");
         }
         return user;

@@ -7,6 +7,7 @@ import com.minazg.repository.UserRepository;
 import com.minazg.util.SecurityUtils;
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.authentication.AuthenticationTrustResolver;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -46,28 +47,14 @@ public class UserServiceImpl implements UserService{
 		return user;
 	}
 
-	public void saveUser(User user) {
+	public User saveUser(User user) {
 		user.setPassword(securityUtils.encodePassword(user.getPassword()));
-		userRepository.save(user);
+		return userRepository.save(user);
 	}
 
-	/*
-	 * Since the method is running with Transaction, No need to call hibernate update explicitly.
-	 * Just fetch the entity from db and update it with proper values within transaction.
-	 * It will be updated in db once transaction ends. 
-	 */
-	public void updateUser(User user) {
-		//User entity = dao.findById(user.getId());
-		/*User entity = userRepository.findOne(user.getId());
-		if(entity!=null){
-			entity.setSsoId(user.getSsoId());
-			entity.setPassword(user.getPassword());
-			entity.setFirstName(user.getFirstName());
-			entity.setLastName(user.getLastName());
-			entity.setUserRoles(user.getUserRoles());
-		}*/
+	public User updateUser(User user) {
 
-		userRepository.save(user);
+		return userRepository.save(user);
 
 	}
 	
@@ -75,9 +62,9 @@ public class UserServiceImpl implements UserService{
 		userRepository.deleteBySsoId(sso);
 	}
 
-	public List<User> findAllUsers() {
+	public List<User> findAllUsers(Pageable pageable) {
 
-		List<User> users = (List<User>) userRepository.findAll();
+		List<User> users = userRepository.findAll(pageable).getContent();
 
 		Hibernate.initialize(users);
 
@@ -111,6 +98,17 @@ public class UserServiceImpl implements UserService{
 
 		return authenticationTrustResolver.isAnonymous(authentication);
 
+	}
+
+	@Override
+	public int totalRecord(){
+		return userRepository.countAllByIdIsNotNull();
+	}
+
+	@Override
+	public List<User> filterUserByCriteria(String query, Pageable pageable) {
+		return userRepository
+				.findBySsoIdContainingOrFirstNameContainingOrLastNameContaining(query,query,query, pageable);
 	}
 
 }

@@ -9,6 +9,8 @@ import com.minazg.service.TaskService;
 import com.minazg.service.UserService;
 import com.minazg.util.HelperUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -42,15 +44,30 @@ public class TaskController {
     }
 
     @GetMapping(value = {"","/list"})
-    public String tasks(@RequestParam(value = "sprintId",required = false) Long sprintId, Model model){
+    public String tasks(@RequestParam(value = "sprintId",required = false) Long sprintId,
+                        Model model, @PageableDefault(size = 10) Pageable pageable){
 
+        List<WorkOrder> tasks = null;
+        int size = 0;
         if(sprintId == null){
             //model.addAttribute("sprints", sprintService.findAll());
+            tasks = taskService.findAll(pageable);
+            size = taskService.totalRecord();
             model.addAttribute("sprintId",sprintId);
-            model.addAttribute("tasks",taskService.findAll());
+            model.addAttribute("tasks",tasks);
         } else {
-            model.addAttribute("tasks", taskService.findBySprintId(sprintId));
+            tasks = taskService.findBySprintIdPageable(sprintId,pageable);
+            size = taskService.totalRecordBySprintId(sprintId);
+            model.addAttribute("tasks", tasks);
         }
+
+        int pages = (size/10) + (size % 10 > 0 ? 1 : 0);
+        model.addAttribute("totalRecords",size);
+        model.addAttribute("pages", pages);
+
+        model.addAttribute("prevPage",pageable.getPageNumber());
+        model.addAttribute("nextPage",pageable.getPageNumber() + 1);
+        model.addAttribute("pageSize", pageable.getPageSize());
 
         return "task/tasks";
     }
