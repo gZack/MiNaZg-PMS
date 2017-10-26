@@ -1,5 +1,7 @@
 package com.minazg.controller;
 
+import com.minazg.model.Project;
+import com.minazg.model.Release;
 import com.minazg.model.Sprint;
 import com.minazg.model.StatusType;
 import com.minazg.service.ReleaseService;
@@ -38,8 +40,15 @@ public class SprintController {
     @Autowired
     DateSequenceValidator dateSequenceValidator;
 
+
+    @ModelAttribute("releases")
+    public List<Release> collectReleases() {
+
+        return releaseService.findAll();
+    }
+
     @ModelAttribute("StatusTypes")
-    public StatusType[] getStatusTypes(){
+    public StatusType[] getStatusTypes() {
         return helperUtils.getStatusTypes();
     }
 
@@ -97,20 +106,19 @@ public class SprintController {
 //        binder.addValidators(dateSequenceValidator);
 //    }
 
-    @RequestMapping(value={"/edit/{sprintId}"}, method = RequestMethod.GET)
-    public String editSprintForm(@PathVariable ("sprintId") String sprintId, Model model){
+    @RequestMapping(value = {"/edit/{sprintId}"}, method = RequestMethod.GET)
+    public String editSprintForm(@PathVariable("sprintId") String sprintId, Model model) {
         Sprint sprint = null;
-        try{
+        try {
             sprint = sprintService.findOne(Long.valueOf(sprintId));
-            if(sprint == null){
+            if (sprint == null) {
                 return "sprint/notFound";
             }
             model.addAttribute("statusTypes", helperUtils.getStatusTypes());
             model.addAttribute("versionNumber", sprint.getRelease().getVersionNumber());
             model.addAttribute("action", "edit");
             model.addAttribute("startDate", sprint.getStartDate());
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             System.out.println(e);
             return "sprint/notFound";
         }
@@ -118,9 +126,9 @@ public class SprintController {
         return "sprint/addSprint";
     }
 
-    @RequestMapping(value={"/edit/{sprintId}"}, method = RequestMethod.POST)
-    public String editSprintForm(@Valid @ModelAttribute("newSprint") Sprint sprint, @PathVariable("sprintId") String sprintId,  BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model){
-        if(bindingResult.hasErrors()){
+    @RequestMapping(value = {"/edit/{sprintId}"}, method = RequestMethod.POST)
+    public String editSprintForm(@Valid @ModelAttribute("newSprint") Sprint sprint, @PathVariable("sprintId") String sprintId, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model) {
+        if (bindingResult.hasErrors()) {
 
             sprint = sprintService.findOne(Long.valueOf(sprintId));
             model.addAttribute("statusTypes", helperUtils.getStatusTypes());
@@ -130,20 +138,18 @@ public class SprintController {
         }
 
         sprintService.updateSprint(sprint);
-        redirectAttributes.addFlashAttribute("flashMessage","Sprint Updated Successfully");
-        return "redirect:/sprint/list/"+sprint.getRelease().getId();
+        redirectAttributes.addFlashAttribute("flashMessage", "Sprint Updated Successfully");
+        return "redirect:/sprint/list/" + sprint.getRelease().getId();
 
     }
 
 
-
     @RequestMapping(value = "/detail/{sprintId}", method = RequestMethod.GET)
     public String showSprint(@PathVariable String sprintId, Model model) {
-        try{
-            model.addAttribute("sprint",sprintService.findOne(Long.valueOf(sprintId)));
+        try {
+            model.addAttribute("sprint", sprintService.findOne(Long.valueOf(sprintId)));
             return "sprint/detail";
-        }
-        catch(IllegalStateException e){
+        } catch (IllegalStateException e) {
             System.out.println(e);
             return "sprint/notFound";
         }
@@ -159,18 +165,37 @@ public class SprintController {
 
     @RequestMapping(value = {"/search"}, method = RequestMethod.GET)
     public String sprintDetail(Model model,
-                                @RequestParam(value = "sprintTitle", required = false) String sprintTitle, Sprint sprint,
+                               @RequestParam(value = "sprintTitle", required = false) String sprintTitle, Sprint sprint,
                                @RequestParam(value = "releaseId") String releaseId) {
 
 
         sprintTitle = (sprintTitle != null) ? sprintTitle : "";
 
 
-        if ( !sprintTitle.equals(""))
+        if (!sprintTitle.equals(""))
             model.addAttribute("sprints", sprintService.findByTitle(sprintTitle));
 
         model.addAttribute("statusTypes", helperUtils.getStatusTypes());
+        model.addAttribute("versionNumber", sprint.getRelease().getVersionNumber());
         model.addAttribute("releaseId", releaseId);
+
+        return "sprint/listSprint";
+    }
+
+    @RequestMapping(value = {"/search/sprintsByRelease"}, method = RequestMethod.GET)
+    public String sprintDetail(Model model, @RequestParam(value = "releases", required = false) String releases) {
+
+
+        releases = (releases != null) ? releases : "";
+
+
+        if (!releases.equals(""))
+            model.addAttribute("sprints", sprintService.findSprintByReleaseId(Long.valueOf(releases)));
+
+        model.addAttribute("statusTypes", helperUtils.getStatusTypes());
+        model.addAttribute("versionNumber", releaseService.findOne(Long.valueOf(releases)).getVersionNumber());
+        model.addAttribute("releaseId", releases);
+
 
         return "sprint/listSprint";
     }
