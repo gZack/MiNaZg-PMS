@@ -1,6 +1,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="secuirty" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%--
 href="<spring:url value="/project/" />"
 --%>
@@ -21,42 +22,49 @@ href="<spring:url value="/project/" />"
                 <a href="?language=en">
                     <img src='<c:url value="/static/img/en.png" />' class="" alt="EN"></a>
             </li>
-            <li><a href="?language=am">
+            <li class="tasks-menu"><a href="?language=am">
                     <img src='<c:url value="/static/img/et.png" />' class="" alt="ET"></a>
             </li>
-            <!-- Tasks: style can be found in dropdown.less -->
-            <li class="dropdown tasks-menu">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                    <i class="fa fa-flag-o"></i>
-                    <span class="label label-danger">9</span>
-                </a>
-                <ul class="dropdown-menu">
-                    <li class="header">You have 9 tasks</li>
-                    <li>
-                        <!-- inner menu: contains the actual data -->
-                        <ul class="menu">
-                            <li><!-- Task item -->
-                                <a href="#">
-                                    <h3>
-                                        Design some buttons
-                                        <small class="pull-right">20%</small>
-                                    </h3>
-                                    <div class="progress xs">
-                                        <div class="progress-bar progress-bar-aqua" style="width: 20%" role="progressbar"
-                                             aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                                            <span class="sr-only">20% Complete</span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <!-- end task item -->
-                        </ul>
-                    </li>
-                    <li class="footer">
-                        <a href="#">View all tasks</a>
-                    </li>
-                </ul>
-            </li>
+            <!-- Task Notification -->
+            <security:authorize access="hasRole('DEVELOPER')">
+                <li class="dropdown tasks-menu">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <i class="fa fa-flag-o"></i>
+                        <span class="label label-danger">${fn:length(developerTasks.newTasks)}</span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li class="header">You have ${fn:length(developerTasks.newTasks)} task(s)</li>
+                        <li>
+                            <!-- inner menu: contains the actual data -->
+                            <ul class="menu">
+                                <c:forEach var="newTask" items="${developerTasks.newTasks}">
+                                    <li><!-- Task item -->
+                                        <a href="/dev/detail?id=${newTask.id}">
+                                            <h3>
+                                                    ${newTask.title}
+                                                <small class="pull-right">${newTask.totalProgress}%</small>
+                                            </h3>
+                                            <%--<div class="progress xs">--%>
+                                                <%--<div class="progress-bar progress-bar-aqua" style="width: ${newTask.totalProgress}%;" role="progressbar"--%>
+                                                     <%--aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">--%>
+                                                    <%--<span class="sr-only">${newTask.totalProgress}% Complete</span>--%>
+                                                <%--</div>--%>
+                                            <%--</div>--%>
+                                        </a>
+                                    </li>
+                                    <%--<li class="list-group-item">Task: <a target="blank" href="/task/list?sprintId=${sprint.id}">${workOrder.title} ${workOrder.totalProgress} %</a></li>--%>
+                                </c:forEach>
+
+                                <!-- end task item -->
+                            </ul>
+                        </li>
+                        <li class="footer">
+                            <a href="/dev/list">View all tasks</a>
+                        </li>
+                    </ul>
+                </li>
+            </security:authorize>
+
             <!-- User Account: style can be found in dropdown.less -->
             <li class="dropdown user user-menu">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">

@@ -1,6 +1,10 @@
 package com.minazg.controller;
 
+import com.minazg.model.StatusType;
 import com.minazg.model.User;
+import com.minazg.model.UserRoleType;
+import com.minazg.model.WorkOrder;
+import com.minazg.service.TaskService;
 import com.minazg.service.UserService;
 import org.apache.commons.lang.text.StrSubstitutor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,12 +19,16 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @ControllerAdvice
 public class CommonController {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    TaskService TaskService;
 
     @Autowired
     MessageSourceAccessor messageSourceAccessor;
@@ -57,4 +65,29 @@ public class CommonController {
         return user;
     }
 
+    @ModelAttribute("developerTasks")
+    public HashMap<String, List<WorkOrder>> getTasks(){
+        try{
+            User user = userService.getCurrentAuthenticatedUser();
+            //if(user.getUserRoles().contains(UserRoleType.DEVELOPER.toString())){
+                HashMap<String, List<WorkOrder>> developerTasks = new HashMap<String, List<WorkOrder>>();
+                List<WorkOrder> tasks = TaskService.getMyTasks();
+                //developerTasks.put("tasks", tasks);
+
+                List<WorkOrder> newTasks =
+                        tasks.stream()
+                                .filter( t-> t.getStatus().equals(StatusType.CREATED.toString()))
+                                .limit(5)
+                                .collect(Collectors.toList());
+                developerTasks.put("newTasks", newTasks);
+
+                return developerTasks;
+            //}
+           // return null;
+        }
+        catch(Exception e){
+            return null;
+        }
+
+    }
 }
