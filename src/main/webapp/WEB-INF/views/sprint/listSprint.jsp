@@ -1,30 +1,45 @@
-
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 
 <div class="panel panel-default">
     <div class="panel-heading">
         <b>Version ${versionNumber} list of Sprint </b>
     </div>
-    <c:if test="${not empty flashMessage}" >
+    <c:if test="${not empty flashMessage}">
         <div class="alert alert-success">
             <strong>Success</strong> ${flashMessage}
         </div>
     </c:if>
     <div class="panel-body">
         <div class="project-search-form">
+            <form method="GET" action="/sprint/search/sprintsByRelease">
+                <div class="col-md-4">
+                    <div class="input-group">
+                        <select class="form-control" id="releases" name="releases">
+                            <option value="NONE" selected> --- Select Release Version No. ---</option>
+                            <c:forEach items="${releases}" var="r">
+                                <option value="${r.id}">${r.versionNumber}</option>
+                            </c:forEach>
+                        </select>
+                        <span class="input-group-btn">
+                    <button type="submit" class="btn btn-default" type="button">Show</button>
+                  </span>
+                    </div>
+                </div>
+            </form>
+        </div>
 
-
-
+        <div class="project-search-form">
             <a href="/sprint/add/${releaseId}" class="col-md-2 btn btn-warning pull-right">Add New Sprint</a>
-            <form  method="GET" action="/sprint/search" >
+            <form method="GET" action="/sprint/search">
                 <div class="col-md-4">
                     <div class="input-group">
                         <input type="hidden" name="releaseId" id="releaseId" value="${releaseId}">
-                        <input class="form-control" placeholder="Sprint Title" required name="sprintTitle" type="text" value="${sprintTitle}"/>
+                        <input class="form-control" placeholder="Sprint Title" required name="sprintTitle" type="text"
+                               value="${sprintTitle}"/>
                         <span class="input-group-btn">
                     <button type="submit" class="btn btn-default" type="button">Search</button>
-                   <a href=="/sprint/add?releaseId=${releaseId}" class="btn btn-default">Reset</a>
+                   <a href="/sprint/list/${releaseId}" class="btn btn-default">Reset</a>
 
 
                         </span>

@@ -33,7 +33,7 @@ public class ReleaseController {
     UserService userService;
 
     @ModelAttribute("projects")
-    public List<Project> collectDevelopers(){
+    public List<Project> collectProjects(){
 
         return projectService.findAll();
     }
@@ -160,6 +160,7 @@ public class ReleaseController {
             model.addAttribute("releases", releaseService.findByVersionNumberAndProjectId(versionNumber, Long.valueOf(projectId)));
 
         model.addAttribute("projectName", projectService.findOne(Long.valueOf(projectId)).getName());
+        model.addAttribute("projectTitle", projectService.findOne(Long.valueOf(projectId)).getName());
         model.addAttribute("projectId", projectId);
         model.addAttribute("statusTypes", helperUtils.getStatusTypes());
 
@@ -175,6 +176,7 @@ public class ReleaseController {
             model.addAttribute("releases", releaseService.findReleaseByProjectId(Long.valueOf(projects)));
 
         model.addAttribute("projectName", projectService.findOne(Long.valueOf(projects)).getName());
+        model.addAttribute("projectTitle", projectService.findOne(Long.valueOf(projects)).getName());
         model.addAttribute("projectId", projects);
         model.addAttribute("statusTypes", helperUtils.getStatusTypes());
 

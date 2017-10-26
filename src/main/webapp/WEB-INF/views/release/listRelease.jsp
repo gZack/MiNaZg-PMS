@@ -18,7 +18,7 @@
                 <div class="col-md-4">
                     <div class="input-group">
                         <select class="form-control" id="projects" name="projects">
-                            <option value="NONE" selected>-- Select Project --</option>
+                            <option value="NONE" selected> ---- Select Project ---- </option>
                             <c:forEach items="${projects}" var="p">
                                 <option value="${p.id}">${p.name}</option>
                             </c:forEach>
