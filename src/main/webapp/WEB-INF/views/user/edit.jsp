@@ -33,16 +33,6 @@
 		</div>
 
 		<div class="form-group">
-			<label class="col-sm-3 control-label" for="ssoId">SSO ID</label>
-			<div class="col-sm-9">
-				<form:input type="text" path="ssoId" id="ssoId" class="form-control input-sm" disabled="true"/>
-				<div class="has-error">
-					<form:errors path="ssoId" class="help-inline"/>
-				</div>
-			</div>
-		</div>
-
-		<div class="form-group">
 			<label class="col-sm-3 control-label" for="password">Password</label>
 			<div class="col-sm-7">
 				<form:input type="password" path="password" id="password" class="form-control input-sm" />

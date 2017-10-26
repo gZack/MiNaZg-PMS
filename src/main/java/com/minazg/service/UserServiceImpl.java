@@ -40,10 +40,9 @@ public class UserServiceImpl implements UserService{
 
 	public User findBySSO(String sso) {
 		User user = userRepository.findUserBySsoId(sso);
-		if(user == null){
-			throw new UserNotFoundException("Unable to find user with user name: " + sso);
+		if(user != null){
+			Hibernate.initialize(user.getUserRoles());
 		}
-		Hibernate.initialize(user.getUserRoles());
 		return user;
 	}
 

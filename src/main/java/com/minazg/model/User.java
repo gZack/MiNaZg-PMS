@@ -6,6 +6,7 @@ import java.util.Set;
 
 import javax.persistence.*;
 
+import com.minazg.validator.UniqueUsername;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -21,6 +22,7 @@ public class User implements Serializable{
 
 	@NotEmpty
 	@Column(unique=true, nullable=false)
+	@UniqueUsername
 	private String ssoId;
 	
 	@NotEmpty

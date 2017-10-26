@@ -14,6 +14,8 @@ import org.springframework.context.support.MessageSourceAccessor;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.data.web.config.EnableSpringDataWebSupport;
 import org.springframework.format.FormatterRegistry;
+import org.springframework.validation.Validator;
+import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.*;
@@ -90,8 +92,8 @@ public class AppConfig extends WebMvcConfigurerAdapter{
 	public MessageSource messageSource() {
 //	    ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
 		ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
-		//messageSource.setBasenames("messages","errorMessages");
-		messageSource.setBasename("classpath:messages");
+		messageSource.setBasenames("classpath:messages","classpath:errorMessages");
+		//messageSource.setBasename("classpath:messages");
 		messageSource.setDefaultEncoding("UTF-8");
 	    return messageSource;
 	}
@@ -107,19 +109,12 @@ public class AppConfig extends WebMvcConfigurerAdapter{
     }
 
 
-    /* This is the validation bean*/
-
-//	@Bean(name = "validator")
-//	public LocalValidatorFactoryBean validator() {
-//		LocalValidatorFactoryBean bean = new LocalValidatorFactoryBean();
-//		bean.setValidationMessageSource(messageSource());
-//		return bean;
-//	}
-//
-//	@Override
-//	public Validator getValidator(){
-//		return validator();
-//	}
+	@Bean(name="validator")
+	public LocalValidatorFactoryBean validator() {
+		LocalValidatorFactoryBean bean = new LocalValidatorFactoryBean();
+		bean.setValidationMessageSource(messageSource());
+		return bean;
+	}
 
 	@Bean
 	public MessageSourceAccessor messageAccessor(){

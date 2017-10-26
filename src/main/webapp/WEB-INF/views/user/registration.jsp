@@ -109,7 +109,7 @@
 		</div>
 
 		<div class="form-group">
-			<label class="col-sm-3 control-label" for="profPic">Zip Code</label>
+			<label class="col-sm-3 control-label" for="profPic">Profile Pic</label>
 			<div class="col-sm-9">
 				<form:input type="file" path="userProfPic" id="profPic"
 							class="form-control input-sm" />

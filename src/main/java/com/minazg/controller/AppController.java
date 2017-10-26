@@ -126,21 +126,7 @@ public class AppController {
 			return "user/registration";
 		}
 
-		/*
-		 * Preferred way to achieve uniqueness of field [sso] should be implementing custom @Unique annotation
-		 * and applying it on field [sso] of Model class [User].
-		 *
-		 * Below mentioned peace of code [if block] is to demonstrate that you can fill custom errors outside the validation
-		 * framework as well while still using internationalized messages.
-		 *
-		 *//*
-		if(!userService.isUserSSOUnique(user.getId(), user.getSsoId())){
-			FieldError ssoError =new FieldError("user","ssoId",messageSource.getMessage("non.unique.ssoId", new String[]{user.getSsoId()}, Locale.getDefault()));
-			result.addError(ssoError);
-			return "user/registration";
-		}*/
-
-		user = userService.saveUser(user);
+		userService.saveUser(user);
 
 		MultipartFile productImage = user.getUserProfPic();
 
@@ -159,6 +145,7 @@ public class AppController {
 		for (String staticImgPath : staticImgPaths){
 			if(new File(rootDirectory + staticImgPath).exists()){
 				tempFile = new File(rootDirectory + staticImgPath + imageName);
+				break;
 			}
 		}
 
@@ -218,7 +205,9 @@ public class AppController {
 							 HttpServletRequest request) {
 
 		if (result.hasErrors()) {
-			return "user/edit";
+			if(!result.getFieldErrors().get(0).getField().equals("ssoId")){
+				return "user/edit";
+			}
 		}
 
 		/*//Uncomment below 'if block' if you WANT TO ALLOW UPDATING SSO_ID in UI which is a unique key to a User.
@@ -228,7 +217,7 @@ public class AppController {
 			return "registration";
 		}*/
 
-		user = userService.updateUser(user);
+		userService.updateUser(user);
 
 		MultipartFile productImage = user.getUserProfPic();
 
