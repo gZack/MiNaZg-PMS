@@ -8,7 +8,9 @@ public interface SprintService {
 
     Sprint findOne(Long id);
 
-    List<Sprint> findSprintByTitle(String title);
+//    List<Sprint> findSprintByTitle(String title);
+
+    public List<Sprint> findByTitleAndReleaseId( String title, Long releaseId);
 
     void saveSprint(Sprint sprint);
 

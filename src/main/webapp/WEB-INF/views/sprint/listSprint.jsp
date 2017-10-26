@@ -24,7 +24,7 @@
                         <input class="form-control" placeholder="Sprint Title" required name="sprintTitle" type="text" value="${sprintTitle}"/>
                         <span class="input-group-btn">
                     <button type="submit" class="btn btn-default" type="button">Search</button>
-                   <a href="<c:url value="/sprint/list/${releaseId}"/>" class="btn btn-default">Reset</a>
+                   <a href=="/sprint/add?releaseId=${releaseId}" class="btn btn-default">Reset</a>
 
 
                         </span>

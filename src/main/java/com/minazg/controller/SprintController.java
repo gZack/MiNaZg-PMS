@@ -159,7 +159,8 @@ public class SprintController {
 
     @RequestMapping(value = {"/search"}, method = RequestMethod.GET)
     public String sprintDetail(Model model,
-                                @RequestParam(value = "sprintTitle", required = false) String sprintTitle) {
+                                @RequestParam(value = "sprintTitle", required = false) String sprintTitle, Sprint sprint,
+                               @RequestParam(value = "releaseId") String releaseId) {
 
 
         sprintTitle = (sprintTitle != null) ? sprintTitle : "";
@@ -169,6 +170,7 @@ public class SprintController {
             model.addAttribute("sprints", sprintService.findByTitle(sprintTitle));
 
         model.addAttribute("statusTypes", helperUtils.getStatusTypes());
+        model.addAttribute("releaseId", releaseId);
 
         return "sprint/listSprint";
     }
