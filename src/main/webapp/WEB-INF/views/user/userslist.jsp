@@ -13,7 +13,7 @@
 			<div class="col-md-4">
 				<div class="input-group">
 					<input class="form-control" name="q" tupe="text" value="${param['q']}"
-						   placeholder="ssoid or first name or last name" />
+						   placeholder="ssoid or fname or lname" />
 					<span class="input-group-btn">
                         <button type="submit" class="btn btn-default" type="button">Go!</button>
                       </span>
@@ -49,7 +49,7 @@
 					</c:forEach>
 				</c:when>
 				<c:otherwise>
-					
+
 				</c:otherwise>
 			</c:choose>
 		</tbody>

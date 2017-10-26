@@ -23,4 +23,8 @@ public interface TaskService {
 
     int totalRecordBySprintId(Long sprintId);
 
+    List<WorkOrder> filterTaskByCriteria(String query, Pageable pageable);
+    List<WorkOrder> filterTaskByCriteriaAndSprintId(Long sprintId, String query, Pageable pageable);
+    List<WorkOrder> filterBySprintId(Long sprintId, String query, Pageable pageable);
+
 }

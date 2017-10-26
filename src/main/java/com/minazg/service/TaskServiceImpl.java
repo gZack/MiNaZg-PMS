@@ -1,6 +1,7 @@
 package com.minazg.service;
 
 import com.minazg.exception.TaskNotFoundException;
+import com.minazg.model.Sprint;
 import com.minazg.model.WorkOrder;
 import com.minazg.repository.TaskRepository;
 import org.hibernate.Hibernate;
@@ -20,6 +21,9 @@ public class TaskServiceImpl implements TaskService {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private SprintService sprintService;
 
     @Override
     public List<WorkOrder> findAll(Pageable pageable) {
@@ -65,5 +69,22 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public int totalRecordBySprintId(Long sprintId){
         return taskRepository.countAllBySprint_Id(sprintId);
+    }
+
+    @Override
+    public List<WorkOrder> filterTaskByCriteria(String query, Pageable pageable){
+        return taskRepository
+                .findByTitleContainingOrTypeContainingOrStatusContaining(query,query,query,pageable);
+    }
+
+    @Override
+    public List<WorkOrder> filterTaskByCriteriaAndSprintId(Long sprintId, String query, Pageable pageable){
+        return taskRepository.findBySprint_IdEqualsAndTitleContainingOrTypeContainingOrStatusContaining(
+                sprintId,query,query,query,pageable);
+    }
+
+    public List<WorkOrder> filterBySprintId(Long sprintId, String query, Pageable pageable){
+        Sprint sprint = sprintService.findOne(sprintId);
+        return taskRepository.filterBySprintId(sprint,query,query,query,pageable);
     }
 }
