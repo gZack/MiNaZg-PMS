@@ -9,7 +9,7 @@
 	</div>
 	<div class="panel-body">
 		<a href="<c:url value='/newuser' />" class="col-md-1 btn btn-warning pull-right">Add User</a>
-		<form class="col-md-10" method="GET" action="/user-search" >
+		<form class="col-md-10" method="GET" action="<c:url value="/user-search" />" >
 			<div class="col-md-4">
 				<div class="input-group">
 					<input class="form-control" name="q" tupe="text" value="${param['q']}"

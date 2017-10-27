@@ -46,7 +46,7 @@
         </security:authorize>
         <security:authorize access="isAuthenticated() && hasRole('ADMIN')">
             <li>
-                <a href="/list">
+                <a href="<c:url value="/list"/>">
                     <i class="fa fa-user"></i> <span><spring:message code="sidebar.manageusers" /></span>
                     <span class="pull-right-container">
                 </span>
@@ -64,7 +64,7 @@
         </security:authorize>
         <security:authorize access="isAuthenticated() && hasRole('PROJECT_MANAGER')">
             <li>
-                <<a href="/report">
+                <a href='<c:url value="/report"/>'>
                     <i class="fa fa-th"></i> <span><spring:message code="sidebar.taskreport" /></span>
                     <span class="pull-right-container">
                 </span>

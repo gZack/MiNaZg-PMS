@@ -4,10 +4,12 @@
 
 <div class="half-width container">
 	<div class="well lead">User Edit Form</div>
-	<c:url value="/edit-user-${ssoId}" var="editUrl"/>
+	<c:url value="/edit-user-${ssoId}" var="editUrl">
+		<c:param name="${_csrf.parameterName}" value="${_csrf.token}"/>
+	</c:url>
 	<form:form method="POST" modelAttribute="user"
 			   class="form-horizontal"
-			   action="${editUrl}?${_csrf.parameterName}=${_csrf.token}"
+			   action="${editUrl}"
 			   enctype="multipart/form-data">
 
 		<form:input type="hidden" path="id" id="id"/>

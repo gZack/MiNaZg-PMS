@@ -4,9 +4,14 @@
 
 <div class="half-width container">
 	<div class="well lead">User Registration Form</div>
+
+	<c:url value="/newuser" var="registrationUrl">
+		<c:param name="${_csrf.parameterName}" value="${_csrf.token}"/>
+	</c:url>
+
 	<form:form method="POST" modelAttribute="user"
 			   enctype="multipart/form-data"
-			   action="/newuser?${_csrf.parameterName}=${_csrf.token}"
+			   action="${registrationUrl}"
 			   class="form-horizontal">
 		<form:input type="hidden" path="id" id="id"/>
 
