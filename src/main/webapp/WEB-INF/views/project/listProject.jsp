@@ -13,7 +13,7 @@
             </div>
         </c:if>
         <div class="project-search-form">
-            <a href="/project/add" class="col-md-1 btn btn-warning pull-right">Add New</a>
+            <a href='<c:url value="/project/add" />' class="col-md-1 btn btn-warning pull-right">Add New</a>
             <form class="col-md-10" method="GET" action="/project/list" >
                 <div class="col-md-4">
                     <div class="input-group">
@@ -23,8 +23,8 @@
                         </span>
                     </div>
                 </div>
-                <div style="col-md-1">
-                    <a href="/project/" class="btn btn-warning" type="button">Reset</a>
+                <div class="col-md-1">
+                    <a href='<c:url value="/project" />' class="btn btn-warning" type="button">Reset</a>
                 </div>
                 <div class="clearfix"></div>
             </form>

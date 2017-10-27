@@ -70,6 +70,8 @@ public class CommonController {
 
     @ModelAttribute("developerTasks")
     public HashMap<String, List<WorkOrder>> getTasks(){
+        // @TODO - checking user role is not working. need to fix
+        // @TODO - this section is keeps reloading for all controllers with each refresh,
         try{
             User user = userService.getCurrentAuthenticatedUser();
             //if(user.getUserRoles().contains(UserRoleType.DEVELOPER.toString())){

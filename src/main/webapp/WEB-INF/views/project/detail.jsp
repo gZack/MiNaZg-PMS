@@ -1,7 +1,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <div class="half-width container project-detail-container" >
-    <a href="/project/" class="btn btn-warning back-btn" type="button">Back</a>
+    <a href='<c:url value="/project" />' class="btn btn-warning back-btn" type="button">Back</a>
     <h1>${project.name}</h1>
 
     <hr/>
@@ -34,10 +34,10 @@
                             <c:set var="sprintCtr" scope="page" value="1" />
                             <c:set var="sprintTotal" scope="page" value="0.0"/>
                             <c:set var="taskCtr" scope="page" value="0"/>
-                            <p><strong>Sprint: <a target="blank" href="/task/list?sprintId=${sprint.id}">${sprint.title}</a></strong></p>
+                            <p><strong>Sprint: <a target="blank" href='<c:url value="/task/list?sprintId=${sprint.id}" />'>${sprint.title}</a></strong></p>
                             <ul class="list-group">
                             <c:forEach var="workOrder" items="${sprint.workOrders}">
-                                <li class="list-group-item">Task: <a target="blank" href="/task/list?sprintId=${sprint.id}">${workOrder.title} ${workOrder.totalProgress} %</a></li>
+                                <li class="list-group-item">Task: <a target="blank" href='<c:url value="/task/list?sprintId=${sprint.id}" />' >${workOrder.title} ${workOrder.totalProgress} %</a></li>
                                 <c:set var="sprintTotal" scope="page" value="${sprintTotal + workOrder.totalProgress}" />
                                 <c:set var="taskCtr" scope="page" value="${taskCtr + 1}" />
                             </c:forEach>
