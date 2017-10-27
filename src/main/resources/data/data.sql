@@ -10,15 +10,6 @@ GRANT ALL PRIVILEGES ON *.* TO 'minazg'@'localhost';
 FLUSH PRIVILEGES;
 
 
--- username admin
--- password password
-
-INSERT INTO User(ssoId, password, firstName, lastName)
-VALUES ('admin','$2a$10$o/25Uz3NQSCC6zJ5/IW7dunAiI42sY.oeix7iYWkC4FA81lZ6mA/2', 'Admin','Admin');
-/* Populate JOIN Table */
-INSERT INTO User_UserRole (user_id, userRole_name)
-  SELECT user.id, role.name FROM User user, UserRole role
-  where user.ssoId='admin' and role.name='ADMIN';
 
 
 -- --------------------------------------
@@ -80,6 +71,18 @@ CREATE TABLE minazg_db.User_UserRole
   CONSTRAINT FK_qox7y9tcryivfpla995qbdp5p FOREIGN KEY (user_id) REFERENCES User (id),
   CONSTRAINT FK_nkd7q7a1lt6170109r1p51cws FOREIGN KEY (userRole_name) REFERENCES UserRole (name)
 );
+
+
+-- username admin
+-- password password
+
+INSERT INTO User(ssoId, password, firstName, lastName)
+VALUES ('admin','$2a$10$o/25Uz3NQSCC6zJ5/IW7dunAiI42sY.oeix7iYWkC4FA81lZ6mA/2', 'Admin','Admin');
+/* Populate JOIN Table */
+INSERT INTO User_UserRole (user_id, userRole_name)
+  SELECT user.id, role.name FROM User user, UserRole role
+  where user.ssoId='admin' and role.name='ADMIN';
+
 
 -- --------------------------------------
 -- --------------------------------------
