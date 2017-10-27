@@ -77,7 +77,7 @@ CREATE TABLE minazg_db.User_UserRole
 -- password password
 
 INSERT INTO User(ssoId, password, firstName, lastName)
-VALUES ('admin','$2a$10$o/25Uz3NQSCC6zJ5/IW7dunAiI42sY.oeix7iYWkC4FA81lZ6mA/2', 'Admin','Admin');
+VALUES ('admin','$2a$10$PIUihg.4YYgdn5Y8s1rGP.kCZnI.xTlmbEaI43bfjgnvLlY7VUpgK', 'Admin','Admin');
 /* Populate JOIN Table */
 INSERT INTO User_UserRole (user_id, userRole_name)
   SELECT user.id, role.name FROM User user, UserRole role
