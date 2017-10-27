@@ -14,7 +14,7 @@
         </c:if>
         <div class="project-search-form">
             <a href='<c:url value="/project/add" />' class="col-md-1 btn btn-warning pull-right">Add New</a>
-            <form class="col-md-10" method="GET" action="/project/list" >
+            <form class="col-md-10" method="GET" action='<c:url value="/project/list" />' >
                 <div class="col-md-4">
                     <div class="input-group">
                         <input class="form-control" placeholder="Filter by Project Name" required name="q" tupe="text" value="${q}"/>
